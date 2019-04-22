@@ -1,0 +1,43 @@
+.header {
+    padding-top:2.5rem;
+    margin: auto;
+    padding-left: 10rem;
+    padding-right: 10rem;
+}
+.header-detail {
+    padding-top: 1rem;
+}
+.time{
+    padding-left: 10rem;
+    float: left;
+}
+.author{
+    margin-left: auto;
+    margin-right: auto;
+}
+.author-name {
+    float: right;
+    padding-right: 10%;
+    color: blue;
+    font-weight: bold;
+}
+.image-post img{
+    max-width: 100%;
+    margin: auto;
+}
+.image-post {
+    padding-top:5rem;
+    margin: auto;
+}
+.content-post p {
+    margin: auto;
+    overflow-wrap: break-word;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.content-post {
+    font-size: 1rem;
+    padding-top: 2rem;
+    margin: auto;
+    white-space: pre-line;
+}
