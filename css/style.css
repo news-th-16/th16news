@@ -86,7 +86,7 @@ body {
   background: transparent;
   border: none;
   padding: 4px 8px;
-  color: white !important
+  color: white !important;
   margin: 1px;
   border-radius: 4px;
 }
@@ -301,7 +301,7 @@ ul {
 .padding-large{padding: 12px 24px !important;}
 .padding-16{padding-top: 16px;padding-bottom: 16px;}
 .padding-32{padding-top:32px; padding-bottom: 32px;}
-.padding-48{padding-top:48px; padding-bottom::48px;}
+.padding-48{padding-top:48px; padding-bottom: 48px;}
 .right{float: right}
 .button{
   display: inline-block;
@@ -424,7 +424,7 @@ h2{
   margin-left: 0%;
 }
 .row .col:last-child {
-  margin -right : 0%;
+  margin-right : 0%;
 }
 .top_post .col {
   margin: 0;
