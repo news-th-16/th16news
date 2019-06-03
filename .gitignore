@@ -1,0 +1,7 @@
+/.idea
+/node_modules
+/sessions/*
+/sessions
+/.vscode
+.vs
+.DS_Store
