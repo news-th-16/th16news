@@ -1,29 +1,45 @@
-const express = require('express');
-const app = express();
-const bodyParse = require('body-parser');
-const mongoose = require('mongoose');
+var express = require('express');
+var exphbs = require('express-handlebars');
 
-mongoose.connect("mongodb://localhost:27017/news",{ useNewUrlParser: true });
-const PORT = process.env.PORT || 3000;
+var app = express();
 
-app.use(bodyParse.urlencoded({extended: true}))
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname+ '/public'));
+app.engine('hbs',exphbs({
+    /*defaultLayout:'main.hbs',
+    layoutsDir: 'views/_layouts'*/
+}));
+app.set('view engine','hbs');
+app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.render('./home.ejs')
-})
-app.get('/admin', (req, res) => {
-    res.render('./dashboard-admin.ejs')
-})
-app.get('/post', (req, res) => {
-    res.render('./post.ejs')
+app.get('/',(req,res)=>{
+    res.render('home',{ layout: 'main.hbs' ,layoutsDir: 'views/layouts'});
 })
 
-app.get('/login', (req, res) => {
-    res.render('./login.ejs')
+app.use('/admin',require('./routes/admin/home.route'));
+/*
+// Require mongoose
+var mongoose = require('mongoose');
+// Connect DB
+mongoose.connect('mongodb://localhost/News', {useNewUrlParser: true}) ;
+//Define the possible schema of Category document and data types of each field 
+var Category = mongoose.model('Category',{name:String});
+//Create new Category
+//var Category = new Schema({name:'Tin trong nước'});
+//Print
+//console.log(category);
+Category.create({
+    name:"Tin trong nước"
 })
+//Save it
+category.save((err,categoryObj)=>{
+    if(err){
+        console.log(err);
+    }
+    else{
+        console.log('save successfully: ',categoryObj);
+    }
+})
+*/
 
-app.listen(PORT ,function(){
-    console.log("You web has started on port " + PORT) ;
-});
+app.listen(3000,()=>{
+    console.log('Web Server is running at http://localhost:3000');
+})

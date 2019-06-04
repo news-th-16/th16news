@@ -1,0 +1,681 @@
+<!--HEADER -->
+<div class="header">
+
+  <!-- LOGO BAR -->
+  <div class="content clearfix row">
+    <div class="header_body">
+      <div class="header_col header_col1">
+        <a class="header_logo" href="#" style="margin-left: -3px;">
+          <img class="svg-logo_image" src="./images/home/logo.png">
+        </a>
+      </div>
+      <div class="header_col header_col2">
+        <a href="#" class="header_item_link">
+          Get Sky Sports
+        </a>
+        <a href="#" class="header_item_link">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          Log In
+        </a>
+      </div>
+      <div class="header_col header_col3">
+        <div class="search_box" id="search_box">
+          <input type="text" name="search_box" placeholder="Search Sky Sports" style="color: white; width: 88%">
+          <i class="fa fa-search" aria-hidden="true" style="font-size: 15px;"></i>
+        </div>
+      </div>
+
+      <!-- RESPONSIVE MENU -->
+      <div class="header_col header_col4">
+        <a href="#" id="btn_side_bar">
+          <i class="fa fa-bars xxlarge text-white" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+    <!-- REPONSIVE SIDE BAR -->
+    <div id="sb" class="side_bar clearfix" style="display: none;">
+      <div class="darkgrey medium">
+        <a href="#" class="button hover_grey">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          Log In
+        </a>
+        <a href="#" class="button hover_grey">
+          Get Sky Sports
+        </a>
+      </div>
+      <ul class="medium">
+        <li>
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <div id="a">
+            <a href="#" id="btn_sb_sport_dropdown">Sport <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+            <a href="#" id="btn_close_sb_sport_dropdown" style="display: none">Sport <i class="fa fa-angle-up"
+                aria-hidden="true"></i></a>
+            <ul class="dropdown dropdown_left" id="sb_sport_dropdown">
+              <li>
+                <a href="#">Sport News</a>
+              </li>
+              <li>
+                <a href="#">Videos</a>
+              </li>
+              <li>
+                <a href="#" id="btn_sb_sport_tv_dropdown">TV <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                <a href="#" id="btn_close_sb_sport_tv_dropdown" style="display: none;">TV <i class="fa fa-angle-up"
+                    aria-hidden="true"></i></a>
+                <ul class="dropdown dropdown_left" id="sb_sport_tv_dropdown">
+                  <li>
+                    <a href="#">TV Guide</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="#">Score Centre</a>
+        </li>
+        <li>
+          <a href="#">Games</a>
+        </li>
+        <li>
+          <a href="#" id="btn_sb_more_dropdown">More <i class="fa fa-angle-down" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- TOP NAV BAR -->
+    <ul class="clearfix nav-bar">
+      <li>
+        <a href="#" id="active" style="padding-left: 0px;">
+          <div class="padding-16">Home</div>
+        </a>
+      </li>
+      <li>
+        <a href="#" id="btn_sports_menu">
+          <div class="padding-16">Sports
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+          </div>
+        </a>
+        <ul class="dropdown dropdown_left" id="sports_menu">
+          <li>
+            <a href="#">Sport News</a>
+          </li>
+          <li>
+            <a href="#" id="btn_sports_video_menu">Videos
+              <i class="fa fa-angle-right medium" aria-hidden="true" style="padding-left: 5px;"></i>
+            </a>
+            <a href="#" id="btn_close_sports_video_menu" style="display: none;">Videos
+              <i class="fa fa-angle-left medium" aria-hidden="true" style="padding-left: 5px;"></i>
+            </a>
+            <ul class="dropdown dropdown_sub" id="sports_video_menu" style="display: none;">
+              <li>
+                <a href="#">
+                  Sport Video
+                </a>
+              </li>
+              <li>
+                <a>
+                  Games
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">TV</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <div class="padding-16">
+            Score Center
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <div class="padding-16">Games</div>
+        </a>
+      </li>
+      <li style="margin-left: 20px;">
+        <a href="#" class="red padding text-white round-medium">
+          Watch Sky Sports
+        </a>
+      </li>
+      <li style="float: right">
+        <a href="#" id="btn_more_menu">
+          <div class="padding-16" id="down">
+            More
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+          </div>
+          <div id="up" class="padding-16" style="display: none;">
+            More
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+          </div>
+        </a>
+        <ul class="dropdown dropdown_right" id="more_menu">
+          <li>
+            <a href="#">Analysis</a>
+          </li>
+          <li>
+            <a href="#">Opinion</a>
+          </li>
+          <li>
+            <a href="#">Sky Views</a>
+          </li>
+          <li>
+            <a href="#">Videos</a>
+          </li>
+          <li>
+            <a href="#">Weather</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- BODY CONTENT -->
+<div id="body" class="content row">
+  <!--TOP STORIES SECTION -->
+  <div class="clearfix">
+    <h1 class="padding-16">Top Stories</h1>
+    <!-- No.1 post -->
+    <div class="gallery clearfix top_post" style="width: 100%;">
+      <div class="col two-third">
+        <div class="background-container" style="height: 350px;">
+          <div class="background-img" style="background-image: url('./images/home/top_stories/top1.jpg');">
+          </div>
+        </div>
+      </div>
+      <div class="col third padding-48 padding-large">
+        <span class="red bold text-white padding-small small">LIVE</span>
+        <span class="yellow bold padding-small small">BREAKING</span>
+        <span style="padding-left: 10px" class="opacity">
+          <a href="#">US</a></span>
+        <br />
+        <p class="xlarge padding-32">
+          Crucial moment for Trump's presidency as Mueller report released
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="col third gallery">
+        <div class="background-container">
+          <div class="background-img" style="background-image: url('./images/home/top_stories/top2.jpg');">
+          </div>
+        </div>
+        <div class="padding small desc">
+          <span class="type padding-16">
+            ANALYSIS
+          </span>
+          <span>
+            <a href="#">Politics</a>
+          </span>
+          <div class="padding-16">
+            Williamson sacking should not mask syber secuirity question
+          </div>
+        </div>
+      </div>
+      <div class="col third gallery">
+        <div class="background-container">
+          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top2.jpg');">
+          </div>
+        </div>
+        <div class="padding small desc">
+          <span class="type padding-16">
+            ANALYSIS
+          </span>
+          <span>
+            <a href="#">Politics</a>
+          </span>
+          <div class="padding-16">
+            Williamson sacking should not mask syber secuirity question
+          </div>
+        </div>
+      </div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top2.jpg');">
+          </div>
+        </div>
+        <div class="padding small desc">
+          <span class="type padding-16">
+            ANALYSIS
+          </span>
+          <span>
+            <a href="#">Politics</a>
+          </span>
+          <div class="padding-16">
+            Williamson sacking should not mask syber secuirity question
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top3.jpg');">
+          </div>
+        </div>
+        <div class="padding small desc">
+          <span class="type padding-16">
+            ANALYSIS
+          </span>
+          <span>
+            <a href="#">Politics</a>
+          </span>
+          <div class="medium padding-16">
+            Thursday's national newspaper front pages
+          </div>
+        </div>
+      </div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top3.jpg');">
+          </div>
+        </div>
+        <div class="padding small desc">
+          <span class="type padding-16">
+            ANALYSIS
+          </span>
+          <span>
+            <a href="#">Politics</a>
+          </span>
+          <div class="medium padding-16">
+            Thursday's national newspaper front pages
+          </div>
+        </div>
+      </div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top3.jpg');">
+          </div>
+        </div>
+        <div class="padding small desc">
+          <span class="type padding-16">
+            ANALYSIS
+          </span>
+          <span>
+            <a href="#">Politics</a>
+          </span>
+          <div class="medium padding-16">
+            Thursday's national newspaper front pages
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- VIDEOS -->
+  <div class="clearfix">
+    <h1 class="padding-16">Videos</h1>
+    <div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
+          </div>
+          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
+        </div>
+        <div class="padding small clearfix desc">
+          <a href="#">World</a>
+          <p class="medium padding-16">
+            Great white shark hunts near surfers
+          </p>
+        </div>
+      </div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
+          </div>
+          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
+        </div>
+        <div class="padding small desc">
+          <a href="#">World</a>
+          <div class="medium padding-16">
+            Great white shark hunts near surfers
+          </div>
+        </div>
+      </div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
+          </div>
+          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
+        </div>
+        <div class="padding small desc">
+          <a href="#">World</a>
+          <p class="medium padding-16">
+            Great white shark hunts near surfers
+          </p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
+          </div>
+          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
+        </div>
+        <div class="padding small clearfix desc">
+          <a href="#">World</a>
+          <p class="medium padding-16">
+            Great white shark hunts near surfers
+          </p>
+        </div>
+      </div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
+          </div>
+          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
+        </div>
+        <div class="padding small clearfix desc">
+          <a href="#">World</a>
+          <p class="medium padding-16">
+            Great white shark hunts near surfers
+          </p>
+        </div>
+      </div>
+      <div class="col third gallery">
+        <div class="background-container clearfix">
+          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
+          </div>
+          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
+        </div>
+        <div class="padding small clearfix desc">
+          <a href="#">World</a>
+          <p class="medium padding-16">
+            Great white shark hunts near surfers
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRENDING -->
+  <div id="trending" class="padding-16" style="width: 100%;">
+    <h1 class="padding-32">Trending</h1>
+    <div class="clearfix border-box white row medium padding-large">
+      <div class="half col padding-large">
+        <ol>
+          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+          <li>
+            <a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+          <li>
+            <a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+        </ol>
+      </div>
+      <div class="half col padding-large">
+        <ol start="6">
+          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+          <li>
+            <a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+          <li>
+            <a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--Footer -->
+<div id="footer" class="row white text-grey clearfix" style="margin-top: 1rem; margin-left: 0px; margin-right: 0px;">
+  <!--Follow -->
+  <div id="follow" class="row content padding-32 clearfix  medium line">
+    <ul class="clearfix">
+      <li>
+        <a id="facebook" href="#">
+          <i class="fa fa-facebook icon" aria-hidden="true"></i>
+          <span>Facebook</span>
+        </a>
+      </li>
+      <li>
+        <a id="twitter" href="#">
+          <i class="fa fa-twitter icon" aria-hidden="true"></i>
+          <span>Twitter</span>
+        </a>
+      </li>
+      <li>
+        <a id="youtube" href="#">
+          <i class="fa fa-youtube-play icon" aria-hidden="true"></i>
+          <span>Youtube</span>
+        </a>
+      </li>
+      <li>
+        <a id="instagram" href="#">
+          <i class="fa fa-instagram icon" aria-hidden="true"></i>
+          <span>Instagram</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!--About-->
+  <div id="about" class="content row clearfix text-grey white line padding-32">
+    <div class="col fourth">
+      <h2>About Sky News</h2>
+      <ul class="medium">
+        <li class="">
+          <a href="#">About Us</a>
+        </li>
+        <li>
+          <a href="#">Sky Data</a>
+        </li>
+        <li>
+          <a href="#">Sky News International</a>
+        </li>
+        <li>
+          <a href="#">Sky News Library Sales</a>
+        </li>
+        <li>
+          <a href="#">Site Map</a>
+        </li>
+        <li>
+          <a href="#">Editorial Guidelines</a>
+        </li>
+        <li>
+          <a href="#">Supreme Court Live</a>
+        </li>
+        <li>
+          <a href="#">Sky News Board</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col fourth">
+      <h2>Sky News Services</h2>
+      <ul class="medium">
+        <li class="">
+          <a href="#"> Sky News RSS</a>
+        </li>
+        <li>
+          <a href="#">Sky News For Your Phone</a>
+        </li>
+        <li>
+          <a href="#">Sky News Radio</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col fourth">
+      <h2>Sky Channels</h2>
+      <ul class="medium">
+        <li class="">
+          <a href="#">Sky 1</a>
+        </li>
+        <li>
+          <a href="#">Sky Data</a>
+        </li>
+        <li>
+          <a href="#">Sky Witness</a>
+        </li>
+        <li>
+          <a href="#">Sky Atlantic</a>
+        </li>
+        <li>
+          <a href="#">Sky Arts</a>
+        </li>
+        <li>
+          <a href="#">Sky Cinema</a>
+        </li>
+        <li>
+          <a href="#">Sky Sports</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col fourth">
+      <h2>More Sky Sites</h2>
+      <ul class="medium">
+        <li class="">
+          <a href="#">NOW TV</a>
+        </li>
+        <li>
+          <a href="#">Sky Ocean Rescue</a>
+        </li>
+        <li>
+          <a href="#">Sky Academy Studios</a>
+        </li>
+        <li>
+          <a href="#">Bigger Picture</a>
+        </li>
+        <li>
+          <a href="#">Sky Corporate</a>
+        </li>
+        <li>
+          <a href="#">Sky Bet</a>
+        </li>
+        <li>
+          <a href="#">Sky.com</a>
+        </li>
+        <li>
+          <a href="#">Sky News Arabia</a>
+        </li>
+        <li>
+          <a href="#">Advertise With Us</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!--Legal and Contact-->
+  <div id="contact" class="row content clearfix">
+    <ul>
+      <li>
+        <a href="#">Terms & Conditions</a>
+      </li>
+      <li>
+        <a href="#">Privacy & Cookies</a>
+      </li>
+      <li>
+        <a href="#">Privacy Options</a>
+      </li>
+      <li>
+        <a href="#">Accessibility</a>
+      </li>
+      <li>
+        <a href="#">Contact Us</a>
+      </li>
+    </ul>
+    <div class="padding-16">
+      <a href="#">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Sky_Italia_-_Logo_2018.svg/1280px-Sky_Italia_-_Logo_2018.svg.png"
+          style="width:70px; vertical-align:-15px;">
+      </a>
+      <span class="medium">© 2019 Sky UK</span>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  $('#btn_more_menu').on('click', function () {
+    if ($('#more_menu').css('display') == 'none') {
+      $('#more_menu').css({ 'display': 'block' })
+    }
+    else {
+      $('#more_menu').css({ 'display': 'none' })
+    }
+  })
+
+  $('#btn_sports_menu').on('click', function () {
+    if ($('#sports_menu').css('display') == 'none') {
+      $('#sports_menu').css({ 'display': 'block' })
+    }
+    else {
+      $('#sports_menu').css({ 'display': 'none' })
+    }
+  })
+  $('#btn_sports_video_menu').on('click', function () {
+    $('#sports_video_menu').css({ 'display': 'block' })
+    $(this).css({ 'display': 'none' })
+    $('#btn_close_sports_video_menu').css({ 'display': 'block' })
+  })
+  $('#btn_close_sports_video_menu').on('click', function () {
+    $('#sports_video_menu').css({ 'display': 'none' })
+    $(this).css({ 'display': 'none' })
+    $('#btn_sports_video_menu').css({ 'display': 'block' })
+  });
+
+  $('#search_box').on('click', function () {
+    $(this).css({ 'background': 'white' })
+    $(this).find('i').css({ 'color': 'black' })
+  })
+
+  $('#search_box').focusout(function () {
+    $(this).css({ 'background': 'transparent' })
+    $(this).find('i').css({ 'color': 'white' })
+  })
+
+  /* --- SIDE BAR BUTTON -- */
+  $('#btn_side_bar').on('click', function () {
+    if ($('#sb').css('display') == 'none') {
+      $('#sb').css({ 'display': 'block' })
+    }
+    else {
+      $('#sb').css({ 'display': 'none' })
+    }
+  })
+
+  $('#btn_sb_sport_dropdown').on('click', function () {
+    $('#sb_sport_dropdown').css({ 'display': 'block' })
+    $('#sb_sport_tv_dropdown').css({ 'display': 'none' })
+    $('#btn_close_sb_sport_dropdown').css({ 'display': 'block' })
+    $('#btn_sb_sport_dropdown').css({ 'display': 'none' })
+  });
+
+  $('#btn_close_sb_sport_dropdown').on('click', function () {
+    $('#sb_sport_dropdown').css({ 'display': 'none' })
+    $('#btn_sb_sport_dropdown').css({ 'display': 'block' })
+    $(this).css({ 'display': 'none' })
+  });
+
+  $('#btn_sb_sport_tv_dropdown').on('click', function () {
+    $('#sb_sport_tv_dropdown').css({ 'display': 'block' })
+    $('#btn_close_sb_sport_tv_dropdown').css({ 'display': 'block' })
+    $('#btn_sb_sport_tv_dropdown').css({ 'display': 'none' })
+  });
+  $('#btn_close_sb_sport_tv_dropdown').on('click', function () {
+    $('#sb_sport_tv_dropdown').css({ 'display': 'none' })
+    $('#btn_sb_sport_tv_dropdown').css({ 'display': 'block' })
+    $(this).css({ 'display': 'none' })
+  });
+
+
+</script>
