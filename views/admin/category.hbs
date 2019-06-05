@@ -1,19 +1,168 @@
-<div class="card shadow">
+<div class="card shadow small">
     <div class="card-header">
-        <h2 class="card-text">Category</h2>
+        <h5 class="card-text">Quản lý danh mục</h2>
     </div>
     <div class="card-body">
-        <table class="table table-bordered table-hover">
+
+        <div style="float:right" class="mb-3">
+            <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#addcat_dialog"
+                type="button">
+                <i class="fa fa-plus" aria-hidden="true"></i> Thêm danh mục
+            </button>
+        </div>
+
+        <table class="table table-bordered table-hover mt-4">
             <thead>
                 <tr>
-                    <th scope="col">Order</th>
-                    <th scope="col">Category</th>
-                    <th scope="col"></th>
+                    <th scope="col">STT</th>
+                    <th scope="col">Danh mục</th>
+                    <th scope="col">Số bài viết</th>
+                    <th scope="col" class="text-center" style="width: 300px;">
+                        <i class="fa fa-wrench" aria-hidden="true"></i> Tùy chỉnh
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                
+                {{#each this.categories}}
+                <tr>
+                    <td style="display:none">{{_id}}</td>
+                    <td>{{counter @index}}</td>
+                    <td>{{name}}</td>
+                    <td></td>
+                    <td>
+                        <a href="javascript:void(0)"> Chi tiết</a>
+                        <span> | </span>
+                        <a href="javascript:void(0)" onclick="edit('{{_id}}','{{name}}')" > Chỉnh sửa </a>
+                    </td>
+                </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>
 </div>
+
+<div class="modal fade" id="addcat_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm mới danh mục</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div>
+                        <label class="control-label">Tên danh mục</label>
+                        <span class="text-danger" id="valid_catname" style="display:none;">Không bỏ trống mục này</span>
+                        <div>
+                            <input id="catname" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="addcat" class="btn btn-primary">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="success_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 300px;">
+        <div class="modal-content text-center bg-success">
+            <h6 class="modal-title text-white" style="padding: 16px 0px;">Thành công!</h6>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editcat_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa danh mục</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div>                        
+                        <label class="control-label">Tên danh mục</label>
+                        <span class="text-danger" id="valid_catname" style="display:none;">Không bỏ trống mục này</span>
+                        <div>
+                            <input id="new_catname" class="form-control" />
+                            <input id="catid" style="display: none" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="editcat" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addcat').on('click', function () {
+
+            if ($('#catname').val() == '') {
+                $('#valid_catname').css({ 'display': 'inline-block' })
+            }
+
+            else {
+                var data = {
+                    "name": $('#catname').val(),
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/category/insert',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (res, text, xhr) {
+                        if (xhr.status == 200) {
+                            $('#addcat_dialog').modal('toggle');
+
+                            $('#success_dialog').modal('toggle');
+                            setTimeout(function () {
+                                $('#success_dialog').modal('toggle');
+                            }, 1000);
+
+                            $('#catname').val("");
+                        }
+                    },
+                })
+            }
+        })
+        $('#editcat').on('click',function(){
+            var data = {
+                "_id" : $('#catid').val(),
+                "name" : $('#new_catname').val(),
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/admin/category/update',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function(res, textStatus, xhr) {
+                    console.log(res);
+                }
+            })
+
+        })
+    })
+
+    function edit(id,name) {
+        $('#new_catname').val(name);
+        $('#catid').val(id);
+        $('#editcat_dialog').modal('toggle');        
+    }
+</script>
