@@ -10,7 +10,7 @@ const LocalStratery = require("passport-local");
 const User = require('./models/user');
 
 
-// mongoose.connect('mongodb://localhost:27017/news', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/news', { useNewUrlParser: true })
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
