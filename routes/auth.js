@@ -7,7 +7,7 @@ router.get("/register",function(req,res){
     res.render("register");
 })
 router.post("/register",function(req,res){
-    const newUser = new User({username:req.body.username});
+    const newUser = new User({email:req.body.email});
     User.register(newUser,req.body.password,function(err,user){
         if(err){
            res.redirect("/register");
@@ -36,9 +36,7 @@ function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
         return next();
     };
-    res.flash("error","You must to login first");
     res.redirect("/login");
-    
 }
 
 module.exports = router
