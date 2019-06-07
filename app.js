@@ -2,68 +2,41 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var app = express();
 
-app.engine('hbs', exphbs({
-    /*defaultLayout:'main.hbs',
-    layoutsDir: 'views/_layouts'*/
-    
-    helpers: {
-        counter: (index) => {
-            return index + 1;
-        }
-    }
-}));
-app.set('view engine', 'hbs');
+const mongoose = require('mongoose');
+const authRoutes = require('./routes/auth');
+const passport = require('passport');
+const LocalStratery = require("passport-local");
+
+const User = require('./models/user');
+
+
+// mongoose.connect('mongodb://localhost:27017/news', { useNewUrlParser: true })
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
 app.use(express.static('public'));
 app.use(express.json());
+
+//config passport
+app.use(require("express-session")({
+    secret  :"Im the best session",
+    resave:"false",
+    saveUninitialized:"false"
+ }));
+ app.use(passport.initialize());
+ app.use(passport.session());
+ passport.use(new LocalStratery(User.authenticate()));
+ passport.serializeUser(User.serializeUser());
+ passport.deserializeUser(User.deserializeUser());
+
+
+ //Use routes
 app.get('/', (req, res) => {
-    res.render('home', { layout: 'main.hbs', layoutsDir: 'views/layouts' });
+    res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
 })
-
 app.use('/admin', require('./routes/admin/home.route'));
-/*var Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost:27017/News', { useNewUrlParser: true })
-    .then(() => {
-        console.log("Connect DB Success")
-    })
-    .catch(() => {
-        console.log("Connect DB Fail")
-    })
-
-var categorySchema = new Schema({
-    name: String,
-})
-
-var model = mongoose.model('categories', categorySchema);
-model.find().exec((err, categories) => {
-    if (err) {
-        console.log(err);
-    }
-    console.log(categories);
-});
-/*
-// Require mongoose
-var mongoose = require('mongoose');
-// Connect DB
-mongoose.connect('mongodb://localhost/News', {useNewUrlParser: true}) ;
-//Define the possible schema of Category document and data types of each field
-var Category = mongoose.model('Category',{name:String});
-//Create new Category
-//var Category = new Schema({name:'Tin trong nước'});
-//Print
-//console.log(category);
-Category.create({
-    name:"Tin trong nước"
-})
-//Save it
-category.save((err,categoryObj)=>{
-    if(err){
-        console.log(err);
-    }
-    else{
-        console.log('save successfully: ',categoryObj);
-    }
-})
-*/
+app.use('/', authRoutes);
 
 app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');
