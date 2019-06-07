@@ -7,12 +7,15 @@ router.get("/register",function(req,res){
     res.render("register");
 })
 router.post("/register",function(req,res){
-    const newUser = new User({email:req.body.email});
+    console.log(req.body);
+    const newUser = new User({username:req.body.username, email:req.body.email});
     User.register(newUser,req.body.password,function(err,user){
         if(err){
+           console.log(err);
            res.redirect("/register");
         } else {    
             console.log(user);
+            res.redirect("/login");
         }
         console.log('Successful');
     });
@@ -24,8 +27,8 @@ router.get("/login",function(req,res){
 router.post("/login",passport.authenticate("local",{
     successRedirect:"/",
     failureRedirect:"/login" ,
-    successFlash:"Welcome back !",
-    failureFlash:"Username or password was wrong !"
+    // successFlash:"Welcome back !",
+    // failureFlash:"Username or password was wrong !"
 }),function(req,res){});
 
 router.get("/logout",function(req,res){
