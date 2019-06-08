@@ -3,6 +3,7 @@ var exphbs = require('express-handlebars');
 var hbs = require('hbs');
 var app = express();
 
+<<<<<<< HEAD
 app.engine('hbs', exphbs({
     /*defaultLayout:'main.hbs',
     layoutsDir: 'views/_layouts'*/
@@ -75,15 +76,49 @@ app.post('/upload', upload.single('flFileUpload'), async (req, res, next) => {
 });
 
 app.set('view engine', 'hbs');
+=======
+const mongoose = require('mongoose');
+const authRoutes = require('./routes/auth');
+const passport = require('passport');
+const LocalStratery = require("passport-local");
+
+const User = require('./models/user');
+
+
+// mongoose.connect('mongodb://localhost:27017/news', { useNewUrlParser: true })
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+>>>>>>> b6f7885a2b7151b8c5f754881d69097ec69c9b03
 app.use(express.static('public'));
 app.use(express.json());
-app.get('/', (req, res) => {
-    res.render('home', { layout: 'main.hbs', layoutsDir: 'views/layouts' });
-})
 
+<<<<<<< HEAD
 app.use('/admin', require('./routes/admin/home.route'));
 
 app.use('/writter', require('./routes/writter/upload.route'))
+=======
+//config passport
+app.use(require("express-session")({
+    secret  :"Im the best session",
+    resave:"false",
+    saveUninitialized:"false"
+ }));
+ app.use(passport.initialize());
+ app.use(passport.session());
+ passport.use(new LocalStratery(User.authenticate()));
+ passport.serializeUser(User.serializeUser());
+ passport.deserializeUser(User.deserializeUser());
+
+
+ //Use routes
+app.get('/', (req, res) => {
+    res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
+})
+app.use('/admin', require('./routes/admin/home.route'));
+app.use('/', authRoutes);
+>>>>>>> b6f7885a2b7151b8c5f754881d69097ec69c9b03
 
 var a="sss";
 a.replace()

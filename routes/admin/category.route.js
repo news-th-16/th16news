@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
         .then(
             rows => {
                 res.render('admin/category', {
-                    layout: 'admin.hbs',
+                    layout: 'admin.handlebars',
                     layoutsDir: 'views/layouts',
                     categories: rows
                 });
