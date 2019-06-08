@@ -4,9 +4,10 @@
     background-size:cover;
     background-color: 'red';
 }
-.clearfix button {
+.submit {
     margin-bottom: 4px;
     border-radius: 5px;
     width: 50%;
     margin: auto;
+    display: block;
 }

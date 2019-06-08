@@ -3,10 +3,11 @@ var model = require('../../models/category.model');
 
 var router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/admin', (req, res) => {
     model.all()
         .then(
             rows => {
+                console.log(rows);
                 res.render('admin/category', {
                     layout: 'admin.handlebars',
                     layoutsDir: 'views/layouts',
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
 })
 
 
-router.post('/insert', (req, res) => {
+router.post('/admin/insert', (req, res) => {
     model.insert(req.body)
         .then(
             result => {
@@ -34,7 +35,7 @@ router.post('/insert', (req, res) => {
         )
 });
 
-router.post('/update',(req,res)=>{
+router.post('/admin/update',(req,res)=>{
     var id = req.body._id;
     console.log(req.body);
     model.update(id,req.body)

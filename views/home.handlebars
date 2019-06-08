@@ -185,7 +185,8 @@
     <div class="gallery clearfix top_post" style="width: 100%;">
       <div class="col two-third">
         <div class="background-container" style="height: 350px;">
-          <div class="background-img" style="background-image: url('./images/home/top_stories/top1.jpg');">
+          <div class="background-img">
+            <img src={{top.imageURL}}>
           </div>
         </div>
       </div>
@@ -196,124 +197,41 @@
           <a href="#">US</a></span>
         <br />
         <p class="xlarge padding-32">
-          Crucial moment for Trump's presidency as Mueller report released
+          {Crucial moment for Trump's presidency as Mueller report released}
         </p>
       </div>
     </div>
 
-    <div>
-      <div class="col third gallery">
-        <div class="background-container">
-          <div class="background-img" style="background-image: url('./images/home/top_stories/top2.jpg');">
+    <div class="row nopadding"> 
+      {{!-- {{#each data}} --}}
+        {{#each data}}
+          <div class="ml-2 mr-2 mt-2 col-md-4 third gallery">
+            <div class="background-container clearfix">
+              <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top3.jpg');">
+              </div>
+            </div>
+            <div class="padding small desc">
+              <span class="type padding-16">
+                {{tag}}
+              </span>
+              <span>
+                <a href="#"> {{category}}</a>
+              </span>
+              <div class="medium padding-16">
+                Thursday's national newspaper front pages
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="padding small desc">
-          <span class="type padding-16">
-            ANALYSIS
-          </span>
-          <span>
-            <a href="#">Politics</a>
-          </span>
-          <div class="padding-16">
-            Williamson sacking should not mask syber secuirity question
-          </div>
-        </div>
-      </div>
-      <div class="col third gallery">
-        <div class="background-container">
-          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top2.jpg');">
-          </div>
-        </div>
-        <div class="padding small desc">
-          <span class="type padding-16">
-            ANALYSIS
-          </span>
-          <span>
-            <a href="#">Politics</a>
-          </span>
-          <div class="padding-16">
-            Williamson sacking should not mask syber secuirity question
-          </div>
-        </div>
-      </div>
-      <div class="col third gallery">
-        <div class="background-container clearfix">
-          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top2.jpg');">
-          </div>
-        </div>
-        <div class="padding small desc">
-          <span class="type padding-16">
-            ANALYSIS
-          </span>
-          <span>
-            <a href="#">Politics</a>
-          </span>
-          <div class="padding-16">
-            Williamson sacking should not mask syber secuirity question
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="col third gallery">
-        <div class="background-container clearfix">
-          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top3.jpg');">
-          </div>
-        </div>
-        <div class="padding small desc">
-          <span class="type padding-16">
-            ANALYSIS
-          </span>
-          <span>
-            <a href="#">Politics</a>
-          </span>
-          <div class="medium padding-16">
-            Thursday's national newspaper front pages
-          </div>
-        </div>
-      </div>
-      <div class="col third gallery">
-        <div class="background-container clearfix">
-          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top3.jpg');">
-          </div>
-        </div>
-        <div class="padding small desc">
-          <span class="type padding-16">
-            ANALYSIS
-          </span>
-          <span>
-            <a href="#">Politics</a>
-          </span>
-          <div class="medium padding-16">
-            Thursday's national newspaper front pages
-          </div>
-        </div>
-      </div>
-      <div class="col third gallery">
-        <div class="background-container clearfix">
-          <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top3.jpg');">
-          </div>
-        </div>
-        <div class="padding small desc">
-          <span class="type padding-16">
-            ANALYSIS
-          </span>
-          <span>
-            <a href="#">Politics</a>
-          </span>
-          <div class="medium padding-16">
-            Thursday's national newspaper front pages
-          </div>
-        </div>
-      </div>
+        {{/each}}
+        {{!-- {{/each}} --}}
     </div>
   </div>
   <!-- VIDEOS -->
   <div class="clearfix">
     <h1 class="padding-16">Videos</h1>
-    <div>
-      <div class="col third gallery">
+    <div class="row nopadding">
+      {{#each topNews}}
+      <div class="col-md-4 third ml-2 mr-2 mt-2 gallery">
         <div class="background-container clearfix">
           <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
           </div>
@@ -326,73 +244,7 @@
           </p>
         </div>
       </div>
-      <div class="col third gallery">
-        <div class="background-container clearfix">
-          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
-          </div>
-          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
-        </div>
-        <div class="padding small desc">
-          <a href="#">World</a>
-          <div class="medium padding-16">
-            Great white shark hunts near surfers
-          </div>
-        </div>
-      </div>
-      <div class="col third gallery">
-        <div class="background-container clearfix">
-          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
-          </div>
-          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
-        </div>
-        <div class="padding small desc">
-          <a href="#">World</a>
-          <p class="medium padding-16">
-            Great white shark hunts near surfers
-          </p>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="col third gallery">
-        <div class="background-container clearfix">
-          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
-          </div>
-          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
-        </div>
-        <div class="padding small clearfix desc">
-          <a href="#">World</a>
-          <p class="medium padding-16">
-            Great white shark hunts near surfers
-          </p>
-        </div>
-      </div>
-      <div class="col third gallery">
-        <div class="background-container clearfix">
-          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
-          </div>
-          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
-        </div>
-        <div class="padding small clearfix desc">
-          <a href="#">World</a>
-          <p class="medium padding-16">
-            Great white shark hunts near surfers
-          </p>
-        </div>
-      </div>
-      <div class="col third gallery">
-        <div class="background-container clearfix">
-          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
-          </div>
-          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
-        </div>
-        <div class="padding small clearfix desc">
-          <a href="#">World</a>
-          <p class="medium padding-16">
-            Great white shark hunts near surfers
-          </p>
-        </div>
-      </div>
+      {{/each}}
     </div>
   </div>
 

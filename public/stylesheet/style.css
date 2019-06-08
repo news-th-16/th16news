@@ -9,6 +9,11 @@ body {
 *{
   box-sizing: border-box;
 }
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+   display: contents;
+}
 .header{
   background-image: linear-gradient(0, rgba(0, 0, 0, 0.3), transparent 76%), linear-gradient(90deg, rgb(18, 45, 104), rgb(18, 45, 104) 50%, rgb(214, 23, 38) 0px, rgb(214, 23, 38)) !important;
   background-size: 100% 94px;
@@ -132,6 +137,7 @@ img{width:100%;}
   content: '';
   clear: both;
   display: table;  
+  width: 100%;
 }
 .content {
   margin:auto;
@@ -412,12 +418,17 @@ h2{
 .text-grey{
   color: #666 !important
 }
+.col-md-4{
+  float: left;
+  padding-right: 0px;
+  padding-left: 0px;
+}
 .col {
   float: left;
   padding-right: 0px;
   padding-left: 0px;
 }
-.row .col {
+/* .row .col {
   margin: 1%;
 }
 .row .col:first-child {
@@ -428,7 +439,7 @@ h2{
 }
 .top_post .col {
   margin: 0;
-}
+} */
 .top_post {
   margin-bottom: 2%;
   height: auto;

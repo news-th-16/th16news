@@ -8,7 +8,8 @@ const LocalStratery = require("passport-local");
 const User = require('./models/user');
 const bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://localhost:27017/news', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/news', { useNewUrlParser: true });
+
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.engine('handlebars', exphbs());
@@ -31,11 +32,10 @@ app.use(require("express-session")({
 
 
  //Use routes
-app.get('/', (req, res) => {
-    res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
-})
-app.use('/admin', require('./routes/admin/home.route'));
+app.use('/', require('./routes/admin/home.route'));
+app.use('/', require('./routes/admin/category.route'))
 app.use('/', authRoutes);
+
 
 app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');
