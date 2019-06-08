@@ -1,0 +1,381 @@
+<style>
+  body {
+    z-index: 0;
+  }
+
+  .twitter-typeahead .tt-query,
+  .twitter-typeahead .tt-hint {
+    margin-bottom: 0;
+  }
+
+  .tt-hint {
+    display: block;
+    width: 100%;
+    height: 38px;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #999;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid black;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  }
+
+  .tt-dropdown-menu {
+    min-width: 160px;
+    margin-top: 2px;
+    padding: 5px 0;
+    background-color: black;
+    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+
+  }
+
+  .tt-menu {
+    /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
+    width: 320px;
+    margin-top: 0px;
+    padding: 8px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  }
+
+  .tt-suggestion.tt-cursor {
+    /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+    color: #fff;
+    background-color: #0097cf;
+
+  }
+
+  .tt-suggestion {
+    display: block;
+    padding: 3px 20px;
+  }
+
+  .tt-suggestion.tt-is-under-cursor {
+    color: #fff;
+    background-color: #428bca;
+  }
+
+  .tt-suggestion.tt-is-under-cursor a {
+    color: #fff;
+  }
+
+  .tt-suggestion p {
+    margin: 0;
+  }
+</style>
+<!-- PAGE CONTENT -->
+<div id="page-content">
+  <div style="height:100%;width:100%;margin:auto;">
+    <!--Poster -->
+    <div id="postid" style="display:none;">{{post._id}}</div>
+    <div id="categoryid" style="display:none;">{{post.categoryid}}</div>
+    <div id="home" class="container" style="margin-top:32px;">
+      <h1 class="xxlarge show line margin-32 clearfix">Edit Post</h1>
+      <div style="width: 100%;">
+        <form class="padding-32">
+          <table style="width: 100%">
+            <tbody>
+              <tr>
+                <th style="float:left;">
+                  Danh mục
+                </th>
+                <td>
+                  <select class="round" id="categories"></select>
+                </td>
+              </tr>
+              <tr>
+                <th style="float:left;">
+                  Tiêu đề
+                </th>
+                <td>
+                  <input id="title" class="round" type="text" name="" value="{{post.title}}">
+                </td>
+              </tr>
+              <tr>
+                <th style="float:left" style="vertical-align: top;">
+                  Tag
+                </th>
+                <td id="the-basics">
+                  <div style="float: left;">
+                    <input id="input_tag" class="typeahead" type="text" placeholder="Tag...">
+                    <button id="btn_opendrop" class="btn btn-light btn-outline-dark btn-sm" type="button">
+                      <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </button>
+                    <button id="btn_closedrop" class="btn btn-light btn-outline-dark btn-sm" type="button"
+                      style="display:none;">
+                      <i class="fa fa-caret-up" aria-hidden="true"></i>
+                    </button>
+                    <br />
+                    <span id="valid_tag" class="text-danger" style="display: none">Tag không có trong dữ liệu!</span>
+                    <select id="list_tag" style="display:none;" class="form-control"></select>
+                  </div>
+                  <div style="float:left;" class="ml-3">
+                    <button id="add_tag" class="btn btn-light btn-outline-dark btn-sm" type="button">
+                      <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    </button>
+                    <button id="remove_tag" class="btn btn-light btn-outline-dark btn-sm" type="button">
+                      <i class="fa fa-caret-left" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div style="float:left;" class="ml-3">
+                    <select id="tag" class="round" size="1" style="width: 220px;">
+                      {{#each post.tag}}
+                      <option value="{{_id}}">{{name}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th style="float:left">
+                  Tóm tắt
+                </th>
+                <td>
+                  <input id="summary" class="round" type="text" name="" value="{{post.summary}}">
+                </td>
+              </tr>
+              <tr>
+                <th style="vertical-align:top; float:left; ">
+                  Nội dung
+                </th>
+                <td>
+                  <textarea id="ckeditor" name="content" class="round" style="width: 100%;">
+                      {{post.content}}
+                  </textarea>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                </td>
+                <td colspan="2">
+                  <div class="text-center mt-4">
+                    <button id="save" class="btn btn-dark">Lưu</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  CKEDITOR.replace('ckeditor', {
+    "extraPlugins": 'imagebrowser',
+    "imageBrowser_listUrl": "/files"
+  });
+</script>
+<script src="/typeahead.js"></script>
+<script type="text/javascript">
+  var tags = [];
+  $(document).ready(function () {
+
+    // Fill Categories
+    $.ajax({
+      type: 'GET',
+      url: '/writter/upload/getCat',
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function (res, textStatus, xhr) {
+        if (xhr.status == 200) {
+          for (i = 0; i < res.length; i++) {
+            $('#categories').append($('<option>')
+              .val(res[i]._id)
+              .text(res[i].name))
+          }
+        }
+      },
+      complete: function () {
+        $('#categories option').filter(function () {
+          return $(this).val() == $('#categoryid').text();
+        }).prop('selected', true);
+      }
+    });
+
+    $.ajax({
+      type: 'GET',
+      url: '/writter/upload/getTag',
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function (res, textStatus, xhr) {
+        if (xhr.status == 200) {
+          var select = $('#list_tag');
+          select.append($('<option>')
+            .val(-1)
+            .text(""));
+          for (i = 0; i < res.length; i++) {
+            $('#list_tag').append($('<option>')
+              .val(res[i]._id)
+              .text(res[i].name));
+
+            tags.push(res[i].name);
+          }
+        }
+      }
+    })
+
+
+    $('#save').on('click', function () {
+      var tag = [];
+
+      $('#tag > option').each(function () {
+        var option = {
+          "_id": $(this).val(),
+          "name": $(this).text(),
+        }
+        tag.push(option);
+      })
+      var data = {
+        "_id": $('#postid').text(),
+        "categoryid": $('#categories option:selected').val(),
+        "title": $('#title').val(),
+        "tag": tag,
+        "summary": $('#summary').val(),
+        "content": CKEDITOR.instances.ckeditor.getData(),
+      }
+
+      var id = $('#postid').text();
+      $.ajax({
+        type: 'POST',
+        url: `/writter/upload/edit/${id}`,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
+        async: true,
+        complete: function (xhr) {
+          console.log(xhr.status);
+          setTimeout(function () {
+            $(location).attr('href', `/writter/upload/watch/${id}`);
+          }, 9000);
+        }
+      })
+    })
+
+    $("#btn_opendrop").on("click", function () {
+      $('#btn_closedrop').css({ 'display': 'inline-block' });
+      $('#btn_opendrop').css({ 'display': 'none' });
+      var se = $("#list_tag");
+      se.show();
+      se[0].size = 4;
+    });
+    $("#btn_closedrop").on("click", function () {
+      $('#btn_opendrop').css({ 'display': 'inline-block' });
+      $('#btn_closedrop').css({ 'display': 'none' });
+      var se = $("#list_tag");
+      se.hide();
+    });
+    $('#list_tag').on('change', function () {
+      $('#input_tag').val($('#list_tag option:selected').text());
+    })
+
+    $('#add_tag').on('click', function () {
+      var check = false;
+      $('#list_tag > option').each(function () {
+        if ($(this).text() == $('#input_tag').val()) {
+          check = true;
+        }
+      })
+
+      if (check == false) {
+        $('#valid_tag').css({ 'display': 'block' })
+        return;
+      }
+      else {
+        $('#valid_tag').css({ 'display': 'none' })
+      }
+
+      /*var option = $('#list_tag option').filter(function () {
+        return $(this).text() == $('#input_tag').val();
+      })*/
+
+      if ($('#tag option').length == 0) {
+        $('#list_tag > option').each(function () {
+          if ($(this).text() == $('#input_tag').val()) {
+            $('#tag').append($('<option>')
+              .text($(this).text())
+              .val($(this).val()));
+            return;
+          }
+        })
+      }
+
+      var flag = true;
+      $('#tag option').each(function () {
+        if ($('#input_tag').val() == $(this).text()) {
+          flag = false;
+          return;
+        }
+      })
+
+      if (flag == true && check == true) {
+        $('#list_tag > option').each(function () {
+          if ($(this).text() == $('#input_tag').val()) {
+            $('#tag').append($('<option>')
+              .text($(this).text())
+              .val($(this).val()))
+          }
+        })
+      }
+    })
+
+    $('#remove_tag').on('click', function () {
+      $("#tag option:selected").remove();
+
+    })
+  })
+
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    var substringMatcher = function (strs) {
+      return function findMatches(q, cb) {
+        var matches, substringRegex;
+
+        // an array that will be populated with substring matches
+        matches = [];
+
+        // regex used to determine if a string contains the substring `q`
+        substrRegex = new RegExp(q, 'i');
+
+        // iterate through the pool of strings and for any string that
+        // contains the substring `q`, add it to the `matches` array
+        $.each(strs, function (i, str) {
+          if (substrRegex.test(str)) {
+            matches.push(str);
+          }
+        });
+
+        cb(matches);
+      };
+    };
+
+    console.log(tags);
+    $('#the-basics .typeahead').typeahead({
+      hint: true,
+      highlight: true,
+      minLength: 1,
+    },
+      {
+        name: 'states',
+        source: substringMatcher(tags)
+      });
+  })
+</script>

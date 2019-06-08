@@ -21,8 +21,7 @@ router.post('/insert', (req, res) => {
     model.insert(req.body)
         .then(
             result => {
-                console.log(`Result: ${result}`);
-                res.send(req.body);
+                res.send(result);
             }
         )
         .catch(
@@ -39,7 +38,6 @@ router.post('/update',(req,res)=>{
     console.log(req.body);
     model.update(id,req.body)
         .then(result=>{
-            console.log(result);
             res.send(result);
         })
         .catch(err => {

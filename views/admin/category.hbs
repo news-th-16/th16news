@@ -11,7 +11,7 @@
             </button>
         </div>
 
-        <table class="table table-bordered table-hover mt-4">
+        <table id="tb_data" class="table table-bordered table-hover mt-4">
             <thead>
                 <tr>
                     <th scope="col">STT</th>
@@ -26,13 +26,13 @@
                 {{#each this.categories}}
                 <tr>
                     <td style="display:none">{{_id}}</td>
-                    <td>{{counter @index}}</td>
+                    <td>{{counter @index}}</td> 
                     <td>{{name}}</td>
                     <td></td>
                     <td>
                         <a href="javascript:void(0)"> Chi tiết</a>
                         <span> | </span>
-                        <a href="javascript:void(0)" onclick="edit('{{_id}}','{{name}}')" > Chỉnh sửa </a>
+                        <a href="javascript:void(0)" onclick="edit('{{@index}}' )"> Chỉnh sửa </a>
                     </td>
                 </tr>
                 {{/each}}
@@ -88,7 +88,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    <div>                        
+                    <div>
                         <label class="control-label">Tên danh mục</label>
                         <span class="text-danger" id="valid_catname" style="display:none;">Không bỏ trống mục này</span>
                         <div>
@@ -126,24 +126,49 @@
                     contentType: 'application/json',
                     dataType: 'json',
                     success: function (res, text, xhr) {
+
                         if (xhr.status == 200) {
                             $('#addcat_dialog').modal('toggle');
-
-                            $('#success_dialog').modal('toggle');
-                            setTimeout(function () {
-                                $('#success_dialog').modal('toggle');
-                            }, 1000);
-
                             $('#catname').val("");
+
+                            var count = $('#tb_data tbody tr').length + 1;
+
+                            $('#tb_data tbody').append($('<tr>')
+                                .append($('<td>')
+                                    .css({ 'display': 'none' })
+                                    .text(res._id))
+                                .append($('<td>')
+                                    .text(count))
+                                .append($('<td>')
+                                    .text(res.name))
+                                .append($('<td>')
+                                    .text(""))
+                                .append($('<td>')
+                                    .append($('<a href="javascript:void(0)">')
+                                        .on('click', function () {
+                                            //Do Something later
+                                        })
+                                        .text('Chi tiết'))
+                                    .append($('<span>')
+                                        .text(' | '))
+                                    .append($('<a href="javascript:void(0)">')
+                                        .on('click', function () {
+                                            edit(res._id, res.name);
+                                        })
+                                        .text('Chỉnh sửa'))));
+
+                            NotifySuccess();
                         }
                     },
                 })
             }
         })
-        $('#editcat').on('click',function(){
+
+        $('#editcat').on('click', function () {
+            var newname = $('#new_catname').val();
             var data = {
-                "_id" : $('#catid').val(),
-                "name" : $('#new_catname').val(),
+                "_id": $('#catid').val(),
+                "name": newname,
             }
 
             $.ajax({
@@ -152,17 +177,41 @@
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 dataType: 'json',
-                success: function(res, textStatus, xhr) {
-                    console.log(res);
+                success: function (res, textStatus, xhr) {
+                    if (xhr.status == 200) {
+                        $('#editcat_dialog').modal('toggle');
+
+                        var row = $('#tb_data tbody tr').eq(row_index);
+                        console.log(row.text());
+                        var cell = row.find('td').eq(2);
+                        console.log(cell.text());
+                        cell.text(newname)
+
+                        NotifySuccess();
+                    }
                 }
             })
-
         })
-    })
+    });
 
-    function edit(id,name) {
+    var row_index;
+
+    function edit(index) {
+        row_index = index;
+
+        var row = $('#tb_data tbody tr').eq(index);
+        var name = row.find('td').eq(2).text();
+        var id = row.find('td').eq(0).text();
+
         $('#new_catname').val(name);
         $('#catid').val(id);
-        $('#editcat_dialog').modal('toggle');        
+        $('#editcat_dialog').modal('toggle');
+    }
+
+    function NotifySuccess() {
+        $('#success_dialog').modal('toggle');
+        setTimeout(function () {
+            $('#success_dialog').modal('toggle');
+        }, 1000);
     }
 </script>

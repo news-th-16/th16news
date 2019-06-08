@@ -34,6 +34,7 @@ module.exports = {
                     reject(err);
                 }
                 else {
+                    console.log(`NewItem: ${newItem}`);
                     resolve(newItem);
                 }
             })
@@ -44,16 +45,29 @@ module.exports = {
         return new Promise((resolve, reject) => {
             mongoose.connect('mongodb://localhost:27017/News', { useNewUrlParser: true });
             var model = mongoose.model(modelname, schema);
-            
-            model.findByIdAndUpdate({ _id: idfield }, entity , {new: true}, function (err, res) {
+            mongoose.set('useFindAndModify', false);
+            model.findByIdAndUpdate({ _id: idfield }, entity, { new: true }, function (err, res) {
                 if (err) {
-                    console.log(`Error: ${err}`);
                     reject(err);
                 }
                 else {
-                    
-                    console.log(`Success: ${res} - ${entity}`);
                     resolve(res);
+                }
+            })
+        })
+    },
+
+    getbyid: (modelname, schema, idfield) => {
+        return new Promise((resolve, reject) => {
+            mongoose.connect('mongodb://localhost:27017/News', { useNewUrlParser: true });
+            var model = mongoose.model(modelname, schema);
+
+            model.findById(idfield, function (err, result) {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(result);
                 }
             })
         })

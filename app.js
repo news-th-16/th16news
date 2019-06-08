@@ -1,17 +1,79 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
+var hbs = require('hbs');
 var app = express();
 
 app.engine('hbs', exphbs({
     /*defaultLayout:'main.hbs',
     layoutsDir: 'views/_layouts'*/
-    
+
     helpers: {
         counter: (index) => {
             return index + 1;
+        },
+        escapeString: (str) => {
+            str = hbs.handlebars.Utils.escapeExpression(str);            
+            return new hbs.handlebars.SafeString(str);
         }
+
     }
 }));
+
+//For using CkEditor
+var fs = require('fs');
+var path = require('path');
+var crypto = require('crypto');
+/*
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: 'dgyfgfdax',
+    api_key: '988836728562895',
+    api_secret: 'dP3dN45w3AGxJyjYbm39vKL7v1w'
+});*/
+
+const multer = require('multer');
+var storage = multer.diskStorage({
+    destination: 'public/upload/',
+    filename: function (req, file, cb) {
+
+        crypto.pseudoRandomBytes(16, function (err, raw) {
+            if (err) return cb(err);
+            cb(null, Math.floor(Math.random() * 9000000000) + 1000000000 + path.extname(file.originalname));
+        })
+    }
+})
+
+var upload = multer({ storage: storage });
+
+app.get('/files', function (req, res) {
+    const images = fs.readdirSync('public/upload')
+    var sorted = []
+    for (let item of images) {
+        if (item.split('.').pop() === 'png'
+            || item.split('.').pop() === 'jpg'
+            || item.split('.').pop() === 'jpeg'
+            || item.split('.').pop() === 'svg') {
+            var abc = {
+                "image": "/upload/" + item,
+                "folder": '/'
+            }
+            sorted.push(abc)
+        }
+    }
+    res.send(sorted);
+})
+//upload image to folder upload
+
+app.post('/upload', upload.single('flFileUpload'), async (req, res, next) => {
+    console.log(req.file);
+    //var path = 'public/upload/2185839360.jpg';
+    
+    const result = await cloudinary.uploader.upload(req.file.path);
+    console.log(result);
+    
+    res.redirect("back") 
+});
+
 app.set('view engine', 'hbs');
 app.use(express.static('public'));
 app.use(express.json());
@@ -20,51 +82,11 @@ app.get('/', (req, res) => {
 })
 
 app.use('/admin', require('./routes/admin/home.route'));
-/*var Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost:27017/News', { useNewUrlParser: true })
-    .then(() => {
-        console.log("Connect DB Success")
-    })
-    .catch(() => {
-        console.log("Connect DB Fail")
-    })
 
-var categorySchema = new Schema({
-    name: String,
-})
+app.use('/writter', require('./routes/writter/upload.route'))
 
-var model = mongoose.model('categories', categorySchema);
-model.find().exec((err, categories) => {
-    if (err) {
-        console.log(err);
-    }
-    console.log(categories);
-});
-/*
-// Require mongoose
-var mongoose = require('mongoose');
-// Connect DB
-mongoose.connect('mongodb://localhost/News', {useNewUrlParser: true}) ;
-//Define the possible schema of Category document and data types of each field
-var Category = mongoose.model('Category',{name:String});
-//Create new Category
-//var Category = new Schema({name:'Tin trong nước'});
-//Print
-//console.log(category);
-Category.create({
-    name:"Tin trong nước"
-})
-//Save it
-category.save((err,categoryObj)=>{
-    if(err){
-        console.log(err);
-    }
-    else{
-        console.log('save successfully: ',categoryObj);
-    }
-})
-*/
-
+var a="sss";
+a.replace()
 app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');
 })
