@@ -36,6 +36,7 @@ router.get('/post/:id',middleware.requireLogin ,(req, res) => {
     News.find({_id:  req.params.id}, (err, post) => {
         res.render('post.handlebars', { 'post': post});
     })
-})
+});
+
 
 module.exports = router;

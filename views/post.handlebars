@@ -182,7 +182,6 @@
           </ul>
         </div>
     </div>
-    {{#post}}
     <!-- BODY -->
     <div id="body" class="container-post padding-32">
     	<!-- POST -->
@@ -254,7 +253,7 @@
       <!-- COMMENT --->
       <div class="container-post body-post padding-16 clearfix">
         <h1 class="des" style="color: blue; text-align:center;">Add New Comment</h1>
-        <form action="/campgrounds/<%=campground._id%>/comments" method="POST">
+        <form action="/posts/<%=post._id%>/comments" method="POST">
           <textarea rows="4" cols="50" name="comment[text]" class="form-control mt-3 des">
           </textarea>
           <button class="btn btn-primary mt-3 des" style="hover: background-color:blue"> Submit!</button>
@@ -269,7 +268,8 @@
                             <p class="des">asdsadsadsadsa dsa dsa dsad sad sad sadsad sad sad sad sad sadsadsadsadsad sad sad sad sad </p>
                           </div>
                     </div>
-            </div>
+      </div>
+      
       <!-- GALLERY POSTS --->
       <div class="container-post body-post padding-16 clearfix">
         <div class="linebreak">

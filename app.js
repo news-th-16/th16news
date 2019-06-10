@@ -140,7 +140,7 @@ app.use('/writter', require('./routes/writter/upload.route'))
 app.use('/', require('./routes/admin/category.route'));
 
 
-// seedDB();
+seedDB();
 app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');
 })
