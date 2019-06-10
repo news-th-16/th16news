@@ -205,9 +205,11 @@
     <div class="row nopadding"> 
       {{!-- {{#each data}} --}}
         {{#each data}}
+        <a href="/{{_id}}">
           <div class="ml-2 mr-2 mt-2 col-md-4 third gallery">
             <div class="background-container clearfix">
-              <div class="background-img clearfix" style="background-image: url('./images/home/top_stories/top3.jpg');">
+              <div class="background-img clearfix">
+                <img src='https://homepages.cae.wisc.edu/~ece533/images/airplane.png'/>
               </div>
             </div>
             <div class="padding small desc">
@@ -218,10 +220,14 @@
                 <a href="#"> {{category}}</a>
               </span>
               <div class="medium padding-16">
-                Thursday's national newspaper front pages
+                {{title}}
               </div>
+              <p>
+                {{summary}}
+              </p>
             </div>
           </div>
+          </a>
         {{/each}}
         {{!-- {{/each}} --}}
     </div>
@@ -254,34 +260,19 @@
     <div class="clearfix border-box white row medium padding-large">
       <div class="half col padding-large">
         <ol>
-          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
-          </li>
+          {{#each trendCol1}}
           <li>
-            <a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+            <a class="padding-16" href="#">{{title}}</a>
           </li>
-          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
-          </li>
-          <li>
-            <a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
-          </li>
-          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
-          </li>
+          {{/each}}
         </ol>
       </div>
       <div class="half col padding-large">
         <ol start="6">
-          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
+          {{#each trendCol2}}
+          <li><a class="padding-16" href="#">{{title}}</a>
           </li>
-          <li>
-            <a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
-          </li>
-          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
-          </li>
-          <li>
-            <a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
-          </li>
-          <li><a class="padding-16" href="#">Canelo, Jacobs pulled apart at weigh-in</a>
-          </li>
+          {{/each}}
         </ol>
       </div>
     </div>
@@ -298,24 +289,6 @@
         <a id="facebook" href="#">
           <i class="fa fa-facebook icon" aria-hidden="true"></i>
           <span>Facebook</span>
-        </a>
-      </li>
-      <li>
-        <a id="twitter" href="#">
-          <i class="fa fa-twitter icon" aria-hidden="true"></i>
-          <span>Twitter</span>
-        </a>
-      </li>
-      <li>
-        <a id="youtube" href="#">
-          <i class="fa fa-youtube-play icon" aria-hidden="true"></i>
-          <span>Youtube</span>
-        </a>
-      </li>
-      <li>
-        <a id="instagram" href="#">
-          <i class="fa fa-instagram icon" aria-hidden="true"></i>
-          <span>Instagram</span>
         </a>
       </li>
     </ul>

@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Post</title>
-      <link rel="stylesheet" href="/stylesheet/style.css">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheet/style.css">
 </head>
   <body>
     <!--HEADER -->
@@ -181,14 +182,15 @@
           </ul>
         </div>
     </div>
-
+    {{#post}}
     <!-- BODY -->
     <div id="body" class="container-post padding-32">
     	<!-- POST -->
           	<!-- HEADER POST -->
       <div class="body-post">
         <h1 class="padding-16 xxlarge" style="line-height: 40px;">
-          Jared Kushner: Trump's son-in-law directed Michael Flynn to contact Russia - report  </h1>
+          {{title}}  
+        </h1>
         <p class="text-grey medium">Jared Kushner named in reports as the "very senior" member of the Trump transition team who told Michael Flynn to contact Russia.</p>
         <div class="row text-grey small padding-16">
           <i class="fa fa-clock-o large" aria-hidden="true"></i>Saturday 2 December 2017 14:16, UK
@@ -203,10 +205,9 @@
             <!-- CONTENT POST -->
       <div class="white padding-16">
         <div class="pic clearfix">
-           <img src="../public/images/post/pic1.jpg">
-          <p class="des padding-16 text-grey ">According to US media reports, Donald Trump's son-in-law, Jared Kushner (R), advised Michael Flynn to reach out to officials from Russia</p>
+           <img src="./images/post/pic1.jpg">
+          <p class="des padding-16 text-grey ">{{summary}}</p>
         </div>
-
       		  <!--FEED BACK -->
         <div style="display: flex;" class="feedback-bar clearfix padding-16">
           <div class="feedback-icon">
@@ -234,68 +235,60 @@
         <!-- BODY POST -->
         <div class="body-post padding-16">
           <p class="bold">
-        The criminal investigation into alleged links between the Trump presidential election campaign and Russia appears to have moved deeper into the White House.
+           1 - {{post.paragraph-bold}}
           </p>
           <p>
-            Donald Trump's son-in-law and senior aide Jared Kushner has been named in US media as the "very senior" member of the President's transition team who directed former national security adviser Michael Flynn to reach out to Russia.
+           2 - {{post.paragraph-first}}.
           </p>
           <p>
-            This was in an attempt to delay or defeat a UN resolution on Israeli settlements before Mr Trump took office, according to reports.
-The allegation comes as Mr Flynn pleaded guilty to lying to the FBI over his conversations last December with the Russian ambassador to the US, Sergey Kislyak.
-As part of the plea agreement, retired three-star general Mr Flynn has agreed to co-operate with an investigation led by special counsel Robert Mueller.
+           3- {{post.paragraph-second}}
           </p>
         </div>
         <div class="pic">
-          <img src="../public/images/post/pic2.jpg">
+          <img src="./images/post/pic2.jpg">
           <div class="des padding-16">
             Mr Flynn has said members of the president's inner circle were intimately involved with - and at times directing - his contacts
           </div>
         </div>
       </div>
-          <!-- GALLERY POSTS --->
+      <!-- COMMENT --->
       <div class="container-post body-post padding-16 clearfix">
-        <div class="linebreak">
-          <h2>More from Sky</h2>
-          <div>
-            <a class="gallery half col">
-              <div class="img-container">
-                <img src="../public/images/post/gallery_new1.jpg">
-                <div class="category">
-                  <img src="../public/images/skysports_tag.png">
-                </div>
-              </div>
-              <div class="des">Saqib Mahmood becomes first Lancashire player to take successive List A...</div>
-            </a>
-            <a class="gallery half col">
-              <div class="img-container">
-                <img src="../public/images/post/gallery_new2.jpg">
-                <div class="category">
-                  <img src="../public/images/skynews_tag.png">
-                </div>
-              </div>
-              <div class="des">Game Of Thrones review: The heroes of The Battle Of Winterfell</div>
-            </a>
-          </div>
-        </div>
+        <h1 class="des" style="color: blue; text-align:center;">Add New Comment</h1>
+        <form action="/campgrounds/<%=campground._id%>/comments" method="POST">
+          <textarea rows="4" cols="50" name="comment[text]" class="form-control mt-3 des">
+          </textarea>
+          <button class="btn btn-primary mt-3 des" style="hover: background-color:blue"> Submit!</button>
+        </form>
       </div>
+
+      <div class="card card-header container-post body-post padding-16 clearfix">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>username</strong>
+                            <span class="float-right">10 days ago</span>
+                            <p class="des">asdsadsadsadsa dsa dsa dsad sad sad sadsad sad sad sad sad sadsadsadsadsad sad sad sad sad </p>
+                          </div>
+                    </div>
+            </div>
+      <!-- GALLERY POSTS --->
       <div class="container-post body-post padding-16 clearfix">
         <div class="linebreak">
           <h2>More from Sky</h2>
           <div>
             <a class="gallery half col">
               <div class="img-container">
-                <img src="../public/images/post/gallery_new1.jpg">
+                <img src="./images/post/gallery_new1.jpg">
                 <div class="category">
-                  <img src="../public/images/skysports_tag.png">
+                  <img src="./images/skysports_tag.png">
                 </div>
               </div>
               <div class="des">Saqib Mahmood becomes first Lancashire player to take successive List A...</div>
             </a>
             <a class="gallery half col">
               <div class="img-container">
-                <img src="../public/images/post/gallery_new2.jpg">
+                <img src="./images/post/gallery_new2.jpg">
                 <div class="category">
-                  <img src="../public/images/skynews_tag.png">
+                  <img src="./images/skynews_tag.png">
                 </div>
               </div>
               <div class="des">Game Of Thrones review: The heroes of The Battle Of Winterfell</div>
@@ -304,6 +297,32 @@ As part of the plea agreement, retired three-star general Mr Flynn has agreed to
         </div>
       </div>
 
+      <div class="container-post body-post padding-16 clearfix">
+        <div class="linebreak">
+          <h2>More from Sky</h2>
+          <div>
+            <a class="gallery half col">
+              <div class="img-container">
+                <img src="./images/post/gallery_new1.jpg">
+                <div class="category">
+                  <img src="./images/skysports_tag.png">
+                </div>
+              </div>
+              <div class="des">Saqib Mahmood becomes first Lancashire player to take successive List A...</div>
+            </a>
+            <a class="gallery half col">
+              <div class="img-container">
+                <img src="./images/post/gallery_new2.jpg">
+                <div class="category">
+                  <img src="./images/skynews_tag.png">
+                </div>
+              </div>
+              <div class="des">Game Of Thrones review: The heroes of The Battle Of Winterfell</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      {{/post}}
     </div>
     <!-- FOOTER -->
     <div id="footer" class="white text-grey">
