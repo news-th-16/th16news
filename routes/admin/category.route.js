@@ -4,17 +4,10 @@ const middleware = require('../middleware');
 var router = express.Router();
 
 router.get('/admin', (req, res) => {
-    model.all()
-        .then(
-            rows => {
-                // console.log(rows);
-                return res.render('admin/category', {
-                    layout: 'admin.handlebars',
-                    layoutsDir: 'views/layouts',
-                    categories: rows
-                });
-            }
-        );
+    return model.all()
+        .then(data => {
+            return res.send('asd');
+        })
 });
 router.post('/admin/insert', (req, res) => {
     model.insert(req.body)

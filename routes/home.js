@@ -32,7 +32,7 @@ const trendCol2 = [
     newsTitle, newsTitle, newsTitle, newsTitle, newsTitle
 ]
 //=========================//
-router.get('/',middleware.requireLogin,(req, res) => {
+router.get('/', (req, res) => {
     News.find({}, (err, story) => {
         res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts', data: story, top, topNews, trendCol1, trendCol2 })
     })

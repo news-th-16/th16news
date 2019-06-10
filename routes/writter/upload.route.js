@@ -14,7 +14,7 @@ cloudinary.config({
 
 var $ = require('jquery');
 
-router.get('/', middleware.requireLogin, (req, res) => {
+router.get('/',  (req, res) => {
     res.render('writter/home',{
         layout: 'writter.hbs',
         layoutsDir: 'views/layouts',
@@ -28,11 +28,11 @@ router.get('/upload', (req, res) => {
     });
 })
 
-router.get('/upload/getTag', (req, res) => {
-    tagModel.all()
+router.get('/upload/getTag' ,(req, res) => {
+    return tagModel.all()
         .then(
             rows => {
-                res.send(rows);
+                return res.send(rows);
             }
         )
         .catch(

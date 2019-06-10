@@ -103,11 +103,34 @@ app.post('/upload', upload.single('flFileUpload'), async (req, res, next) => {
 
     res.redirect("back")
 });
-app.use(function(req,res,next){
-    res.locals.currentUser = req.user;
-    next();
-})
+function requireLogin(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+
+    const returnUrl = encodeURIComponent(req.originalUrl);
+    let loginUrl;
+
+    if (req.path !== '/login') {
+        loginUrl = `/login?returnUrl=${returnUrl}`;
+    }
+
+    return res.redirect(loginUrl);
+}
+
+function initLocals(req, res, next) {
+    res.locals.user = req.user || {};
+    return next();
+}
+
+
 // //ROUTES FOR GUEST
+app.use('/', authRoutes);
+
+app.use(requireLogin);
+app.use(initLocals);
+
+
 //LAST ROUTES - ALWAYS
 app.use('/', homeRoutes);
 app.use('/', postRoutes);
@@ -116,7 +139,7 @@ app.use('/', postRoutes);
 app.use('/writter', require('./routes/writter/upload.route'))
 app.use('/', require('./routes/admin/category.route'));
 
-app.use('/', authRoutes);
+
 // seedDB();
 app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');
