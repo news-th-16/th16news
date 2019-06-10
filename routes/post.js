@@ -1,5 +1,6 @@
 var express = require('express');
-const News = require('../models/news')
+const News = require('../models/news');
+const middleware = require('./middleware');
 var router = express.Router();
 //=============FOR TESTING====//
 const story2 = {
@@ -17,7 +18,7 @@ const top = {
     title: "Crucial moment for Trump's presidency as Mueller report released"
 }
 const topNews = [
-    news, news, news, news, news, news, news, news, news, 
+    news, news, news, news, news, news, news, news, news,
 ]
 const topStories = [story2, story2, story2];
 
@@ -31,9 +32,10 @@ const trendCol2 = [
     newsTitle, newsTitle, newsTitle, newsTitle, newsTitle
 ]
 //=========================//
-router.get('/:id', (req, res) => {
+router.get('/post/:id',middleware.requireLogin ,(req, res) => {
     News.find({_id:  req.params.id}, (err, post) => {
         res.render('post.handlebars', { 'post': post});
     })
 })
+
 module.exports = router;

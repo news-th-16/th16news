@@ -1,0 +1,9 @@
+/.idea
+/node_modules
+/sessions/*
+/sessions
+/.vscode
+/.nyc_output
+/package-lock.json
+/coverage
+.vs
