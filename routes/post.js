@@ -33,9 +33,10 @@ const trendCol2 = [
 ]
 //=========================//
 router.get('/post/:id',middleware.requireLogin ,(req, res) => {
-    News.find({_id:  req.params.id}, (err, post) => {
+    News.findById({_id:  req.params.id}).populate("comment").exec((err, post) => {
+        console.log(post);
         res.render('post.handlebars', { 'post': post});
-    })
+    });
 });
 
 

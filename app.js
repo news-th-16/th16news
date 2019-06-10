@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const homeRoutes = require('./routes/home');
 const postRoutes = require('./routes/post');
+const commentRoutes = require('./routes/comment');
 const passport = require('passport');
 const LocalStrategy = require("passport-local");
 const User = require('./models/user');
@@ -134,11 +135,11 @@ app.use(initLocals);
 //LAST ROUTES - ALWAYS
 app.use('/', homeRoutes);
 app.use('/', postRoutes);
+app.use('/', commentRoutes);
 
 //ROUTES FOR ADMIN
 app.use('/writter', require('./routes/writter/upload.route'))
 app.use('/', require('./routes/admin/category.route'));
-
 
 seedDB();
 app.listen(3000, () => {

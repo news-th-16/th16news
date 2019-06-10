@@ -183,6 +183,7 @@
         </div>
     </div>
     <!-- BODY -->
+    {{#post}}
     <div id="body" class="container-post padding-32">
     	<!-- POST -->
           	<!-- HEADER POST -->
@@ -253,7 +254,7 @@
       <!-- COMMENT --->
       <div class="container-post body-post padding-16 clearfix">
         <h1 class="des" style="color: blue; text-align:center;">Add New Comment</h1>
-        <form action="/posts/<%=post._id%>/comments" method="POST">
+        <form action="/post/{{_id}}/comments" method="POST">
           <textarea rows="4" cols="50" name="comment[text]" class="form-control mt-3 des">
           </textarea>
           <button class="btn btn-primary mt-3 des" style="hover: background-color:blue"> Submit!</button>
@@ -261,13 +262,17 @@
       </div>
 
       <div class="card card-header container-post body-post padding-16 clearfix">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <strong>username</strong>
-                            <span class="float-right">10 days ago</span>
-                            <p class="des">asdsadsadsadsa dsa dsa dsad sad sad sadsad sad sad sad sad sadsadsadsadsad sad sad sad sad </p>
-                          </div>
-                    </div>
+        {{#each comment}}
+          <div class="row">
+            <div class="col-md-12">
+              {{#author}}
+              <strong>{{username}}</strong>
+              {{/author}}
+                <span class="float-right">10 days ago</span>
+                  <p class="des">{{text}}</p>
+            </div>
+          </div>
+        {{/each}}
       </div>
       
       <!-- GALLERY POSTS --->
