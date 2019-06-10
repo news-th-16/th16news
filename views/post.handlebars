@@ -191,64 +191,21 @@
         <h1 class="padding-16 xxlarge" style="line-height: 40px;">
           {{title}}  
         </h1>
-        <p class="text-grey medium">Jared Kushner named in reports as the "very senior" member of the Trump transition team who told Michael Flynn to contact Russia.</p>
-        <div class="row text-grey small padding-16">
-          <i class="fa fa-clock-o large" aria-hidden="true"></i>Saturday 2 December 2017 14:16, UK
+        <p class="text-grey medium">{{summary}}</p>
+        <div class="text-grey small padding-16">
+          <i class="fa fa-clock-o large" aria-hidden="true"></i>{{createdate}}
+          {{#each tag}}
           <a href="#" class="right tag">
-            UNITED STATES
+            {{this}}
           </a>
-          <a href="#" class="right tag">
-            DONALD TRUMP
-          </a>
+          {{/each}}
         </div>
       </div>
             <!-- CONTENT POST -->
       <div class="white padding-16">
-        <div class="pic clearfix">
-           <img src="./images/post/pic1.jpg">
-          <p class="des padding-16 text-grey ">{{summary}}</p>
-        </div>
-      		  <!--FEED BACK -->
-        <div style="display: flex;" class="feedback-bar clearfix padding-16">
-          <div class="feedback-icon">
-            <a id="facebook" href="#" style="padding-left:4.5px;">
-              <i class="fa fa-facebook icon" aria-hidden="true"></i>
-            </a>
-          </div>
-          <div class="feedback-icon">
-            <a id="twitter" href="#">
-              <i class="fa fa-twitter icon" aria-hidden="true"></i>
-            </a>
-          </div>
-          <div class="feedback-icon">
-            <a id="youtube" href="#">
-              <i class="fa fa-youtube-play icon" aria-hidden="true"></i>
-            </a>
-          </div>
-          <div class="feedback-icon">
-            <a id="instagram" href="#">
-              <i class="fa fa-instagram icon" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-
         <!-- BODY POST -->
         <div class="body-post padding-16">
-          <p class="bold">
-           1 - {{post.paragraph-bold}}
-          </p>
-          <p>
-           2 - {{post.paragraph-first}}.
-          </p>
-          <p>
-           3- {{post.paragraph-second}}
-          </p>
-        </div>
-        <div class="pic">
-          <img src="./images/post/pic2.jpg">
-          <div class="des padding-16">
-            Mr Flynn has said members of the president's inner circle were intimately involved with - and at times directing - his contacts
-          </div>
+          {{{content}}}
         </div>
       </div>
       <!-- COMMENT --->

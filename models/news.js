@@ -4,6 +4,9 @@ const newsSchema = new mongoose.Schema({
     title: String,
     imageURL: String,
     summary: String,
+    tag: Array,
+    content: String,
+    createdate: String,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
