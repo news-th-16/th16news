@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  
+  <link rel="stylesheet" href="/stylesheet/post_new_style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/stylesheet/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <script src="/assets/script/vendor/jquery/jquery.min.js"></script>
+  <script src="/assets/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+  <script src="/tagsinput/src/bootstrap-tagsinput.js"></script>
+  <link rel="stylesheet" href="/tagsinput/src/bootstrap-tagsinput.css">
+  <script src="/typeahead.js"></script>
+  {{{_sections.css}}}
+</head>
+
+<body>
+  <!--Top Bar -->
+  <div id="topbar" class="display-flex top-fixed small text-grey"
+    style="align-content:center;
+         background-image: linear-gradient(0, rgba(0, 0, 0, 0.3), transparent 76%), linear-gradient(90deg, rgb(18, 45, 104), rgb(18, 45, 104) 10%, rgb(214, 23, 38) 0px, rgb(214, 23, 38)) !important;">
+    <a href="#" style="width: 25%;">
+      <img style="margin-left: 3.5px; margin-top:10px;" src="/images/home/logo.png" />
+    </a>
+    <a href="#home" class="button text-white " style="width:25%;
+      background: rgb(214, 23, 38) ">
+      HOME
+    </a>
+    <a href="#about" class="button text-white " style="width:25%">
+      ABOUT
+    </a>
+    <a href="#photos" class="button text-white" style="width:25%">
+      HISTORY
+    </a>
+
+  </div>
+
+  <!--Side Bar-->
+  <div id="sidebar" class="left-fixed side-bar text-white small" style="width:110px;">
+    <img class="bar-item clearfix display-block" src="/images/skysports_logo.png" style="height: 75px;">
+    <a class="clearfix bar-item padding-large  padding-large button bar-icon">
+      <div style="font-size: 30px;">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </div>
+      HOME
+    </a>
+    <a class="clearfix bar-item padding-large button bar-icon">
+      <div style="font-size: 30px;">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </div>
+      ABOUT
+    </a>
+    <a class="clearfix bar-item padding-large button bar-icon">
+      <div style="font-size: 30px;">
+        <i class="fa fa-history" aria-hidden="true"></i>
+      </div>
+      HISTORY
+    </a>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div id="page-content" style="position:relative">
+    <div style="height:100%;width:100%; max-width:1000px; margin:auto;">
+
+      <!--Poster -->
+      <div id="home" class="container" style="margin-top:32px;">
+        <div style="width: 100%;">
+          {{{body}}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="success_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 300px;">
+      <div class="modal-content text-center bg-success">
+        <h6 class="modal-title text-white" style="padding: 16px 0px;">Thành công!</h6>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    function NotifySuccess() {
+        $('#success_dialog').modal('toggle');
+        setTimeout(function () {
+            $('#success_dialog').modal('toggle');
+        }, 1000);
+    }
+  </script>
+  {{{_sections.js}}}
+</body>
+
+</html>

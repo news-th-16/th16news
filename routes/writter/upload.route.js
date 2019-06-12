@@ -4,7 +4,6 @@ var categoryModel = require('../../models/category.model');
 var postModel = require('../../models/post.model');
 var tagModel = require('../../models/tag.model');
 var path = require('path');
-const middleware = require('../../routes/middleware');
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
     cloud_name: 'dgyfgfdax',
@@ -14,8 +13,8 @@ cloudinary.config({
 
 var $ = require('jquery');
 
-router.get('/',  (req, res) => {
-    res.render('writter/home',{
+router.get('/', (req, res) => {
+    res.render('writter/home', {
         layout: 'writter.hbs',
         layoutsDir: 'views/layouts',
     })
@@ -23,16 +22,16 @@ router.get('/',  (req, res) => {
 
 router.get('/upload', (req, res) => {
     res.render('writter/uploadpost', {
-        layout: 'writter.hbs',
+        layout: 'writter.handlebars',
         layoutsDir: 'views/layouts',
     });
 })
 
-router.get('/upload/getTag' ,(req, res) => {
-    return tagModel.all()
+router.get('/upload/getTag', (req, res) => {
+    tagModel.all()
         .then(
             rows => {
-                return res.send(rows);
+                res.send(rows);
             }
         )
         .catch(
@@ -45,12 +44,20 @@ router.get('/upload/getTag' ,(req, res) => {
 
 router.post('/upload', async (req, res) => {
 
-    var data = req.body;
+    var data = {
+        "categoryid": req.body.categoryid,
+        "title": req.body.title,
+        "summary": req.body.summary,
+        "tag": req.body.tag,
+        "content": req.body.content,
+        "createdate" : req.body.createdate,
+        "image": "",
+    }
     var content = data.content;
 
     var para = content.split("</p>");
     var list = [];
-
+    var a = [];
     for (i = 0; i < para.length; i++) {
         if (para[i].indexOf("img") != -1) {
 
@@ -65,9 +72,10 @@ router.post('/upload', async (req, res) => {
         var dir = path.join('public', list[i]);
         var result = await cloudinary.uploader.upload(dir);
         var url = result.secure_url;
+        a.push(url);
         content = content.replace(list[i], url);
     }
-
+    data.image = a[0];
     data.content = content;
 
     postModel.insert(data)
@@ -103,7 +111,7 @@ router.get('/upload/watch/:id', (req, res) => {
             result => {
                 console.log(`Getbyid: ${result}`);
                 res.render('writter/watchpost', {
-                    layout: 'writter.hbs',
+                    layout: 'writter.handlebars',
                     layoutsDir: 'views/layouts',
                     model: result,
                 })
@@ -131,7 +139,7 @@ router.get('/upload/edit/:id', (req, res) => {
                 result => {
                     console.log(`post: ${result}`);
                     res.render('writter/edit', {
-                        layout: 'writter.hbs',
+                        layout: 'writter.handlebars',
                         layoutsDir: 'views/layouts',
                         post: result,
                     });
