@@ -1,15 +1,15 @@
 var express = require('express');
 var model = require('../../models/category.model');
-const middleware = require('../middleware');
+//const middleware = require('../middleware');
 var router = express.Router();
 
-router.get('/admin', (req, res) => {
-    return model.all()
+router.get('/', (req, res) => {
+    model.all()
         .then(data => {
-            return res.send('asd');
+            res.end('hi');
         })
 });
-router.post('/admin/insert', (req, res) => {
+router.post('/insert', (req, res) => {
     model.insert(req.body)
         .then(
             result => {
@@ -24,7 +24,7 @@ router.post('/admin/insert', (req, res) => {
             }
         )
 });
-router.post('/admin/update', middleware.requireLogin, (req,res)=>{
+router.post('/update', (req,res)=>{
     var id = req.body._id;
     console.log(req.body);
     model.update(id,req.body)

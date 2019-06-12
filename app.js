@@ -3,24 +3,27 @@ var exphbs = require('express-handlebars');
 var hbs = require('hbs');
 var app = express();
 const mongoose = require('mongoose');
-const authRoutes = require('./routes/auth');
+/*const authRoutes = require('./routes/auth');*/
 const homeRoutes = require('./routes/home');
 const postRoutes = require('./routes/post');
 const commentRoutes = require('./routes/comment');
-const passport = require('passport');
-const LocalStrategy = require("passport-local");
-const User = require('./models/user');
 const bodyParser = require('body-parser');
-const session = require("express-session");
-var seedDB= require("./seeds");
+//const passport = require('passport');
+//const LocalStrategy = require("passport-local");
+//const User = require('./models/user');
 
-mongoose.connect('mongodb://localhost:27017/news', { useNewUrlParser: true });
+//const session = require("express-session");
+var seedDB= require("./seeds");
+mongoose.connect('mongodb://localhost:27017/News', { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 app.use(express.json());
 
+
+// === Nguyên: passport -> Chuyển qua file midlewares/passport.js  của Ngọc
+/*
 //config passport
 app.use(session ({
     secret  :"Im the best session",
@@ -33,10 +36,13 @@ app.use(passport.session());
 passport.use('local',new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+*/
 
-app.engine('hbs', exphbs({
-    /*defaultLayout:'main.hbs',
-    layoutsDir: 'views/_layouts'*/
+// ==== Nguyên: passport
+
+// ==== Ngọc: app.engine -> chuyển qua file riêng middleware/view-engine. 
+
+app.engine('handlebars', exphbs({
 
     helpers: {
         counter: (index) => {
@@ -50,18 +56,10 @@ app.engine('hbs', exphbs({
     }
 }));
 
-//For using CkEditor
+//=== Phần này không được thay đổi
 var fs = require('fs');
 var path = require('path');
 var crypto = require('crypto');
-/*
-const cloudinary = require('cloudinary').v2;
-cloudinary.config({
-    cloud_name: 'dgyfgfdax',
-    api_key: '988836728562895',
-    api_secret: 'dP3dN45w3AGxJyjYbm39vKL7v1w'
-});*/
-
 const multer = require('multer');
 var storage = multer.diskStorage({
     destination: 'public/upload/',
@@ -96,21 +94,24 @@ app.get('/files', function (req, res) {
 //upload image to folder upload
 
 app.post('/upload', upload.single('flFileUpload'), async (req, res, next) => {
-    console.log(req.file);
-    //var path = 'public/upload/2185839360.jpg';
-
-    const result = await cloudinary.uploader.upload(req.file.path);
-    console.log(result);
-
     res.redirect("back")
 });
+
+// ====/> 
+
+//== Authenticate của Nguyên: Ngọc làm qua file mới lưu local : middlewares/auth
+/*
 function requireLogin(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
 
-    const returnUrl = encodeURIComponent(req.originalUrl);
-    let loginUrl;
+const returnUrl = encodeURIComponent(req.originalUrl);
+let loginUrl;
+
+const authRoutes = require('./routes/auth');
+const passport = require('passport');
+const LocalStratery = require("passport-local");
 
     if (req.path !== '/login') {
         loginUrl = `/login?returnUrl=${returnUrl}`;
@@ -123,14 +124,19 @@ function initLocals(req, res, next) {
     res.locals.user = req.user || {};
     return next();
 }
+*/
+// ======/>
 
 
-// //ROUTES FOR GUEST
+// === Nguyên part: ROUTES FOR GUEST
+/*
 app.use('/', authRoutes);
 
 app.use(requireLogin);
 app.use(initLocals);
 
+
+app.use('/admin', require('./routes/admin/home.route'));
 
 //LAST ROUTES - ALWAYS
 app.use('/', homeRoutes);
@@ -140,8 +146,35 @@ app.use('/', commentRoutes);
 //ROUTES FOR ADMIN
 app.use('/writter', require('./routes/writter/upload.route'))
 app.use('/', require('./routes/admin/category.route'));
+// == Nguyên part: phần config này trong file middlewares/passport
+//config passport
+/*
+app.use(require("express-session")({
+    secret  :"Im the best session",
+    resave:"false",
+    saveUninitialized:"false"
+ }));
+ app.use(passport.initialize());
+ app.use(passport.session());
+ passport.use(new LocalStratery(User.authenticate()));
+ passport.serializeUser(User.serializeUser());
+ passport.deserializeUser(User.deserializeUser());
+ */
+// ==/>
 
-seedDB();
+ //Use routes
+
+/*app.get('/admin/category',(req,res,end)=>{
+    res.end('Hi');
+    
+})*/
+//app.use('/', authRoutes);
+//seedDB();
+app.get('/', (req, res) => {
+    res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
+})
+app.use('/admin', require('./routes/admin/home.route'));
+
 app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');
 })
