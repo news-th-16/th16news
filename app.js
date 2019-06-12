@@ -179,7 +179,7 @@ app.use(require("express-session")({
     res.end('Hi');
 
 })*/
-//app.use('/', authRoutes);
+app.use('/', authRoutes);
 //seedDB();
 app.get('/', (req, res) => {
     res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
@@ -195,6 +195,6 @@ app.use('/writter', require('./routes/writter/upload.route'));
 app.use('/editor',editor_authenticate,require('./routes/editor/editor.route'));
 
 
-app.listen(3000, () => {
+app.listen(3100, () => {
     console.log('Web Server is running at http://localhost:3000');
 })

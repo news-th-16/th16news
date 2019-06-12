@@ -6,7 +6,6 @@ const _ = require('lodash');
 const sgMail = require('@sendgrid/mail');
 
 router.get("/forgot_password", function(req, res) {
-    console.log(req.headers.host);
     res.render('forgot_password')
 });
 
