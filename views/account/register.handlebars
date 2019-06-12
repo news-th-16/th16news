@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/assets/script/vendor/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheet/login.css">
+    <title>Register</title>
+     {{{_sections.css}}}
+</head>
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    $(function(){
+        $('#registerForm').validate({
+            rules: {
+                username: {
+                    required: true,
+                    remote: {
+                        url: '/account/is-available',
+                    }
+                },
+                password: {
+                    required: true,
+                    minlength: 6,
+                },
+                confirm_password: {
+                    required: true,
+                    equalTo: $('[name=password]')
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+            },
+            
+            messages: {
+                username: {
+                    required: 'Your username is required',
+                    remote: 'Your username has been used, please use another one'
+                },
+                password: {
+                    required: 'Your password is required',
+                },
+                confirm_password: {
+                    required: 'Your confirm is required',
+                },
+                email: {
+                    required: 'Your username is required',
+                    email: 'Please enter a valid email address',
+                },
+            },  
+            errorElement: 'small',
+            errorClass: 'help-block text-danger left',
+            validClass: 'is-valid',
+            highlight: function(e){
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function(e){
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    })
+</script>
+
+
+{{/section}}
+
+
+
+<body class="hold-transaction login-page">
+    <div class="login-box">
+        <div class="login-box-body" style="border-radius: 8px;">
+            <p class="login-box-msg"><h4>Register</h4>
+                <form  method="POST" id="registerForm">
+                    <div class="help-block"><span class="text-primary"></span></div>
+                    <div class="form-group has-feedback"><input class="form-control" type="text" placeholder="Username" name="username"><span class="glyphicon glyphicon-user form-control-feedback"></span></div>
+                    <div class="form-group has-feedback"><input class="form-control" type="text" placeholder="Email" name="email"><span class="glyphicon glyphicon-user form-control-feedback"></span></div>
+                    <div class="form-group has-feedback"><input class="form-control" type="password" placeholder="Password" name="password"><span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        <div class="help-block"><span class="text-danger"></span></div>
+                    </div>
+                    <div class="form-group has-feedback"><input class="form-control" type="password" placeholder="Confirm Password" name="confirm_password"><span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        <div class="help-block"><span class="text-danger"></span></div>
+                    </div>
+                    <div class="checkbox icheck clearfix "><label class="pull-left"><input type="checkbox" name="remember">&nbsp;
+                        I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a>
+                    </label>
+                    <div class=" clearfix" >
+                        <button class="btn btn-primary btn-block btn-flat" type="submit">Register</button></div>
+                </form>
+            </p>
+        </div>
+    </div>
+    <div class="text-center text-white">Already have an account? <a href="#">Sign in</a></div>
+    <div style="clear: both;"></div>
+
+    <script>
+
+    </script>
+    {{{_sections.js}}}
+</body>
+
+</html>

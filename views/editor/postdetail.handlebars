@@ -1,0 +1,553 @@
+<title>{{title}}</title>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<style>
+    .bootstrap-tagsinput input {
+        display: none;
+    }
+
+    /*
+    .bootstrap-tagsinput {
+        border: none;
+        box-shadow: none;
+    }*/
+
+    .twitter-typeahead .tt-query,
+    .twitter-typeahead .tt-hint {
+        margin-bottom: 0;
+    }
+
+    .tt-hint {
+        display: block;
+        width: 100%;
+        height: 38px;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #999;
+        vertical-align: middle;
+        background-color: #ffffff;
+        border: 1px solid black;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+
+    .tt-dropdown-menu {
+        min-width: 160px;
+        margin-top: 2px;
+        padding: 5px 0;
+        background-color: black;
+        border: 1px solid black;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        background-clip: padding-box;
+
+    }
+
+    .tt-menu {
+        /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
+        width: 320px;
+        margin-top: 0px;
+        padding: 8px 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    }
+
+    .tt-suggestion.tt-cursor {
+        /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+        color: #fff;
+        background-color: #0097cf;
+
+    }
+
+    .tt-suggestion {
+        display: block;
+        padding: 3px 20px;
+    }
+
+    .tt-suggestion.tt-is-under-cursor {
+        color: #fff;
+        background-color: #428bca;
+    }
+
+    .tt-suggestion.tt-is-under-cursor a {
+        color: #fff;
+    }
+
+    .tt-suggestion p {
+        margin: 0;
+    }
+</style>
+<div id="body" class="container-post padding-32">
+    <!-- POST -->
+    <!-- HEADER POST -->
+    <div id="postid" style="display:none">{{model._id}}</div>
+    <div id="catid" style="display:none">{{model.categoryid}}</div>
+    <div id="ispublish" style="display:none">{{model.publish}}</div>
+    <div class="body-post">
+        <h1 class="padding-16 xxlarge" style="line-height: 40px;">
+            {{model.title}}
+        </h1>
+        <p class="text-grey medium">
+            {{{model.summary}}}
+        </p>
+        <div class="text-grey small">
+            <i class="fa fa-clock-o large" aria-hidden="true" style="margin-top:8px;"></i><span id="datetime"
+                style="padding-left: 5px;"></span>
+            <span class="text-grey" style="font-size:14px; right:120px; position:absolute;">
+                {{#if model.tag}}
+                <span>Sự kiện: </span>
+                {{{gettag model.tag}}}
+                {{/if}}
+            </span>
+
+        </div>
+    </div>
+
+    <!-- CONTENT POST -->
+    <div class="white padding-16">
+        <!--FEED BACK -->
+        <div style="display: flex; margin-left: 100px; margin-bottom:20px;" class="feedback-bar clearfix padding-16">
+            <div class="feedback-icon">
+                <a id="facebook" href="#" style="padding-left:4.5px;">
+                    <i class="fa fa-facebook icon" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="feedback-icon">
+                <a id="twitter" href="#">
+                    <i class="fa fa-twitter icon" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="feedback-icon">
+                <a id="youtube" href="#">
+                    <i class="fa fa-youtube-play icon" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="feedback-icon">
+                <a id="instagram" href="#">
+                    <i class="fa fa-instagram icon" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- BODY POST -->
+        <div class="body-post padding-16">
+            {{{model.content}}}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delete_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa bài viết</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div>
+                        <label class="control-label">Nhập từ <span class="text-danger bold">'YES'</span> để xóa bài
+                            viết</label>
+                        <div>
+                            <input id="verify" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="delete" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="publish_dialog" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Duyệt bài viết</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <h6 class="text-center">Hiệu chỉnh thông tin bài viết</h6>
+                    <div class="form-group">
+                        <label><i class="fa fa-list-ul" aria-hidden="true"></i> Chuyên mục</label>
+                        <div>
+                            <select class="form-control" id="categories"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa fa-tags" aria-hidden="true"></i> Dán nhãn</label>
+                        <div>
+                            <input type="text" data-role="tagsinput" id="tags" />
+                            <a href="#addtag_dialog" role="button" class="btn btn-sm btn-light"
+                                data-toggle="modal">+</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa fa-calendar" aria-hidden="true"></i> Thời điểm xuất bản</label>
+                        <input id="datetimepicker" class="form-control" type="text">
+                        <script type="text/javascript">
+                            $('#datetimepicker').datetimepicker({
+                                format: 'd/m/Y H:i',
+                            })
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="publish" class="btn btn-primary" type="button">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-child" id="addtag_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm dán nhãn</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="the-basics">
+                    <span style="float: left;">
+                        <input id="input_tag" class="typeahead" type="text" style="width: 200px;" placeholder="Tag...">
+                    </span>
+                    <span>
+                        <button id="btn_opendrop" class="btn btn-light btn-outline-dark btn-sm" type="button">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                        <button id="btn_closedrop" class="btn btn-light btn-outline-dark btn-sm" type="button"
+                            style="display:none;">
+                            <i class="fa fa-caret-up" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                    <button id="btn_add_tag" type="button" class="btn btn-sm btn-light" data-toggle="modal">+</button>
+                    <br />
+                    <span id="valid_tag" class="text-danger small" style="display: none; position:absolute;left: 15px;">
+                        Tag không có trong dữ liệu!
+                    </span>
+                    <select class="round mt-3" id="list_tag" style="display:none;" class="form-control small"></select>
+                </div>
+                <div class="mt-3">
+                    <lable>Nhãn đã thêm</lable>
+                    <input type="text" data-role="tagsinput" id="added_tags" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="add_tag" class="btn btn-primary" type="button" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="position:fixed; bottom: 20px; right:20px; z-index:3;">
+    <button id="publishpost" class="btn btn-dark btn-sm" style="" type="button">
+        <i class="fa fa-check" aria-hidden="true"></i> Duyệt bài
+    </button>
+    <button class="btn btn-dark btn-sm" id="deletepost" style="">
+        <i class="fa fa-eraser" aria-hidden="true"></i> Từ chối
+    </button>
+
+    <button id="back" class="btn btn-dark btn-sm" style="">
+        <i class="fa fa-backward" aria-hidden="true"></i> Quay về
+    </button>
+</div>
+<script src="/slugify.js"></script>
+<script type="text/javascript">
+    var tags = [];
+    var catid = $('#catid').text();
+    var id = $('#postid').text();
+    var publish = $('#ispublish').text();
+
+    $(document).ready(function () {
+        getdate();
+        $.ajax({
+            type: 'GET',
+            url: '/writter/upload/getTag',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (res, textStatus, xhr) {
+                if (xhr.status == 200) {
+                    var select = $('#list_tag');
+                    select.append($('<option>')
+                        .val(-1)
+                        .text(""));
+                    for (i = 0; i < res.length; i++) {
+                        $('#list_tag').append($('<option>')
+                            .val(res[i]._id)
+                            .text(res[i].name));
+                        tags.push(res[i].name);
+                    }
+                }
+            },
+
+        })
+
+        $('#publishpost').on('click', function () {
+            $('#publish_dialog').modal('toggle');
+        })
+
+        $('#publish').on('click', function () {
+            var tags = [];
+            var edit_tags = $('#tags').tagsinput('items');
+            for (i = 0; i < edit_tags.length; i++) {
+                tags.push(edit_tags[i].text);
+            }
+
+            var data = {
+                "categoryid": $('#categories option:selected').val(),
+                "tag": tags,
+                "publishdate": $('#datetimepicker').val(),
+            }
+            var url = $(location).attr('href');
+            var slug = slugify($('#categories option:selected').text())
+            console.log('data:', data);
+            $.ajax({
+                type: 'POST',
+                url: `${url}/publish`,
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                success: function (data, textStatus, jqXHR) {
+                    if (data.code == 200) {
+                        $('#publish_dialog').modal('toggle');
+                        NotifySuccess();
+                        $(location).attr('href',`/editor/manage-posts/${slug}`)
+                    }
+                }
+            })
+        })
+
+        $('#back').on('click', function () {
+            if (publish == 'true') {
+                $(location).attr('href', `/admin/category/${catid}/posts`);
+            }
+            else {
+                $(location).attr('href', `/admin/category/${catid}/posts/unpublished`);
+            }
+        })
+    })
+
+    function getdate() {
+        var date = new Date();
+        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var day = days[date.getDay()];
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var m = months[date.getMonth()];
+        var y = date.getFullYear();
+        var d = date.getDate();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+
+        var str = day + ' ' + d + ' ' + m + ' ' + y + ' ' + hour + ':' + min;
+
+        $('#datetime').text(str);
+    }
+</script>
+<script>
+    var elt = $('#tags');
+    elt.tagsinput({
+        itemValue: 'value',
+        itemText: 'text',
+    });
+    $('#tags').tagsinput({
+        maxTags: 3
+    });
+    $.ajax({
+        type: 'GET',
+        url: '/writter/upload/getCat',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (res, textStatus, xhr) {
+            console.log(res);
+            if (xhr.status == 200) {
+                for (i = 0; i < res.length; i++) {
+                    $('#categories').append($('<option>')
+                        .val(res[i]._id)
+                        .text(res[i].name));
+                }
+            }
+        },
+        complete: function () {
+            $('#categories option').filter(function () {
+                return $(this).val() == catid
+            }).prop('selected', true);
+        }
+    });
+    $('#publish_dialog').on('shown.bs.modal', function () {
+        $('#tags').tagsinput('removeAll');
+        var url = $(location).attr('href');
+        $.ajax({
+            type: 'GET',
+            url: `${url}/getTag`,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (res, textStatus, xhr) {
+                if (xhr.status == 200) {
+                    for (i = 0; i < res.length; i++) {
+                        elt.tagsinput('add', { "value": res[i], "text": res[i] });
+                    }
+                }
+            }
+        });
+    });
+
+    $('.modal-child').on('show.bs.modal', function () {
+        var modalParent = $(this).attr('data-modal-parent');
+        $(modalParent).css('opacity', 0);
+    });
+
+    $('.modal-child').on('hidden.bs.modal', function () {
+        var modalParent = $(this).attr('data-modal-parent');
+        $(modalParent).css('opacity', 1);
+    });
+
+    console.log($("#tags").tagsinput('items'));
+    var added_tag = $('#added_tags');
+    added_tag.tagsinput({
+        itemValue: 'value',
+        itemText: 'text',
+    });
+    $('#added_tags').tagsinput({
+        maxTags: 3
+    });
+    $('#btn_addtag').on('click', function () {
+        $('#publish_dialog')
+            .modal('hide')
+            .on('hidden.bs.modal', function (e) {
+                $('#addtag_dialog').modal('toggle');
+                
+            });
+    })
+</script>
+<script>
+    $("#btn_opendrop").on("click", function () {
+        $('#btn_closedrop').css({ 'display': 'inline-block' });
+        $('#btn_opendrop').css({ 'display': 'none' });
+        var se = $("#list_tag");
+        se.show();
+        se[0].size = 4;
+    });
+    $("#btn_closedrop").on("click", function () {
+        $('#btn_opendrop').css({ 'display': 'inline-block' });
+        $('#btn_closedrop').css({ 'display': 'none' });
+        var se = $("#list_tag");
+        se.hide();
+    });
+    $('#list_tag').on('change', function () {
+        $('#input_tag').val($('#list_tag option:selected').text());
+    })
+
+    $('#btn_add_tag').on('click', function () {
+        if ($('#added_tags').tagsinput('items').length == 3) {
+            $('#valid_tag').text('Chỉ được tối đa 3 dán nhãn!');
+            $('#valid_tag').css({ 'display': 'block' });
+            return;
+        }
+        var check = false;
+        if ($('#input_tag').val() == "") {
+            return;
+        }
+        $('#list_tag > option').each(function () {
+            if ($(this).text() == $('#input_tag').val()) {
+                check = true;
+            }
+        })
+
+        if (check == false) {
+            $('#valid_tag').text('Dán nhãn không có trong dữ liệu!');
+            $('#valid_tag').css({ 'display': 'block' })
+            return;
+        }
+        else {
+            $('#valid_tag').css({ 'display': 'none' })
+        }
+
+        if (check == true) {
+            console.log('check true');
+            added_tag.tagsinput('add', { "value": $('#input_tag').val(), "text": $('#input_tag').val() });
+        }
+    })
+
+    $('#add_tag').on('click', function () {
+        var addedtag_items = $('#added_tags').tagsinput('items');
+        var tag_items = $('#tags').tagsinput('items');
+        var check_exist = false;
+        for (i = 0; i < addedtag_items.length; i++) {
+            check_exist = false;
+            for (j = 0; j < tag_items.length; j++) {
+                if (addedtag_items[i].text == tag_items[j].text) {
+                    check_exist = true;
+                    break;
+                }
+            }
+            if (check_exist == false) {
+                $('#tags').tagsinput('add', { "value": addedtag_items[i].value, "text": addedtag_items[i].text });
+            }
+        }
+        $('#added_tags').tagsinput('removeAll');
+        $('#input_tag').val("");
+    })
+
+    $('#remove_tag').on('click', function () {
+        $("#tag option:selected").remove();
+
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var substringMatcher = function (strs) {
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+                // an array that will be populated with substring matches
+                matches = [];
+                // regex used to determine if a string contains the substring `q`
+                substrRegex = new RegExp(q, 'i');
+                // iterate through the pool of strings and for any string that
+                // contains the substring `q`, add it to the `matches` array
+                $.each(strs, function (i, str) {
+                    if (substrRegex.test(str)) {
+                        matches.push(str);
+                    }
+                });
+                cb(matches);
+            };
+        };
+
+        console.log(tags);
+        $('#the-basics .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1,
+        },
+            {
+                name: 'states',
+                source: substringMatcher(tags)
+            });
+    })
+</script>

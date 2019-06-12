@@ -2,30 +2,31 @@ var express = require('express');
 var model = require('../../models/category.model');
 var postModel = require('../../models/post.model');
 var categoryModel = require('../../models/category.model');
+var tagModel = require('../../models/tag.model');
 var router = express.Router();
 
 router.get('/', (req, res) => {
-
-    model.all()
+    tagModel.all()
         .then(
             rows => {
-                res.render('admin/category', {
+                res.render('admin/tag', {
                     layout: 'writter.handlebars',
                     layoutsDir: 'views/layouts',
-                    categories: rows,
-                    title: 'Quản lý danh mục',
+                    tag: rows,
+                    title: 'Quản lý dán nhãn',
                 });
             })
         .catch(
             err => {
-                console.log('error 2: ' + err);
+                console.log('error: ' + err);
             }
         )
 });
 
 router.post('/countpost', (req, res) => {
-    var id = req.body.catid;
-    postModel.countbycat(id)
+    var tag = req.body.tag;
+
+    postModel.countbytag(tag)
         .then(result => {
             res.send({ data: result });
         })
@@ -35,8 +36,7 @@ router.post('/countpost', (req, res) => {
 })
 
 router.post('/insert', (req, res) => {
-
-    model.insert(req.body)
+    tagModel.insert(req.body)
         .then(
             result => {
                 res.send(result);
@@ -54,9 +54,9 @@ router.post('/insert', (req, res) => {
 router.post('/update', (req, res) => {
     var id = req.body._id;
     console.log(req.body);
-    model.update(id, req.body)
+    tagModel.update(id, req.body)
         .then(result => {
-            console.log(result);
+            
             res.send(result);
         })
         .catch(err => {
@@ -67,8 +67,9 @@ router.post('/update', (req, res) => {
 
 
 
-router.get('/:id/posts', (req, res) => {
-    var catid = req.params.id;
+router.get('/:slug/posts', (req, res) => {
+    
+    var slug = req.params.slug;
     var page = req.query.page || 1;
     if (page < 1) {
         page = 1;
@@ -76,16 +77,16 @@ router.get('/:id/posts', (req, res) => {
     var limit = 6;
     var offset = (page - 1) * limit;
     Promise.all([
-        categoryModel.getbyid(catid),
-        postModel.pagebycat(catid, offset, limit, true),
-        postModel.countbycat(catid, true),
-    ]).then(([category, rows, count]) => {
+        tagModel.getbyslug(slug),
+        postModel.pagebytag(slug, offset, limit, true),
+        postModel.countbytag2(slug, true),
+    ]).then(([tag, rows, count]) => {
         var nPages = Math.floor(count / limit);
-
+        
         if (count % limit > 0) {
             nPages++;
         }
-
+        console.log('npages: ',nPages);
         var pages = [];
         for (i = 1; i <= nPages; i++) {
             var obj = { value: i, active: i === +page };
@@ -94,12 +95,12 @@ router.get('/:id/posts', (req, res) => {
         var nextPage = parseInt(page + 1);
         var prePage = parseInt(page - 1);
 
-        res.render('admin/postsbycat', {
+        res.render('admin/postsbytag', {
             layout: 'writter.handlebars',
             layoutsDir: 'views/layouts',
             title: 'Quản lý bài viết',
             posts: rows,
-            category: category,
+            tag: tag[0],
             flag: false,
             pages,
             nPages,
@@ -112,8 +113,9 @@ router.get('/:id/posts', (req, res) => {
     })
 })
 
-router.get('/:id/posts/unpublished', (req, res) => {
-    var catid = req.params.id;
+router.get('/:slug/posts/unpublished', (req, res) => {
+    var slug = req.params.slug;
+    console.log('slug: ',slug);
     var page = req.query.page || 1;
     if (page < 1) {
         page = 1;
@@ -121,11 +123,13 @@ router.get('/:id/posts/unpublished', (req, res) => {
     var limit = 6;
     var offset = (page - 1) * limit;
     Promise.all([
-        categoryModel.getbyid(catid),
-        postModel.pagebycat(catid, offset, limit, false),
-        postModel.countbycat(catid, false),
-    ]).then(([category, rows, count]) => {
+        tagModel.getbyslug(slug),
+        postModel.pagebytag(slug, offset, limit, false),
+        postModel.countbytag2(slug, false),
+    ]).then(([tag, rows, count]) => {
         var nPages = Math.floor(count / limit);
+        console.log('rows: ',rows);
+        console.log('count: ',count);
 
         if (count % limit > 0) {
             nPages++;
@@ -138,12 +142,13 @@ router.get('/:id/posts/unpublished', (req, res) => {
         }
         var nextPage = parseInt(page + 1);
         var prePage = parseInt(page - 1);
-        res.render('admin/postsbycat', {
+
+        res.render('admin/postsbytag', {
             layout: 'writter.handlebars',
             layoutsDir: 'views/layouts',
             title: 'Quản lý bài viết',
             posts: rows,
-            category: category,
+            tag:tag[0],
             flag: true,
             pages,
             nPages,

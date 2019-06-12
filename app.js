@@ -1,6 +1,5 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
-var hbs = require('hbs');
 var app = express();
 const mongoose = require('mongoose');
 /*const authRoutes = require('./routes/auth');*/
@@ -11,16 +10,22 @@ const bodyParser = require('body-parser');
 //const passport = require('passport');
 //const LocalStrategy = require("passport-local");
 //const User = require('./models/user');
-
 //const session = require("express-session");
-var seedDB= require("./seeds");
+//var seedDB= require("./seeds");
+
 mongoose.connect('mongodb://localhost:27017/News', { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({ extended: true }));
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 app.use(express.json());
-
+//=== Ngọc part 
+var hbs = require('./middlewares/view-engine');
+app.set('view engine', 'handlebars');
+app.engine('handlebars', hbs.engine)
+require('./middlewares/session')(app);
+require('./middlewares/passport')(app);
+app.use(require('./middlewares/auth-locals'));
+var viewer_authenticate = require('./middlewares/auth.viewer');
+var editor_authenticate = require('./middlewares/auth.editor');
 
 // === Nguyên: passport -> Chuyển qua file midlewares/passport.js  của Ngọc
 /*
@@ -41,7 +46,7 @@ passport.deserializeUser(User.deserializeUser());
 // ==== Nguyên: passport
 
 // ==== Ngọc: app.engine -> chuyển qua file riêng middleware/view-engine. 
-
+/*
 app.engine('handlebars', exphbs({
 
     helpers: {
@@ -54,9 +59,9 @@ app.engine('handlebars', exphbs({
         }
 
     }
-}));
+}));*/
 
-//=== Phần này không được thay đổi
+//=== Ngọc part for upload
 var fs = require('fs');
 var path = require('path');
 var crypto = require('crypto');
@@ -174,6 +179,15 @@ app.get('/', (req, res) => {
     res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
 })
 app.use('/admin', require('./routes/admin/home.route'));
+
+app.use('/account',require('./routes/account.route'));
+
+app.use('/admin', require('./routes/admin/home.route'));
+
+app.use('/writter', require('./routes/writter/upload.route'));
+
+app.use('/editor',editor_authenticate,require('./routes/editor/editor.route'));
+
 
 app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');

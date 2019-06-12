@@ -1,8 +1,4 @@
 <style>
-  body {
-    z-index: 0;
-  }
-
   .twitter-typeahead .tt-query,
   .twitter-typeahead .tt-hint {
     margin-bottom: 0;
@@ -133,9 +129,7 @@
                   </div>
                   <div style="float:left;" class="ml-3">
                     <select id="tag" class="round" size="1" style="width: 220px;">
-                      {{#each post.tag}}
-                      <option value="{{_id}}">{{name}}</option>
-                      {{/each}}
+                      {{{createoption post.tag}}}
                     </select>
                   </div>
                 </td>
@@ -236,11 +230,8 @@
       var tag = [];
 
       $('#tag > option').each(function () {
-        var option = {
-          "_id": $(this).val(),
-          "name": $(this).text(),
-        }
-        tag.push(option);
+        var name = $(this).text();
+        tag.push(name);
       })
       var data = {
         "_id": $('#postid').text(),

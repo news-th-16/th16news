@@ -1,12 +1,12 @@
 <title>{{title}}</title>
 <div class="card shadow small">
     <div class="card-header">
-        <h5 class="card-text">Quản lý danh mục</h2>
+        <h5 class="card-text">Quản lý dán nhãn</h2>
     </div>
     <div class="card-body">
 
         <div style="float:right" class="mb-3">
-            <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#addcat_dialog"
+            <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#addtag_dialog"
                 type="button">
                 <i class="fa fa-plus" aria-hidden="true"></i> Thêm danh mục
             </button>
@@ -16,7 +16,7 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Danh mục</th>
+                    <th scope="col">Dán nhãn</th>
                     <th scope="col">Số bài viết</th>
                     <th scope="col" class="text-center" style="width: 300px;">
                         <i class="fa fa-wrench" aria-hidden="true"></i> Tùy chỉnh
@@ -24,9 +24,9 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each this.categories}}
+                {{#each this.tag}}
                 <tr>
-                    <td style="display:none">{{_id}}</td>
+                    <td style="display:none">{{slug}}</td>
                     <td>{{counter @index}}</td>
                     <td>{{name}}</td>
                     <td class="text-center">
@@ -35,7 +35,7 @@
                         </div>
                     </td>
                     <td>
-                        <a href="/admin/category/{{_id}}/posts"> Chi tiết</a>
+                        <a href="/admin/tag/{{slug}}/posts"> Chi tiết</a>
                         <span> | </span>
                         <a href="javascript:void(0)" onclick="edit('{{@index}}' )"> Chỉnh sửa </a>
                     </td>
@@ -46,11 +46,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="addcat_dialog" role="dialog" aria-hidden="true">
+<div class="modal fade" id="addtag_dialog" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Thêm mới danh mục</h5>
+                <h5 class="modal-title">Thêm mới dán nhãn</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -58,35 +58,27 @@
             <div class="modal-body">
                 <div class="form-horizontal">
                     <div>
-                        <label class="control-label">Tên danh mục</label>
+                        <label class="control-label">Tên dán nhãn</label>
                         <span class="text-danger" id="valid_catname" style="display:none;">Không bỏ trống mục này</span>
                         <div>
-                            <input id="catname" class="form-control" />
+                            <input id="tagname" class="form-control" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <button id="addcat" class="btn btn-primary">Thêm</button>
+                <button id="addtag" class="btn btn-primary">Thêm</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="success_dialog" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document" style="width: 300px;">
-        <div class="modal-content text-center bg-success">
-            <h6 class="modal-title text-white" style="padding: 16px 0px;">Thành công!</h6>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="editcat_dialog" role="dialog" aria-hidden="true">
+<div class="modal fade" id="edittag_dialog" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Chỉnh sửa danh mục</h5>
+                <h5 class="modal-title">Chỉnh sửa dán nhãn</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -94,18 +86,18 @@
             <div class="modal-body">
                 <div class="form-horizontal">
                     <div>
-                        <label class="control-label">Tên danh mục</label>
-                        <span class="text-danger" id="valid_catname" style="display:none;">Không bỏ trống mục này</span>
+                        <label class="control-label">Tên dán nhãn</label>
+                        <span class="text-danger" id="valid_tagname" style="display:none;">Không bỏ trống mục này</span>
                         <div>
-                            <input id="new_catname" class="form-control" />
-                            <input id="catid" style="display: none" />
+                            <input id="new_tagname" class="form-control" />
+                            <input id="tagid" style="display: none" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <button id="editcat" class="btn btn-primary">Lưu</button>
+                <button id="edittag" class="btn btn-primary">Lưu</button>
             </div>
         </div>
     </div>
@@ -113,28 +105,29 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#addcat').on('click', function () {
+        $('#addtag').on('click', function () {
 
-            if ($('#catname').val() == '') {
-                $('#valid_catname').css({ 'display': 'inline-block' })
+            if ($('#tagname').val() == '') {
+                $('#valid_tagname').css({ 'display': 'inline-block' })
             }
 
             else {
                 var data = {
-                    "name": $('#catname').val(),
+                    "name": $('#tagname').val(),
                 };
 
                 $.ajax({
                     type: 'POST',
-                    url: '/admin/category/insert',
+                    url: '/admin/tag/insert',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
                     dataType: 'json',
                     success: function (res, text, xhr) {
 
                         if (xhr.status == 200) {
-                            $('#addcat_dialog').modal('toggle');
-                            $('#catname').val("");
+                            console.log('res: ',res);
+                            $('#addtag_dialog').modal('toggle');
+                            $('#tagname').val("");
 
                             var count = $('#tb_data tbody tr').length + 1;
 
@@ -169,22 +162,22 @@
             }
         })
 
-        $('#editcat').on('click', function () {
-            var newname = $('#new_catname').val();
+        $('#edittag').on('click', function () {
+            var newname = $('#new_tagname').val();
             var data = {
-                "_id": $('#catid').val(),
+                "_id": $('#tagid').val(),
                 "name": newname,
             }
 
             $.ajax({
                 type: 'POST',
-                url: '/admin/category/update',
+                url: '/admin/tag/update',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 dataType: 'json',
                 success: function (res, textStatus, xhr) {
                     if (xhr.status == 200) {
-                        $('#editcat_dialog').modal('toggle');
+                        $('#edittag_dialog').modal('toggle');
 
                         var row = $('#tb_data tbody tr').eq(row_index);
                         console.log(row.text());
@@ -198,22 +191,23 @@
             })
         })
 
-        const catid = [];
+        const tags = [];
         $('#tb_data tbody tr').each(function () {
-            var id = $(this).find('td').eq(0).text();
-            catid.push(id);
+            var slug = $(this).find('td').eq(0).text();
+            tags.push(slug);
         });     
 
         (async function main() {
             try {
-                for (let i = 0; i < catid.length; i++) {
+                for (let i = 0; i < tags.length; i++) {
                     var data = {
-                        "catid": catid[i],
+                        "tag": tags[i],
                     }
+                    //console.log(data);
                     await $.ajax({
                         type: 'POST',
                         contentType: 'application/json',
-                        url: '/admin/category/countpost',
+                        url: '/admin/tag/countpost',
                         data: JSON.stringify(data),
                         dataType: 'json',
                         success: function (res) {                            
@@ -237,9 +231,9 @@
         var name = row.find('td').eq(2).text();
         var id = row.find('td').eq(0).text();
 
-        $('#new_catname').val(name);
-        $('#catid').val(id);
-        $('#editcat_dialog').modal('toggle');
+        $('#new_tagname').val(name);
+        $('#tagid').val(id);
+        $('#edittag_dialog').modal('toggle');
     }
 
     function NotifySuccess() {

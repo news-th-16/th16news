@@ -1,7 +1,8 @@
 <div id="body" class="container-post padding-32">
     <!-- POST -->
     <!-- HEADER POST -->
-    <div id="postid" style="display:none">{{model._id}} </div>
+    <div id="postid" style="display:none">{{model._id}}</div>
+    
     <div class="body-post">
         <h1 class="padding-16 xxlarge" style="line-height: 40px;">
             {{model.title}}
@@ -16,17 +17,10 @@
                 {{#if model.tag}}
 
                 <span>Sự kiện: </span>
-                {{/if}}
-                {{#each model.tag}}
-                <span>
-                    <a style="text-decoration:underline;" href="#">{{name}}</a>
-                </span>
-                {{/each}}
-            </span>              
-            
+                {{{gettag model.tag}}}
+                {{/if}} 
+            </span>
         </div>
-        
-
     </div>
 
     <!-- CONTENT POST -->
@@ -62,7 +56,7 @@
     </div>
 </div>
 <div style="position:fixed; bottom: 100px; right:50px; z-index:3;">
-    <button class="btn btn-dark" id="editpost">
+    <button class="btn btn-dark" id="editpost" type="button">
         <i class="fa fa-wrench" aria-hidden="true"></i> Hiệu chỉnh
     </button>
     <button class="btn btn-dark">
@@ -73,10 +67,11 @@
     $(document).ready(function () {
         getdate();
         $('#editpost').on('click', function () {
+            
             var id = $('#postid').text();
-            $(location).attr('href', `/writter/upload/edit/${id}`);
+            // if user is writter 
+            $(location).attr('href', `/writter/upload/edit/${id}`);            
         })
-
     })
 
     function getdate() {

@@ -216,23 +216,20 @@
     })
 
     $('#submit').on('click', function () {
-
       var tag = [];
 
-      $('#tag > option').each(function () {
-        var option = {
-          "_id": $(this).val(),
-          "name": $(this).text(),
-        }
-        tag.push(option);
+      $('#tag option').each(function () {
+        var name = $(this).text();
+        tag.push(name);
       })
-
+      var date = new Date();
       var data = {
         "categoryid": $('#categories').val(),
         "title": $('#title').val(),
         "summary": $('#summary').val(),
         "tag": tag,
         "content": CKEDITOR.instances.ckeditor.getData(),
+        "createdate" : date,
       }
 
       console.log(data);
