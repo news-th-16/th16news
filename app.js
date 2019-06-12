@@ -113,7 +113,7 @@ function requireLogin(req, res, next) {
     let loginUrl;
 
     if (req.path !== '/login') {
-        loginUrl = `/login?returnUrl=${returnUrl}`;
+        loginUrl = `/login`;
     }
 
     return res.redirect(loginUrl);
@@ -128,9 +128,8 @@ function initLocals(req, res, next) {
 // //ROUTES FOR GUEST
 app.use('/', authRoutes);
 
-app.use(requireLogin);
+// app.use(requireLogin);
 app.use(initLocals);
-
 
 //LAST ROUTES - ALWAYS
 app.use('/', homeRoutes);
@@ -142,6 +141,6 @@ app.use('/writter', require('./routes/writter/upload.route'))
 app.use('/', require('./routes/admin/category.route'));
 
 seedDB();
-app.listen(3000, () => {
+app.listen(3100, () => {
     console.log('Web Server is running at http://localhost:3000');
 })
