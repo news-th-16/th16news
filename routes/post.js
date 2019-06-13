@@ -1,5 +1,5 @@
 var express = require('express');
-const News = require('../models/news');
+const Post = require('../models/post');
 const middleware = require('./middleware');
 var router = express.Router();
 //=============FOR TESTING====//
@@ -25,17 +25,18 @@ const topStories = [story2, story2, story2];
 const newsTitle = {
     title: 'Canelo, Jacobs pulled apart at weigh-in'
 }
-const trendCol1 = [
+const trendCol1 = [     
     newsTitle, newsTitle, newsTitle, newsTitle, newsTitle
 ]
 const trendCol2 = [
     newsTitle, newsTitle, newsTitle, newsTitle, newsTitle
 ]
 //=========================//
-router.get('/post/:id',middleware.requireLogin ,(req, res) => {
-    News.findById({_id:  req.params.id}).populate("comment").exec((err, post) => {
-        console.log(post);
-        res.render('post.handlebars', { 'post': post});
+router.get('/post/:id',(req, res) => {
+    console.log(req.params.id);
+    
+    Post.findById({_id: req.params.id}).populate('comment').exec((err, post) => {
+        res.render('post.handlebars', { 'post': post, layout: false});
     });
 });
 

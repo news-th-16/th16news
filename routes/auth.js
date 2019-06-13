@@ -16,6 +16,7 @@ router.post('/sendmail', function(req, res) {
         if(!data) {
             alert('Email not exists !');
         } else {
+            console.log(email);
             const link1 = `http://${req.headers.host}/reset?id=${data._id}`;
             const value = `<html><head></head><body><p>Khôi phục mật khẩu: </p><a href=${link1}>${link1}</a></body></html>`
             sgMail.setApiKey('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');
@@ -63,7 +64,7 @@ router.post('/change_password/:id', (req, res) => {
         user.setPassword(newPassword, () => {
             user.save();
             //TO DO 
-            alert('Success');
+            // alert('Success');
             res.redirect('/');
         });
     }, (err) => {

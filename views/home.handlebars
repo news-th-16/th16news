@@ -1,7 +1,5 @@
 
 <!-- BODY CONTENT -->
-
-  
 <div id="body" class="content row">
   <!--TOP STORIES SECTION -->
   <div class="clearfix">
@@ -30,8 +28,8 @@
     <div class="row nopadding"> 
       {{!-- {{#each data}} --}}
         {{#each data}}
-        <a href="/{{_id}}">
-          <div class="ml-2 mr-2 mt-2 col-md-4 third gallery">
+        <a href="/post/{{_id}}">
+          <div class="ml-2 mt-2 col-md-4 third gallery">
             <div class="background-container clearfix">
               <div class="background-img clearfix">
                 <img src='https://homepages.cae.wisc.edu/~ece533/images/airplane.png'/>
@@ -47,9 +45,6 @@
               <div class="medium padding-16">
                 {{title}}
               </div>
-              <p>
-                {{summary}}
-              </p>
             </div>
           </div>
           </a>

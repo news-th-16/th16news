@@ -179,12 +179,13 @@ app.use(require("express-session")({
     res.end('Hi');
 
 })*/
-app.use('/', authRoutes);
-//seedDB();
-app.get('/', (req, res) => {
-    res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
-})
-app.use('/admin', require('./routes/admin/home.route'));
+///seedDB();
+
+app.use('/', require('./routes/home'));
+
+app.use('/', postRoutes);
+
+app.use('/', commentRoutes);
 
 app.use('/account',require('./routes/account.route'));
 
@@ -193,7 +194,6 @@ app.use('/admin', require('./routes/admin/home.route'));
 app.use('/writter', require('./routes/writter/upload.route'));
 
 app.use('/editor',editor_authenticate,require('./routes/editor/editor.route'));
-
 
 app.listen(3100, () => {
     console.log('Web Server is running at http://localhost:3000');

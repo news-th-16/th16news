@@ -1,10 +1,10 @@
 const express = require("express");
 const router  = express.Router();
-const News = require('../models/news');
+const Post = require('../models/post');
 const Comment = require('../models/comment');
 
 router.post('/post/:id/comments', (req, res ) => {
-    return News.findById({_id: req.params.id}, (err, news) => {
+    return Post.findById({_id: req.params.id}, (err, news) => {
         if(err) {
             console.log(err);
         } else {

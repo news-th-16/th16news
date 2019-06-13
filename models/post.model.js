@@ -19,7 +19,11 @@ var postSchema = new Schema({
     publish: {
         type: Boolean,
         default: "false",
-    }
+    },
+    comment: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    }],
 })
 
 module.exports = {

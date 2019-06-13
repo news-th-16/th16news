@@ -1,5 +1,5 @@
 var express = require('express');
-const News = require('../models/news')
+const Post = require('../models/post')
 var router = express.Router();
 const middleware = require('./middleware');
 //=============FOR TESTING====//
@@ -33,7 +33,7 @@ const trendCol2 = [
 ]
 //=========================//
 router.get('/', (req, res) => {
-    News.find({}, (err, story) => {
+    Post.find({}, (err, story) => {
         res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts', data: story, top, topNews, trendCol1, trendCol2 })
     })
 });
