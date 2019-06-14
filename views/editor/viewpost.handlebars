@@ -7,7 +7,6 @@
     .bootstrap-tagsinput input {
         display: none;
     }
-
     /*
     .bootstrap-tagsinput {
         border: none;
@@ -88,70 +87,74 @@
         margin: 0;
     }
 </style>
-<div id="body" class="container-post padding-32">
-    <!-- POST -->
-    <!-- HEADER POST -->
-    <div id="postid" style="display:none">{{model._id}}</div>
-    <div id="catid" style="display:none">{{model.categoryid}}</div>
-    <div id="ispublish" style="display:none">{{model.publish}}</div>
-    <div class="body-post">
-        <h1 class="padding-16 xxlarge" style="line-height: 40px;">
-            {{model.title}}
-        </h1>
-        <p class="text-grey medium">
-            {{{model.summary}}}
-        </p>
-        <div class="text-grey small">
-            <i class="fa fa-clock-o large" aria-hidden="true" style="margin-top:8px;"></i><span id="datetime"
-                style="padding-left: 5px;"></span>
-            <span class="text-grey" style="font-size:14px; right:120px; position:absolute;">
-                {{#if model.tag}}
-                <span>Sự kiện: </span>
-                {{{gettag model.tag}}}
-                {{/if}}
-            </span>
 
-        </div>
-    </div>
+<div class="w3-container w3-card w3-white w3-margin-bottom" style="min-height: 630px;">
+    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+        Duyệt bài viết</h2>
+    <div class="w3-container mb-5">
+        <div class="border-box">
+            <div id="postid" style="display:none">{{model._id}}</div>
+            <div id="catid" style="display:none">{{model.categoryid}}</div>
+            <div id="ispublish" style="display:none">{{model.publish}}</div>
 
-    <!-- CONTENT POST -->
-    <div class="white padding-16">
-        <!--FEED BACK -->
-        <div style="display: flex; margin-left: 100px; margin-bottom:20px;" class="feedback-bar clearfix padding-16">
-            <div class="feedback-icon">
-                <a id="facebook" href="#" style="padding-left:4.5px;">
-                    <i class="fa fa-facebook icon" aria-hidden="true"></i>
-                </a>
+            <div class="body-post ">
+                <h1 class="padding-16 xxlarge" style="line-height: 40px;">
+                    {{model.title}}
+                </h1>
+                <p class="text-grey medium">
+                    {{{model.summary}}}
+                </p>
+                <div class="text-grey small">
+                    <i class="fa fa-clock-o large" aria-hidden="true" style="margin-top:8px;"></i>
+                    <span style="padding-left: 5px;">{{parsedate model.createdate}}</span>
+                    <span class="text-grey" style="font-size:14px; right:120px; position:absolute;">
+                        {{#if model.tag}}
+                        <span>Sự kiện: </span>
+                        {{{gettag model.tag}}}
+                        {{/if}}
+                    </span>
+                </div>
             </div>
-            <div class="feedback-icon">
-                <a id="twitter" href="#">
-                    <i class="fa fa-twitter icon" aria-hidden="true"></i>
-                </a>
+            <!-- CONTENT POST -->
+            <div class="white padding-16 clearfix">
+                <!--FEED BACK -->
+                <div style="display: flex; margin-left: 100px; margin-bottom:20px;"
+                    class="feedback-bar clearfix padding-16">
+                    <div class="feedback-icon">
+                        <a id="facebook" href="#" style="padding-left:4.5px;">
+                            <i class="fa fa-facebook icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="feedback-icon">
+                        <a id="twitter" href="#">
+                            <i class="fa fa-twitter icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="feedback-icon">
+                        <a id="youtube" href="#">
+                            <i class="fa fa-youtube-play icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="feedback-icon">
+                        <a id="instagram" href="#">
+                            <i class="fa fa-instagram icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- BODY POST -->
+                <div class="body-post padding-16">
+                    {{{model.content}}}
+                </div>
             </div>
-            <div class="feedback-icon">
-                <a id="youtube" href="#">
-                    <i class="fa fa-youtube-play icon" aria-hidden="true"></i>
-                </a>
-            </div>
-            <div class="feedback-icon">
-                <a id="instagram" href="#">
-                    <i class="fa fa-instagram icon" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- BODY POST -->
-        <div class="body-post padding-16">
-            {{{model.content}}}
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="delete_dialog" role="dialog" aria-hidden="true">
+<div class="modal fade" id="deny_dialog" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Xóa bài viết</h5>
+            <div class="modal-header w3-teal">
+                <h5 class="modal-title">Từ chối bài viết</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -159,17 +162,17 @@
             <div class="modal-body">
                 <div class="form-horizontal">
                     <div>
-                        <label class="control-label">Nhập từ <span class="text-danger bold">'YES'</span> để xóa bài
+                        <label class="control-label">Cho biết <span class="text-danger bold">lý do từ chối </span>bài
                             viết</label>
                         <div>
-                            <input id="verify" class="form-control" />
+                            <textarea id="reason" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <button id="delete" class="btn btn-primary">OK</button>
+                <button id="deny" class="btn btn-primary">OK</button>
             </div>
         </div>
     </div>
@@ -179,9 +182,9 @@
 <div class="modal fade" id="publish_dialog" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Duyệt bài viết</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header w3-teal">
+                <h6 class="text-center">Duyệt bài viết</h6>
+                <button class="close text-white xlarge" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -225,7 +228,7 @@
 <div class="modal fade modal-child" id="addtag_dialog" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document" style="width:1000px;">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header w3-teal">
                 <h5 class="modal-title">Thêm dán nhãn</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -234,18 +237,18 @@
             <div class="modal-body">
                 <div id="the-basics">
                     <span style="float: left;">
-                        <input id="input_tag" class="typeahead" type="text" style="width: 200px;" placeholder="Tag...">
+                        <input id="input_tag" class="typeahead form-control" type="text" style="width: 200px;" placeholder="Tag...">
                     </span>
                     <span>
-                        <button id="btn_opendrop" class="btn btn-light btn-outline-dark btn-sm" type="button">
+                        <button id="btn_opendrop" class="btn btn-light btn-outline-dark btn-sm mt-1 ml-1" type="button">
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </button>
-                        <button id="btn_closedrop" class="btn btn-light btn-outline-dark btn-sm" type="button"
+                        <button id="btn_closedrop" class="btn btn-light btn-outline-dark btn-sm mt-1 ml-1" type="button"
                             style="display:none;">
                             <i class="fa fa-caret-up" aria-hidden="true"></i>
                         </button>
                     </span>
-                    <button id="btn_add_tag" type="button" class="btn btn-sm btn-light" data-toggle="modal">+</button>
+                    <button id="btn_add_tag" type="button" class="btn btn-sm btn-light mt-1 ml-1" data-toggle="modal">+</button>
                     <br />
                     <span id="valid_tag" class="text-danger small" style="display: none; position:absolute;left: 15px;">
                         Tag không có trong dữ liệu!
@@ -269,7 +272,7 @@
     <button id="publishpost" class="btn btn-dark btn-sm" style="" type="button">
         <i class="fa fa-check" aria-hidden="true"></i> Duyệt bài
     </button>
-    <button class="btn btn-dark btn-sm" id="deletepost" style="">
+    <button class="btn btn-dark btn-sm" id="denypost" style="">
         <i class="fa fa-eraser" aria-hidden="true"></i> Từ chối
     </button>
 
@@ -279,16 +282,17 @@
 </div>
 <script src="/slugify.js"></script>
 <script type="text/javascript">
+    $('#homelink').removeClass('w3-blue');
+    $('#approvelink').addClass('w3-blue');
     var tags = [];
     var catid = $('#catid').text();
     var id = $('#postid').text();
     var publish = $('#ispublish').text();
 
     $(document).ready(function () {
-        getdate();
         $.ajax({
             type: 'GET',
-            url: '/writter/upload/getTag',
+            url: '/editor/getTag',
             contentType: 'application/json',
             dataType: 'json',
             success: function (res, textStatus, xhr) {
@@ -312,18 +316,26 @@
             $('#publish_dialog').modal('toggle');
         })
 
+        $('#denypost').on('click', function () {
+            $('#deny_dialog').modal('toggle');
+        })
+
         $('#publish').on('click', function () {
             var tags = [];
             var edit_tags = $('#tags').tagsinput('items');
             for (i = 0; i < edit_tags.length; i++) {
                 tags.push(edit_tags[i].text);
             }
-
+            var datetime = $('#datetimepicker').val();
+            datetime = datetime.match(/(\d+)\/(\d+)\/(\d+)\s*(\d+):(\d+)/);
+            datetime  = new Date(datetime[3], datetime[2]-1, datetime[1], datetime[4], datetime[5], 0, 0);
+            console.log('datetime: ',datetime);
             var data = {
                 "categoryid": $('#categories option:selected').val(),
                 "tag": tags,
-                "publishdate": $('#datetimepicker').val(),
+                "publishdate": datetime,
             }
+            console.log(data);
             var url = $(location).attr('href');
             var slug = slugify($('#categories option:selected').text())
             console.log('data:', data);
@@ -335,9 +347,33 @@
                 data: JSON.stringify(data),
                 success: function (data, textStatus, jqXHR) {
                     if (data.code == 200) {
+                        console.log(data.result);
                         $('#publish_dialog').modal('toggle');
                         NotifySuccess();
-                        $(location).attr('href',`/editor/manage-posts/${slug}`)
+                        //$(location).attr('href', `/editor/approve/${slug}`)
+                    }
+                }
+            })
+        })
+
+        $('#deny').on('click', function () {
+            var url = $(location).attr('href');
+            var slug = slugify($('#categories option:selected').text())
+            var data = {
+                "reason": $("#reason").val(),
+            }
+            $.ajax({
+                url: `${url}/reject`,
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: (data, textStatus, jqXHR) => {
+                    if (data.code == 200) {
+                        $(location).attr('href', `/editor/approve/${slug}`)
+                    }
+                    else {
+                        console.log(data.data);
                     }
                 }
             })
@@ -353,21 +389,6 @@
         })
     })
 
-    function getdate() {
-        var date = new Date();
-        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        var day = days[date.getDay()];
-        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var m = months[date.getMonth()];
-        var y = date.getFullYear();
-        var d = date.getDate();
-        var hour = date.getHours();
-        var min = date.getMinutes();
-
-        var str = day + ' ' + d + ' ' + m + ' ' + y + ' ' + hour + ':' + min;
-
-        $('#datetime').text(str);
-    }
 </script>
 <script>
     var elt = $('#tags');
@@ -380,7 +401,7 @@
     });
     $.ajax({
         type: 'GET',
-        url: '/writter/upload/getCat',
+        url: '/editor/approve/getCat',
         contentType: 'application/json',
         dataType: 'json',
         success: function (res, textStatus, xhr) {
@@ -441,7 +462,6 @@
             .modal('hide')
             .on('hidden.bs.modal', function (e) {
                 $('#addtag_dialog').modal('toggle');
-                
             });
     })
 </script>

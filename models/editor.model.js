@@ -9,5 +9,8 @@ var editorSchema = new Schema({
 module.exports = {
     findbyname: (username)=>{
         return db.findbyname('editors',editorSchema,username);
+    },
+    update: (username, entity) => {
+        return db.updateeditor('editors',editorSchema,username,entity);
     }
 }

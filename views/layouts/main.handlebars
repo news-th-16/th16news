@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <title>Home</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  
- 
-  <link rel="stylesheet" href="/stylesheet/style.css">  
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="/stylesheet/style.css">
   <script src="/ckeditor/ckeditor.js"></script>
 </head>
 
@@ -34,7 +28,10 @@
             Get Sky Sports
           </a>
           {{#if isAuthenticated}}
-          <a href="/account/{{authUser.username}}" class="header_item_link">
+          <a {{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
+                {{#case "writer" break=true}}href="/writer" {{/case}} {{#case "editor" break=true}}href="/editor"
+                {{/case}} {{#case "admin" break=true}}href="/admin"
+                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} class="header_item_link">
             <i class="fa fa-user" aria-hidden="true"></i>
             Hi. {{authUser.username}}
           </a>

@@ -1,31 +1,53 @@
 var express = require('express');
-var model = require('../../models/category.model');
 var postModel = require('../../models/post.model');
 var categoryModel = require('../../models/category.model');
+var tagModel = require('../../models/tag.model');
 var router = express.Router();
 
 router.get('/', (req, res) => {
+    var page = req.query.page || 1;
+    if (page < 1) {
+        page = 1;
+    }
+    var limit = 6;
+    var offset = (page - 1) * limit;
+    Promise.all([
+        tagModel.page(offset,limit),
+        tagModel.countall()
+    ]).then(([rows, count]) => {
+        var nPages = Math.floor(count / limit);
+        if (count % limit > 0) {
+            nPages++;
+        }
+        var pages = [];
+        for (i = 1; i <= nPages; i++) {
+            var obj = { value: i, active: i === +page };
+            pages.push(obj);
+        }
+        var nextPage = parseInt(+page + 1);
+        var prePage = parseInt(page - 1);
 
-    model.all()
-        .then(
-            rows => {
-                res.render('admin/category', {
-                    layout: 'writter.handlebars',
-                    layoutsDir: 'views/layouts',
-                    categories: rows,
-                    title: 'Quản lý danh mục',
-                });
-            })
-        .catch(
-            err => {
-                console.log('error 2: ' + err);
-            }
-        )
+        res.render('admin/manage_tags', {
+            layout: 'vwadmin.handlebars',
+            layoutsDir: 'views/layouts',
+            title: 'Quản lý dán nhãn',
+            tag: rows,
+            pages,
+            nPages,
+            page,
+            nextPage,
+            prePage,
+        })
+    }).catch(err => {
+        console.log(err);
+    })
+
 });
 
 router.post('/countpost', (req, res) => {
-    var id = req.body.catid;
-    postModel.countbycat(id)
+    var tag = req.body.tag;
+
+    postModel.countbytag(tag)
         .then(result => {
             res.send({ data: result });
         })
@@ -35,8 +57,7 @@ router.post('/countpost', (req, res) => {
 })
 
 router.post('/insert', (req, res) => {
-
-    model.insert(req.body)
+    tagModel.insert(req.body)
         .then(
             result => {
                 res.send(result);
@@ -54,9 +75,9 @@ router.post('/insert', (req, res) => {
 router.post('/update', (req, res) => {
     var id = req.body._id;
     console.log(req.body);
-    model.update(id, req.body)
+    tagModel.update(id, req.body)
         .then(result => {
-            console.log(result);
+            
             res.send(result);
         })
         .catch(err => {
@@ -65,10 +86,22 @@ router.post('/update', (req, res) => {
         })
 })
 
+router.post('/delete', (req, res) => {
+    var id = req.body._id;
+
+    tagModel.remove(id)
+        .then(result => {
+            res.send({code:200,data:result});
+        })
+        .catch(err => {
+            console.log(err);
+        })
+})
 
 
-router.get('/:id/posts', (req, res) => {
-    var catid = req.params.id;
+router.get('/:slug', (req, res) => {
+    
+    var slug = req.params.slug;
     var page = req.query.page || 1;
     if (page < 1) {
         page = 1;
@@ -76,16 +109,14 @@ router.get('/:id/posts', (req, res) => {
     var limit = 6;
     var offset = (page - 1) * limit;
     Promise.all([
-        categoryModel.getbyid(catid),
-        postModel.pagebycat(catid, offset, limit, true),
-        postModel.countbycat(catid, true),
-    ]).then(([category, rows, count]) => {
-        var nPages = Math.floor(count / limit);
-
+        tagModel.getbyslug(slug),
+        postModel.pagebytag(slug, offset, limit, true),
+        postModel.countbytag2(slug, true),
+    ]).then(([tag, rows, count]) => {
+        var nPages = Math.floor(count / limit);        
         if (count % limit > 0) {
             nPages++;
         }
-
         var pages = [];
         for (i = 1; i <= nPages; i++) {
             var obj = { value: i, active: i === +page };
@@ -94,12 +125,12 @@ router.get('/:id/posts', (req, res) => {
         var nextPage = parseInt(page + 1);
         var prePage = parseInt(page - 1);
 
-        res.render('admin/postsbycat', {
-            layout: 'writter.handlebars',
+        res.render('admin/manage_posts_bytag', {
+            layout: 'vwadmin.handlebars',
             layoutsDir: 'views/layouts',
             title: 'Quản lý bài viết',
             posts: rows,
-            category: category,
+            tag: tag[0],
             flag: false,
             pages,
             nPages,
@@ -112,8 +143,9 @@ router.get('/:id/posts', (req, res) => {
     })
 })
 
-router.get('/:id/posts/unpublished', (req, res) => {
-    var catid = req.params.id;
+router.get('/:slug/unpublished', (req, res) => {
+    var slug = req.params.slug;
+    console.log('slug: ',slug);
     var page = req.query.page || 1;
     if (page < 1) {
         page = 1;
@@ -121,11 +153,13 @@ router.get('/:id/posts/unpublished', (req, res) => {
     var limit = 6;
     var offset = (page - 1) * limit;
     Promise.all([
-        categoryModel.getbyid(catid),
-        postModel.pagebycat(catid, offset, limit, false),
-        postModel.countbycat(catid, false),
-    ]).then(([category, rows, count]) => {
+        tagModel.getbyslug(slug),
+        postModel.pagebytag(slug, offset, limit, false),
+        postModel.countbytag2(slug, false),
+    ]).then(([tag, rows, count]) => {
         var nPages = Math.floor(count / limit);
+        console.log('rows: ',rows);
+        console.log('count: ',count);
 
         if (count % limit > 0) {
             nPages++;
@@ -138,12 +172,13 @@ router.get('/:id/posts/unpublished', (req, res) => {
         }
         var nextPage = parseInt(page + 1);
         var prePage = parseInt(page - 1);
-        res.render('admin/postsbycat', {
-            layout: 'writter.handlebars',
+
+        res.render('admin/manage_posts_bytag', {
+            layout: 'vwadmin.handlebars',
             layoutsDir: 'views/layouts',
             title: 'Quản lý bài viết',
             posts: rows,
-            category: category,
+            tag:tag[0],
             flag: true,
             pages,
             nPages,

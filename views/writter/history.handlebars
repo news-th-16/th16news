@@ -1,21 +1,21 @@
 <title>{{title}}</title>
-<div class="card shadow small">
-    <div class="card-header">
-        <h5 class="card-text">Duyệt bài viết danh mục: {{this.category.name}}</h2>
-    </div>
-    <div id="catname" style="display: none;">{{this.category.name}}</div>
-    <div class="card-body">
-        <h6 class="card-title">
-            Danh mục:
+<div class="w3-container w3-card w3-white w3-margin-bottom">
+    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-history fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+        Lịch sử bài viết</h2>
+    <div class="w3-container mb-3">
+        <h5>
+            Xem bài viết:
             <span>
-                <select id="categories" class="round form-control small" style="width: 200px; display:inline-block">
+                <select id="type" class="round form-control" style="width: 150px; display:inline-block">
+                    <option value="approved">Chờ xuất bản</option>
+                    <option value="published">Đã xuất bản</option>
                 </select>
             </span>
             <button id="filter" class="btn btn-light btn-outline-dark btn-sm ml-3" style="margin-top:-3px;"
                 type="button">
                 <i class="fa fa-eye" aria-hidden="true"></i> Xem
             </button>
-        </h6>
+        </h5>
 
         <div class="row">
             {{#each this.posts}}
@@ -28,13 +28,11 @@
                         <h5 class="card-title">{{title}}</h5>
                     </div>
                     <div class="card-footer text-muted text-center">
-                        <a class="btn btn-light btn-outline-primary btn-sm ml-4" role="button"
-                            href="/editor/manage-posts/{{../category.slug}}/{{titleslug}} ">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            Chi tiết
+                        <a class="btn w3-teal btn-sm" role="button" href="/writer/history/{{_id}} ">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            Xem
                         </a>
                     </div>
-
                 </div>
             </div>
             {{/each}}
@@ -82,46 +80,38 @@
         {{#compare this.nPages  0 context=this operator="=="}}
         <div class="row">
             <div class="alert alert-warning alert-dismissible fade show text-center">
-                Không có bài viết nào chưa được duyệt!
+                Không có bài viết nào!
             </div>
-
         </div>
         {{/compare}}
+
     </div>
 </div>
-
-
-<script src="/slugify.js"></script>
-
 <script type="text/javascript">
+    $('#homelink').removeClass('w3-blue');
+    $('#history').addClass('w3-blue');
+    var url = $(location).attr('href');
+    var tmp = url.split('/');
+    var type = tmp[tmp.length - 1];
+    console.log(type);
+    switch (type) {
+        case "approved":
+            $('#type option').filter(function () {
+                return $(this).val() == "approved";
+            }).prop('selected', true);
+            break;
+        case "published":
+            $('#type option').filter(function () {
+                return $(this).val() == "published";
+            }).prop('selected', true);
+            break;
+    }
 
-    $(document).ready(function () {
-        // Fill Categories
-        $.ajax({
-            type: 'GET',
-            url: '/editor/getCat',
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function (res, textStatus, xhr) {
-                if (xhr.status == 200) {
-                    for (i = 0; i < res.length; i++) {
-                        $('#categories').append($('<option>')
-                            .text(res[i]))
-                    }
-                }
-            },
-            complete: function () {
-                $('#categories option').filter(function () {
-                    return $(this).text() == $('#catname').text();
-                }).prop('selected', true);
+    $('#filter').on('click', function () {
+            var type = $('#type option:selected').val();
+            switch (type) {
+                case 'approved': $(location).attr('href', `/writer/history/approved`); break;
+                case 'published': $(location).attr('href', `/writer/history/published`); break;
             }
-        });
-
-        $('#filter').on('click', function () {
-            var catname = $('#categories option:selected').val();
-            var catslug = slugify(catname);
-            $(location).attr('href', `/editor/manage-posts/${catslug}`);
         })
-    });
-
 </script>

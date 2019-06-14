@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/assets/script/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+    <script src="/tagsinput/src/bootstrap-tagsinput.js"></script>
+    <link rel="stylesheet" href="/tagsinput/src/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <script src="/typeahead.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <style>
+        <style>html,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Roboto", sans-serif
+        }
+    </style>
+    <style>
+    .bootstrap-tagsinput input {
+        display: none;
+    }
+    /*
+    .bootstrap-tagsinput {
+        border: none;
+        box-shadow: none;
+    }*/
+
+    .twitter-typeahead .tt-query,
+    .twitter-typeahead .tt-hint {
+        margin-bottom: 0;
+    }
+
+    .tt-hint {
+        display: block;
+        width: 100%;
+        height: 38px;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #999;
+        vertical-align: middle;
+        background-color: #ffffff;
+        border: 1px solid black;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+
+    .tt-dropdown-menu {
+        min-width: 160px;
+        margin-top: 2px;
+        padding: 5px 0;
+        background-color: black;
+        border: 1px solid black;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        background-clip: padding-box;
+
+    }
+
+    .tt-menu {
+        /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
+        width: 320px;
+        margin-top: 0px;
+        padding: 8px 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    }
+
+    .tt-suggestion.tt-cursor {
+        /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+        color: #fff;
+        background-color: #0097cf;
+
+    }
+
+    .tt-suggestion {
+        display: block;
+        padding: 3px 20px;
+    }
+
+    .tt-suggestion.tt-is-under-cursor {
+        color: #fff;
+        background-color: #428bca;
+    }
+
+    .tt-suggestion.tt-is-under-cursor a {
+        color: #fff;
+    }
+
+    .tt-suggestion p {
+        margin: 0;
+    }
+</style>
+    {{{_sections.css}}}
+</head>
+
+<style>
+    .header {
+        background-image: linear-gradient(0, rgba(0, 0, 0, 0.3), transparent 76%), linear-gradient(90deg, rgb(18, 45, 104), rgb(18, 45, 104) 50%, rgb(214, 23, 38) 0px, rgb(214, 23, 38)) !important;
+        background-size: 100% 45px;
+        position: relative;
+        margin-bottom: 0px;
+        box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.14);
+        background-color: white !important;
+        background-repeat: no-repeat;
+        z-index: 9999;
+    }
+
+    .header_body {
+        height: 45px;
+        background-image: linear-gradient(0, rgba(0, 0, 0, 0.3), transparent 76%), linear-gradient(90deg, rgb(18, 45, 104) 0px, rgb(18, 45, 104) 0px, rgb(214, 23, 38) 0px, rgb(214, 23, 38));
+        background-origin: content-box;
+        background-repeat: no-repeat;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: separate;
+        box-sizing: border-box;
+        max-width: 1024px;
+        margin: auto;
+    }
+
+    .header_logo {
+        width: 137px;
+        height: 30px;
+        display: block;
+    }
+
+    .content {
+        margin: auto;
+        max-width: 1024px;
+        position: relative;
+    }
+
+    .dropbtn {
+
+        border: none;
+    }
+
+    .dropbtn:hover,
+    .dropbtn:focus {
+        background-color: #2980B9;
+    }
+
+    .dropdown {
+        position: relative;
+        //display: inline-block;
+        border: none;
+    }
+
+    .dropdown-content {
+        margin-top: 1px;
+        margin-left: 10px;
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 250px;
+        overflow: auto;
+        border-radius: 4px;
+        z-index: 1;
+        border: 1px solid lightgrey;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown a:hover {
+        background-color: #ddd;
+    }
+
+    .show {
+        display: block;
+    }
+</style>
+
+<body>
+    <!--HEADER -->
+    <div class="header">
+        <!-- LOGO BAR -->
+        <div class="clearfix row">
+            <div class="header_body">
+                <div class="header_col header_col1">
+                    <a class="header_logo" href="#" style="margin-left: -50px;">
+                        <img class="svg-logo_image" src="/images/home/logo1.png">
+                    </a>
+                </div>
+                <div class="header_col header_col2">
+                    <a href="#" class="header_item_link">
+                        Trang chủ
+                    </a>
+                    {{#if isAuthenticated}}
+                    <a href="/account/{{authUser.username}}" class="header_item_link">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Hi. {{authUser.username}}
+                    </a>
+                    {{else}}
+                    <a href="/account/login" class="header_item_link">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Log In
+                    </a>
+                    {{/if}}
+                </div>
+                <div class="header_col header_col3">
+                    <div class="search_box" id="search_box">
+                        <input type="text" name="search_box" style="border: 0.1px solid lightgrey;"
+                            placeholder="Search Sky Sports" style="color: white; width: 88%">
+                        <i class="fa fa-search" aria-hidden="true" style="font-size: 15px;"></i>
+                    </div>
+                </div>
+
+
+                <!-- RESPONSIVE MENU -->
+                <div class="header_col header_col4">
+                    <a href="#" id="btn_side_bar">
+                        <i class="fa fa-bars xxlarge text-white" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- REPONSIVE SIDE BAR -->
+            <div id="sb" class="side_bar clearfix" style="display: none;">
+                <div class="darkgrey medium">
+
+                    {{#if isAuthenticated}}
+                    <a href="/account/profile" class="button hover_grey">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Hi. {{authUser.username}}
+                    </a>
+                    {{else}}
+                    <a href="account/login" class="button hover_grey">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Log In
+                    </a>
+                    {{/if}}
+
+                    <a href="#" class="button hover_grey">
+                        Get Sky Sports
+                    </a>
+                </div>
+                <ul class="medium">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <div id="a">
+                            <a href="#" id="btn_sb_sport_dropdown">Sport <i class="fa fa-angle-down"
+                                    aria-hidden="true"></i></a>
+                            <a href="#" id="btn_close_sb_sport_dropdown" style="display: none">Sport <i
+                                    class="fa fa-angle-up" aria-hidden="true"></i></a>
+                            <ul class="dropdown dropdown_left" id="sb_sport_dropdown">
+                                <li>
+                                    <a href="#">Sport News</a>
+                                </li>
+                                <li>
+                                    <a href="#">Videos</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="btn_sb_sport_tv_dropdown">TV <i class="fa fa-angle-down"
+                                            aria-hidden="true"></i></a>
+                                    <a href="#" id="btn_close_sb_sport_tv_dropdown" style="display: none;">TV <i
+                                            class="fa fa-angle-up" aria-hidden="true"></i></a>
+                                    <ul class="dropdown dropdown_left" id="sb_sport_tv_dropdown">
+                                        <li>
+                                            <a href="#">TV Guide</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Score Centre</a>
+                    </li>
+                    <li>
+                        <a href="#">Games</a>
+                    </li>
+                    <li>
+                        <a href="#" id="btn_sb_more_dropdown">More <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Side bar -->
+    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+        <div class="w3-container w3-row">
+            <div class="w3-col s9 w3-bar">
+                <div class="text-center">Welcome,
+                    {{#switch authUser.role}}
+                    {{#case "viewer" break=true}}Viewer!{{/case}}
+                    {{#case "writer" break=true}}Writer!{{/case}}
+                    {{#case "editor" break=true}}Editor!{{/case}}
+                    {{#default}}Quản trị viên{{/default}}
+                    {{/switch}}
+                    <br /> <strong>{{authUser.fullname}}</strong></div>
+                <div style="padding-left:10px;">
+                    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+                    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+                    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="w3-container">
+            <h5>Dashboard</h5>
+        </div>
+        <div class="w3-bar-block">
+            <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
+                onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+            <a id="homelink" {{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
+                {{#case "writer" break=true}}href="/writer" {{/case}} {{#case "editor" break=true}}href="/editor"
+                {{/case}} {{#case "admin" break=true}}href="/admin"
+                {{/case}}{{#default}}href="/admin" {{/default}} {{/switch}}
+                class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home" aria-hidden="true"
+                    style="font-size:18px"></i>  Trang chủ
+            </a>
+            {{#compare authUser.role  "admin"}}
+            <a id="manageuserlink" href="#" class="w3-bar-item w3-button w3-padding dropdown-toggle" role="button"
+                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-users" aria-hidden="true"></i>  Quản lý Users
+            </a>
+            <div class="dropdown-menu" style="width: 250px;" aria-labelledby="">
+                <a class="dropdown-item" href="/admin/manage-users/viewer">Độc giả</a>
+                <a class="dropdown-item" href="/admin/manage-users/writer">Phóng viên</a>
+                <a class="dropdown-item" href="/admin/manage-users/editor">Biên tập viên</a>
+            </div>
+            <div id="managepost" class="dropdown" style="margin-top:0px;">
+                <a onclick="myFunction()" role="button" aria-haspopup="true" aria-expanded="false"
+                    class="dropbtn w3-bar-item w3-button w3-padding dropdown-toggle"><i class="fa fa-database fa-fw"></i>
+                    Quản lý bài viết</a>
+                <div id="myDropdown" class="dropdown-content">
+                    <a class="dropdown-item" href="/admin/manage-categories">Theo chuyên mục</a>
+                    <a class="dropdown-item" href="/admin/manage-tags">Theo dán nhãn</a>
+                </div>
+            </div>
+            {{/compare}}
+            {{#compare authUser.role  "writer"}}
+            <a id="postlink" href="/writer/upload" class="w3-bar-item w3-button w3-padding">
+                <i class="fa fa-cloud-upload" aria-hidden="true" style=""></i>  Đăng bài
+            </a>
+            <a id="viewpost" href="/writer/review" class="w3-bar-item w3-button w3-padding"><i
+                    class="fa fa-eye fa-fw"></i>  Views</a>
+            <a id="edit" href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-pencil-square-o fa-fw"></i> 
+                Edit</a>
+            <a id="history" href="/writer/history" class="w3-bar-item w3-button w3-padding"><i
+                    class="fa fa-history fa-fw"></i>  History</a>
+            {{/compare}}
+
+            {{#compare authUser.role  "editor"}}
+            <a id="approvelink" href="/editor/approve" class="w3-bar-item w3-button w3-padding">
+                <i class="fa fa-check-square-o" aria-hidden="true" style=""></i>  Duyệt bài
+            </a>
+            <!--a id="viewpost" href="/writer/review" class="w3-bar-item w3-button w3-padding"><i
+                    class="fa fa-eye fa-fw"></i>  Views</a-->
+            <a id="history" href="/writer/history" class="w3-bar-item w3-button w3-padding"><i
+                    class="fa fa-history fa-fw"></i>  History</a>
+            {{/compare}}
+
+            <!--a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Traffic</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Orders</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  General</a-->
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
+        </div>
+    </nav>
+    <div style="margin-left:310px;">
+        {{{body}}}
+    </div>
+    <div class="modal fade" id="success_dialog" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: 300px;">
+            <div class="modal-content text-center bg-success">
+                <h6 class="modal-title text-white" style="padding: 16px 0px;">Thành công!</h6>
+            </div>
+        </div>
+    </div>
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function NotifySuccess() {
+            $('#success_dialog').modal('toggle');
+            setTimeout(function () {
+                $('#success_dialog').modal('toggle');
+            }, 1000);
+        }
+    </script>
+    {{{_sections.js}}}
+</body>
+
+</html>

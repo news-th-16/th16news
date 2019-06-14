@@ -14,44 +14,30 @@ cloudinary.config({
 var $ = require('jquery');
 
 router.get('/', (req, res) => {
-    res.render('writter/home', {
-        layout: 'writter.hbs',
-        layoutsDir: 'views/layouts',
-    })
-})
-
-router.get('/upload', (req, res) => {
     res.render('writter/uploadpost', {
-        layout: 'writter.handlebars',
+        layout: 'vwadmin.handlebars',
         layoutsDir: 'views/layouts',
     });
 })
 
-router.get('/upload/getTag', (req, res) => {
-    tagModel.all()
-        .then(
-            rows => {
-                res.send(rows);
-            }
-        )
-        .catch(
-            err => {
-                res.writeHead(500, { 'content-type': 'text/json' });
-                res.write(JSON.stringify({ data: err }));
-            }
-        )
-})
-
-router.post('/upload', async (req, res) => {
-
+router.post('/', async (req, res, next) => {
+    var writer = req.user;
+    var author = {
+        "id": writer._id,
+        "fullname": writer.fullname,
+    }
     var data = {
         "categoryid": req.body.categoryid,
         "title": req.body.title,
         "summary": req.body.summary,
         "tag": req.body.tag,
         "content": req.body.content,
-        "createdate" : req.body.createdate,
+        "createdate": req.body.createdate,
         "image": "",
+    }
+    data.author = {
+        "id": writer._id,
+        "fullname": writer.fullname,
     }
     var content = data.content;
 
@@ -81,6 +67,7 @@ router.post('/upload', async (req, res) => {
     postModel.insert(data)
         .then(
             result => {
+                console.log('result: ', data);
                 res.send(result);
             }
         )
@@ -91,38 +78,7 @@ router.post('/upload', async (req, res) => {
             }
         )
 })
-
-router.get('/upload/getCat', (req, res) => {
-    categoryModel.all()
-        .then(results => {
-            res.send(results);
-        })
-        .catch(err => {
-            res.writeHead(500, { 'content-type': 'text/json' });
-            res.write(JSON.stringify({ data: err }));
-        })
-})
-
-router.get('/upload/watch/:id', (req, res) => {
-    var id = req.params.id;
-
-    postModel.getbyid(id)
-        .then(
-            result => {
-                console.log(`Getbyid: ${result}`);
-                res.render('writter/watchpost', {
-                    layout: 'writter.handlebars',
-                    layoutsDir: 'views/layouts',
-                    model: result,
-                })
-            })
-        .catch(
-            err => {
-                console.log(err);
-            }
-        )
-})
-
+/*
 router.get('/upload/edit/:id', (req, res) => {
 
     var url = req.url;
@@ -198,4 +154,5 @@ router.post('/upload/edit/:id', async (req, res) => {
     }
 
 })
+*/
 module.exports = router;

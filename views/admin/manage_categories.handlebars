@@ -1,0 +1,293 @@
+<title>{{title}}</title>
+<div class="w3-container w3-card w3-white w3-margin-bottom">
+    <h2 class="w3-text-grey w3-padding-16"><i
+            class="fa fa-tachometer fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> Quản lý bài viết theo chuyên mục
+    </h2>
+    <div class="w3-container mb-3">
+        <div class="row">
+            <div class="mb-3">
+                <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#addcat_dialog"
+                    type="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Thêm danh mục
+                </button>
+            </div>
+            <table id="tb_data" class="table table-hover mt-4">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Danh mục</th>
+                        <th scope="col">Số bài viết</th>
+                        <th scope="col">
+                            <i class="fa fa-wrench" aria-hidden="true"></i> Tùy chỉnh
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each this.categories}}
+                    <tr>
+                        <td style="display:none">{{_id}}</td>
+                        <td>{{counter @index}}</td>
+                        <td>{{name}}</td>
+                        <td class="text-center">
+                            <div>
+                            </div>
+                        </td>
+                        <td>
+                            <a class="btn w3-teal btn-sm" href="/admin/manage-posts/bycat/{{_id}}/"> Chi tiết</a>
+                            <a class="btn w3-teal btn-sm" href="javascript:void(0)" onclick="edit('{{@index}}')"> Chỉnh
+                                sửa </a>
+                            <a class="btn w3-teal btn-sm" href="javascript:void(0)" onclick="del('{{_id}}')">
+                                Xóa</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{#compare this.nPages  0 context=this operator=">"}}
+            <div class="row">
+                <div class="col-sm-12 mt-4">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            {{#compare page  1 operator="=="}}
+                            <li class="page-item  disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li>
+                                {{this.prePage}}
+                            </li>
+                            {{/compare}}
+                            {{#compare page  1 context=this operator=">"}}
+                            <li class="page-item ">
+                                <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+                            </li>
+                            <li>
+                            </li>
+                            {{/compare}}
+                            {{#each this.pages}}
+                            <li class="page-item {{#if active}} active {{/if}}">
+                                <a class="page-link" href="?page={{value}}">{{value}}</a>
+                            </li>
+                            {{/each}}
+                            {{#compare page  nPages context=this operator="<"}}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{this.nextPage}}">Next</a>
+                            </li>
+                            {{/compare}}
+                            {{#compare page  nPages operator=">="}}
+                            <li class="page-item  disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                            </li>
+                            {{/compare}}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            {{/compare}}
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="addcat_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm mới danh mục</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div>
+                        <label class="control-label">Tên danh mục</label>
+                        <span class="text-danger" id="valid_catname" style="display:none;">Không bỏ trống mục này</span>
+                        <div>
+                            <input id="catname" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="addcat" class="btn btn-primary">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editcat_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa danh mục</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div>
+                        <label class="control-label">Tên danh mục</label>
+                        <span class="text-danger" id="valid_catname" style="display:none;">Không bỏ trống mục này</span>
+                        <div>
+                            <input id="new_catname" class="form-control" />
+                            <input id="catid" style="display: none" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="editcat" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deletecat_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header w3-teal">
+                <h5 class="modal-title">Xóa danh mục</h5><span id="deletecatid"></span>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có muốn <span class="text-danger bold">xóa</span> không</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="deletecat" class="btn btn-primary">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $('#homelink').removeClass('w3-blue');
+    $('#managepost').addClass('w3-blue');
+    $(document).ready(function () {
+        countpost();
+        $('#addcat').on('click', function () {
+            if ($('#catname').val() == '') {
+                $('#valid_catname').css({ 'display': 'inline-block' })
+            }
+
+            else {
+                var data = {
+                    "name": $('#catname').val(),
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/manage-categories/insert',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (res, text, xhr) {
+                        if (xhr.status == 200) {
+                            $('#addcat_dialog').modal('toggle');
+                            NotifySuccess();
+                            location.reload();
+                        }
+                    },
+                })
+            }
+        })
+        $('#editcat').on('click', function () {
+            var newname = $('#new_catname').val();
+            var data = {
+                "_id": $('#catid').val(),
+                "name": newname,
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/admin/manage-categories/update',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (res, textStatus, xhr) {
+                    if (xhr.status == 200) {
+                        $('#editcat_dialog').modal('toggle');
+                        var row = $('#tb_data tbody tr').eq(row_index);
+                        var cell = row.find('td').eq(2);
+                        cell.text(newname)
+
+                        NotifySuccess();
+                    }
+                }
+            })
+        })
+
+        $('#deletecat').on('click', function () {
+            var data = {
+                "_id": $('#deletecatid').text(),
+            }
+            $.ajax({
+                type: 'post',
+                url: '/admin/manage-categories/delete',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (data, text, jqXHR) {
+                    if (data.code == 200) {
+                        NotifySuccess();
+                        location.reload();
+                    }
+                }
+            })
+        })
+    });
+    var row_index;
+    function edit(index) {
+        row_index = index;
+        var row = $('#tb_data tbody tr').eq(index);
+        var name = row.find('td').eq(2).text();
+        var id = row.find('td').eq(0).text();
+
+        $('#new_catname').val(name);
+        $('#catid').val(id);
+        $('#editcat_dialog').modal('toggle');
+    }
+
+    function del(id) {
+        $('#deletecat_dialog').modal('toggle');
+        $('#deletecatid').text(id);
+    }
+    //
+    function countpost() {
+        const catid = [];
+        $('#tb_data tbody tr').each(function () {
+            var id = $(this).find('td').eq(0).text();
+            catid.push(id);
+        });
+        (async function main() {
+            try {
+                for (let i = 0; i < catid.length; i++) {
+                    var data = {
+                        "catid": catid[i],
+                    }
+                    await $.ajax({
+                        type: 'POST',
+                        contentType: 'application/json',
+                        url: '/admin/manage-categories/countpost',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        success: function (res) {
+                            $('#tb_data tbody tr').eq(i).find('td').eq(3).text(res.data);
+                        }
+                    })
+                }
+            }
+            catch (ex) {
+                console.log(ex.message);
+            }
+        })();
+    }
+</script>

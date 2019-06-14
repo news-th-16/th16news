@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
           'subscriber',
           'viewer',
         ],
-    }
+    },
+
 });
 
 userSchema.plugin(passportLocalMongoose);

@@ -1,0 +1,298 @@
+<title>{{title}}</title>
+<div class="w3-container w3-card w3-white w3-margin-bottom">
+    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-tags fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> Quản
+        lý bài viết theo dán nhãn
+    </h2>
+    <div class="w3-container mb-3">
+        <div class="row">
+            <div style="float:right" class="mb-3">
+                <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#addtag_dialog"
+                    type="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Thêm dán nhãn
+                </button>
+            </div>
+
+            <table id="tb_data" class="table table-hover mt-4">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Dán nhãn</th>
+                        <th scope="col">Số bài viết</th>
+                        <th scope="col" class="text-center" style="width: 300px;">
+                            <i class="fa fa-wrench" aria-hidden="true"></i> Tùy chỉnh
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each this.tag}}
+                    <tr>
+                        <td style="display:none">{{slug}}</td>
+                        <td>{{counter @index}}</td>
+                        <td>{{name}}</td>
+                        <td class="text-center">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td>
+                            <a class="btn w3-teal btn-sm" href="/admin/manage-tags/{{slug}}"> Chi tiết</a>
+                            <a class="btn w3-teal btn-sm" href="javascript:void(0)" onclick="edit('{{@index}}' )"> Chỉnh
+                                sửa </a>
+                            <a class="btn w3-teal btn-sm" href="javascript:void(0)" onclick="del('{{_id}}')"> Xóa </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{#compare this.nPages  0 context=this operator=">"}}
+            <div class="row">
+                <div class="col-sm-12 mt-4">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            {{#compare page  1 operator="=="}}
+                            <li class="page-item  disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li>
+                                {{this.prePage}}
+                            </li>
+                            {{/compare}}
+                            {{#compare page  1 context=this operator=">"}}
+                            <li class="page-item ">
+                                <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+                            </li>
+                            <li>
+                            </li>
+                            {{/compare}}
+                            {{#each this.pages}}
+                            <li class="page-item {{#if active}} active {{/if}}">
+                                <a class="page-link" href="?page={{value}}">{{value}}</a>
+                            </li>
+                            {{/each}}
+                            {{#compare page  nPages context=this operator="<"}}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{this.nextPage}}">Next</a>
+                            </li>
+                            {{/compare}}
+                            {{#compare page  nPages operator=">="}}
+                            <li class="page-item  disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                            </li>
+                            {{/compare}}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            {{/compare}}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addtag_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm mới dán nhãn</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div>
+                        <label class="control-label">Tên dán nhãn</label>
+                        <span class="text-danger" id="valid_catname" style="display:none;">Không bỏ trống mục này</span>
+                        <div>
+                            <input id="tagname" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="addtag" class="btn btn-primary">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edittag_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa dán nhãn</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div>
+                        <label class="control-label">Tên dán nhãn</label>
+                        <span class="text-danger" id="valid_tagname" style="display:none;">Không bỏ trống mục này</span>
+                        <div>
+                            <input id="new_tagname" class="form-control" />
+                            <input id="tagid" style="display: none" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="edittag" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="deletetag_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header w3-teal">
+                <h5 class="modal-title">Xóa danh mục</h5><span id="deletetagid"></span>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có muốn <span class="text-danger bold">xóa</span> không</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="deletetag" class="btn btn-primary">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#homelink').removeClass('w3-blue');
+    $('#managepost').addClass('w3-blue');
+    $(document).ready(function () {
+        $('#addtag').on('click', function () {
+            if ($('#tagname').val() == '') {
+                $('#valid_tagname').css({ 'display': 'inline-block' })
+            }
+            else {
+                var data = {
+                    "name": $('#tagname').val(),
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/manage-tags/insert',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (res, text, xhr) {
+                        if (xhr.status == 200) {
+                            $('#addtag_dialog').modal('toggle');
+                            NotifySuccess();
+                            location.reload();
+                        }
+                    },
+                })
+            }
+        })
+
+        $('#edittag').on('click', function () {
+            var newname = $('#new_tagname').val();
+            var data = {
+                "_id": $('#tagid').val(),
+                "name": newname,
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/admin/manage-tags/update',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (res, textStatus, xhr) {
+                    if (xhr.status == 200) {
+                        $('#edittag_dialog').modal('toggle');
+
+                        var row = $('#tb_data tbody tr').eq(row_index);
+                        console.log(row.text());
+                        var cell = row.find('td').eq(2);
+                        console.log(cell.text());
+                        cell.text(newname)
+
+                        NotifySuccess();
+                    }
+                }
+            })
+        })
+        $('#deletetag').on('click', function () {
+            var data = {
+                "_id": $('#deletetagid').text(),
+            }
+            $.ajax({
+                type: 'post',
+                url: '/admin/manage-tags/delete',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (data, text, jqXHR) {
+                    if (data.code == 200) {
+                        NotifySuccess();
+                        location.reload();
+                    }
+                }
+            })
+        })
+        const tags = [];
+        $('#tb_data tbody tr').each(function () {
+            var slug = $(this).find('td').eq(0).text();
+            tags.push(slug);
+        });
+
+        (async function main() {
+            try {
+                for (let i = 0; i < tags.length; i++) {
+                    var data = {
+                        "tag": tags[i],
+                    }
+                    await $.ajax({
+                        type: 'POST',
+                        contentType: 'application/json',
+                        url: '/admin/manage-tags/countpost',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        success: function (res) {
+                            $('#tb_data tbody tr').eq(i).find('td').eq(3).text(res.data);
+                        }
+                    })
+                }
+            }
+            catch (ex) {
+                console.log(ex.message);
+            }
+        })();
+    });
+
+    var row_index;
+
+    function edit(index) {
+        row_index = index;
+
+        var row = $('#tb_data tbody tr').eq(index);
+        var name = row.find('td').eq(2).text();
+        var id = row.find('td').eq(0).text();
+
+        $('#new_tagname').val(name);
+        $('#tagid').val(id);
+        $('#edittag_dialog').modal('toggle');
+    }
+
+    function del(id) {
+        $('#deletetag_dialog').modal('toggle');
+        $('#deletetagid').text(id);
+    }
+
+    function NotifySuccess() {
+        $('#success_dialog').modal('toggle');
+        setTimeout(function () {
+            $('#success_dialog').modal('toggle');
+        }, 1000);
+    }
+</script>

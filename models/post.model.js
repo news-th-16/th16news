@@ -19,6 +19,18 @@ var postSchema = new Schema({
     publish: {
         type: Boolean,
         default: "false",
+    },
+    rejected: {
+        type: Boolean,
+        default: "false",
+    },
+    rejectreason: {
+        type: String,
+        default: "",
+    },
+    author: {
+        id: String,
+        fullname: String,
     }
 })
 
@@ -28,12 +40,14 @@ module.exports = {
     },
 
     insert: entity => {
+        
         var slug = [];
         for(i=0;i<entity.tag.length;i++){
             slug.push(slugify.slugify(entity.tag[i]));
         }
         entity.tagslug = slug;
         entity.titleslug = slugify.slugify(entity.title);
+        console.log('Entity:',entity);
         return db.insert('posts', postSchema, entity);
     },
 
@@ -54,8 +68,8 @@ module.exports = {
     getbycat: (catid) => {
         return db.findby('posts', postSchema, 'categoryid', catid);
     },
-    countbycat: (id, flag) => {
-        return db.countbycat('posts', postSchema, id, flag);
+    countbycat: (id, ispublished,isrejected) => {
+        return db.countbycat('posts', postSchema, id, ispublished,isrejected);
     },
     countbytag2: (id, flag) => {
         return db.countbytag2('posts', postSchema, id, flag);
@@ -69,13 +83,32 @@ module.exports = {
     findbypublish: (value) => {
         return db.findbypublish('posts', postSchema, value);
     },
-    pagebycat: (value, offset, limit, flag) => {
-        return db.pagebycat('posts', postSchema, value, offset, limit, flag);
+
+    pagebycat: (value, offset, limit, ispublished,isrejected, flag) => {
+        return db.pagebycat('posts', postSchema, value, offset, limit, ispublished,isrejected,flag);
     },
     pagebytag: (value, offset, limit, flag) => {
         return db.pagebytag('posts', postSchema, value, offset, limit, flag);
     },
     getbytitle: value => {
         return db.getbytitle('posts',postSchema,value);
-    }
+    },
+    coutpost: value => {
+        return db.coutpost('posts',postSchema,value);
+    },
+
+    getbyauthor: authorid => {
+        return db.getbyauthor('posts',postSchema,authorid);
+    },
+
+    //if flag == true -> rejected == true
+    pagebyauthor: (authorid, offset, limit, ispublished, isrejected,flag) => {
+        return db.pagebyauthor('posts',postSchema,authorid,offset,limit, ispublished, isrejected,flag);
+    },
+    
+    countbyauthor: (authorid, ispublished,isrejected,flag) => {
+        return db.countbyauthor('posts',postSchema,authorid,ispublished,isrejected,flag);
+    } 
+
+
 }
