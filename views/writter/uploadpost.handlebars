@@ -156,92 +156,6 @@
   </div>
 </div>
 
-<!--div id="page-content">
-  <div style="height:100%;width:100%;margin:auto;">
-
-    <div id="home" class="container" style="margin-top:32px;">
-      <h1 class="xxlarge show line margin-32 clearfix">Post News</h1>
-      <div style="width: 100%;">
-        <form class="padding-32">
-          <table style="width: 100%">
-            <tbody>
-              <tr>
-                <th style="float:left;">
-                  Danh mục
-                </th>
-                <td>
-                  <select class="round" id="categories"></select>
-                </td>
-              </tr>
-              <tr>
-                <th style="float:left;">
-                  Tiêu đề
-                </th>
-                <td>
-                  <input id="title" class="round" type="text" name="">
-                </td>
-              </tr>
-              <tr>
-                <th style="float:left" style="vertical-align: top;">
-                  Tag
-                </th>
-                <td id="the-basics">
-                  <div style="float: left;">
-                    <input id="input_tag" class="typeahead" type="text" placeholder="Tag...">
-                    <button id="btn_opendrop" class="btn btn-light btn-outline-dark btn-sm" type="button">
-                      <i class="fa fa-caret-down" aria-hidden="true"></i>
-                    </button>
-                    <button id="btn_closedrop" class="btn btn-light btn-outline-dark btn-sm" type="button"
-                      style="display:none;">
-                      <i class="fa fa-caret-up" aria-hidden="true"></i>
-                    </button>
-                    <br />
-                    <span id="valid_tag" class="text-danger" style="display: none">Tag không có trong dữ liệu!</span>
-                    <select id="list_tag" style="display:none;" class="form-control"></select>
-                  </div>
-                  <div style="float:left;" class="ml-3">
-                    <button id="add_tag" class="btn btn-light btn-outline-dark btn-sm" type="button">
-                      <i class="fa fa-caret-right" aria-hidden="true"></i>
-                    </button>
-                    <button id="remove_tag" class="btn btn-light btn-outline-dark btn-sm" type="button">
-                      <i class="fa fa-caret-left" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  <div style="float:left;" class="ml-3">
-                    <select id="tag" class="round" size="1" style="width: 220px;"></select>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th style="float:left">
-                  Tóm tắt
-                </th>
-                <td>
-                  <input id="summary" class="round" type="text" name="">
-                </td>
-              </tr>
-              <tr>
-                <th style="vertical-align:top; float:left; ">
-                  Nội dung
-                </th>
-                <td>
-                  <textarea id="ckeditor" name="content" class="round" style="width: 100%;"></textarea>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                </td>
-                <td colspan="2" style="float:right; background-color: black; ">
-                  <button id="submit" type="button" style="background: #eee !important;" class="button">Submit</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-      </div>
-    </div>
-  </div>
-</div!-->
 
 <script src="/typeahead.js"></script>
 <script type="text/javascript">
@@ -321,9 +235,9 @@
         contentType: 'application/json',
         dataType: 'json',
         success: function (res, textStatus, xhr) {
-          if (xhr.status == 200) {
-            $(location).attr('href', `/writer/review/${res._id}`);
-          }
+          setTimeout(function () {
+              $(location).attr('href', `/writer/review/${res._id}`);
+            }, 9000);
         }
       })
 

@@ -51,7 +51,6 @@ module.exports = {
         }
         entity.tagslug = slug;
         entity.titleslug = slugify.slugify(entity.title);
-        console.log('Entity:',entity);
         return db.insert('posts', postSchema, entity);
     },
 

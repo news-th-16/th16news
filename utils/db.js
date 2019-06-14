@@ -162,7 +162,6 @@ module.exports = {
             var model = mongoose.model(modelname, schema);
             if (isrejected == true || isrejected == false) {
                 model.find({ categoryid: value, publish: ispublished, rejected: isrejected }).count(function (err, count) {
-                    console.log('count: ', count);
                     if (err) {
                         reject(err);
                     }
@@ -424,10 +423,8 @@ module.exports = {
                         });
                 }
                 else if(flag==true) {
-                    console.log('im here');
                     model.find({ 'author.id': value, publish: true, publishdate: { $lt: date } }).skip(offset).limit(limit).sort({ createdate: -1 })
                     .exec((err, rows) => {
-                        console.log(rows);
                         if (err) {
                             reject(err);
                         }
@@ -470,7 +467,6 @@ module.exports = {
                 }
                 else if(flag==true) {
                     model.find({ 'author.id': value, publish: true, publishdate: { $lt: date } }).count((err, rows) => {
-                        console.log('count: ',rows);
                         if (err) {
                             reject(err);
                         }

@@ -3,6 +3,7 @@ var router = express.Router();
 var categoryModel = require('../../models/category.model');
 var postModel = require('../../models/post.model');
 var tagModel = require('../../models/tag.model');
+var fs = require('fs');
 var path = require('path');
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
@@ -45,12 +46,25 @@ router.post('/', async (req, res, next) => {
     var list = [];
     var a = [];
     for (i = 0; i < para.length; i++) {
+        console.log(para[i]);
         if (para[i].indexOf("img") != -1) {
-
+            //Chinh max-width;
+            console.log(para[i]);
+            var style = "max-width: 680px; min-width: 680px; height:auto; ";
+            var pos = para[i].indexOf("width");
+            var parentstyle = " style='text-align: center' ";
+            var result = [para[i].slice(0, pos), style, para[i].slice(pos)].join('');
+            console.log('step 1: ', result);
+            //Chinh center
+            var pos2 = result.indexOf('>');
+            result = [result.slice(0, pos2), parentstyle, result.slice(pos2)].join('');
+            console.log('step 2: ', result);
+            //Chinh auto-height
             var tmp = para[i].substring(para[i].indexOf("src"));
             tmp = tmp.substring(5, tmp.indexOf(" ") - 1);
-
             list.push(tmp);
+            content = content.replace(para[i], result);
+
         }
     }
 
@@ -60,6 +74,15 @@ router.post('/', async (req, res, next) => {
         var url = result.secure_url;
         a.push(url);
         content = content.replace(list[i], url);
+
+        var str = "./public" + list[i];
+        fs.unlink(str, (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+            //file removed
+        })
     }
     data.image = a[0];
     data.content = content;
@@ -67,7 +90,6 @@ router.post('/', async (req, res, next) => {
     postModel.insert(data)
         .then(
             result => {
-                console.log('result: ', data);
                 res.send(result);
             }
         )

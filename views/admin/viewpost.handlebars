@@ -248,7 +248,12 @@
                     success: function (res, textStatus, jqXHR) {
                         console.log(jqXHR);
                         if (jqXHR.status == 200) {
-                            $(location).attr('href', `/admin/manage-posts/bycat/${catid}`);
+                            if (publish == 'true') {
+                                $(location).attr('href', `/admin/manage-posts/bycat/${catid}`);
+                            }
+                            else {
+                                $(location).attr('href', `/admin/manage-posts/bycat/${catid}/unpublished`);
+                            }
                         }
                     }
                 })
@@ -262,10 +267,10 @@
 
         $('#back').on('click', function () {
             if (publish == 'true') {
-                $(location).attr('href', `/admin/category/${catid}/posts`);
+                $(location).attr('href', `/admin/manage-posts/bycat/${catid}`);
             }
             else {
-                $(location).attr('href', `/admin/category/${catid}/posts/unpublished`);
+                $(location).attr('href', `/admin/manage-posts/bycat/${catid}/unpublished`);
             }
         })
     })
