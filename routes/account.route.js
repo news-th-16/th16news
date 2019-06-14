@@ -3,8 +3,10 @@ var router = express.Router();
 var bcrypt = require('bcrypt');
 var moment = require('moment');
 var userModel = require('../models/user.model');
+const User = require('../models/user');
 var passport = require('passport');
 var auth = require('../middlewares/auth.viewer');
+const sgMail = require('@sendgrid/mail');
 
 router.get('/register', (req, res, next) => {
     res.render('account/register', {
@@ -41,7 +43,6 @@ router.post('/register', (req, res, next) => {
 router.get('/is-available', (req, res, next) => {
 
     var username = req.query.username;
-    console.log('username: ', username);
     userModel.findbyname(username)
         .then(
             rows => {
@@ -59,13 +60,39 @@ router.get('/is-available', (req, res, next) => {
                 console.log(err);
             }
         )
+});
+
+router.get('/reset', (req, res) => {
+    res.render('account/change_password', {layout: false, id: req.query.id});
+});
+
+router.post('/change_password/:id', (req, res) => {
+    const id = req.params.id;
+    var saltRounds = 10;
+    var hash = bcrypt.hashSync(req.body.newpassword, saltRounds);
+    const entity = {
+        password: hash
+    };
+
+    userModel.update(id, entity)
+        .then(
+            result => {
+                console.log(result);
+                res.redirect('/account/login');
+            }
+        )
+        .catch(
+            err => {
+                console.log(err);
+            }
+        )
+
 })
 
 router.get('/login', (req, res, next) => {
     res.render('account/login', {
         layout: false,
     })
-
 })
 
 router.post('/login', (req, res, next) => {
@@ -89,6 +116,60 @@ router.post('/login', (req, res, next) => {
         });
 
     })(req, res, next);
+});
+
+router.get('/forgot_password', (req, res) => {
+    const id = req.query.id;
+    res.render('account/forgot_password', {layout: false, id: id});
+});
+router.post('/sendmail', function(req, res) {
+    const email = req.body.email;
+    User.find({ email })
+    .then(data => {
+        if(!data) {
+            alert('Email not exists !');
+        } else {
+            console.log(email);
+            const link1 = `http://${req.headers.host}/account/reset?id=${data[0]._id}`;
+            console.log(link1);
+
+            const value = `<html><head></head><body><p>Khôi phục mật khẩu: </p><a href=${link1}>${link1}</a></body></html>`
+            sgMail.setApiKey('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');
+            const msg = {
+                personalizations: [
+                  {
+                    to: [
+                      {
+                        email: email,
+                        name: 'Nguyen',
+                      },
+                    ],
+                    subject: 'Khôi phục mật khẩu',
+                  },
+                ],
+                from: {
+                  email: 'gummet.97@gmail.com',
+                },
+                content: [
+                  {
+                    type: 'text/html',
+                    value: value
+                  },
+                ],
+              };
+            sgMail.send(msg, (error, info) => {
+                if(error) {
+                    console.error(error);
+                } else {
+                    console.log("Thanh cong");
+                }
+            });
+        }
+        res.send('Success')
+    })
+    .catch(err => {
+        console.log(err);
+    })
 })
 
 router.get('/profile', auth, (req, res, next) => {

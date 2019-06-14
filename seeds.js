@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var News =require("./models/news");
+var News =require("./models/post");
 const User = require("./models/user");
 // // var Comment = require("./models/comment");
 // title: String,

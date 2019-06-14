@@ -63,7 +63,8 @@ module.exports = {
             })
         })
     },
-    getbyid: (modelname, schema, idfield) => {
+
+    getbyid:    (modelname, schema, idfield) => {
         return new Promise((resolve, reject) => {
             var model = mongoose.model(modelname, schema);
 

@@ -28,9 +28,11 @@
                     <div class="form-group has-feedback"><input class="form-control" type="password" placeholder="Password" name="password"><span class="glyphicon glyphicon-lock form-control-feedback"></span>
                         <div class="help-block"><span class="text-danger"></span></div>
                     </div>
-                    <div class="checkbox icheck clearfix"><label class="pull-left"><input type="checkbox" name="remember">&nbsp;Remember Me</label><a class="pull-right" href="/signup">Signup</a></div>
+                    <div class="checkbox icheck clearfix"><label class="pull-left"><input type="checkbox" name="remember">&nbsp;Remember Me</label><a class="pull-right" href="/account/register">Signup</a></div>
                     <div class=" clearfix" >
-                        <button class="btn btn-primary btn-block btn-flat" type="submit">Login</button></div>
+                        <button class="btn btn-primary btn-block btn-flat" type="submit">Login</button>
+                    </div>
+                    <a class="pull-right mt-1" href="/account/forgot_password">Quên mật khẩu</a>
                 </form>
             </p>
         </div>
@@ -47,7 +49,7 @@
         });
 
         const local = localStorage['login'] || {};
-        
+
         if (local.isRemember) {
             $('input').iCheck('check');
         }

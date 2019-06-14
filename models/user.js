@@ -16,7 +16,15 @@ const userSchema = new mongoose.Schema({
           'viewer',
         ],
     },
-
+/*
+  username: String,
+  password: String,
+  email: String,
+  role: {
+      type: String,
+      enum: ['viewer','writer','editor','admin'],
+      default:'viewer'
+  }*/
 });
 
 userSchema.plugin(passportLocalMongoose);

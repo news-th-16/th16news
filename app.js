@@ -1,11 +1,15 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
+var hbs = require('hbs');
 var app = express();
 const mongoose = require('mongoose');
-/*const authRoutes = require('./routes/auth');*/
+const authRoutes = require('./routes/auth');
 const homeRoutes = require('./routes/home');
 const postRoutes = require('./routes/post');
 const commentRoutes = require('./routes/comment');
+const passport = require('passport');
+const LocalStrategy = require("passport-local");
+const User = require('./models/user');
 const bodyParser = require('body-parser');
 //const passport = require('passport');
 //const LocalStrategy = require("passport-local");
@@ -15,9 +19,11 @@ const bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost:27017/News', { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({ extended: true }));
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 app.use(express.json());
-//=== Ngọc part 
+//=== Ngọc part
 var hbs = require('./middlewares/view-engine');
 app.set('view engine', 'handlebars');
 app.engine('handlebars', hbs.engine)
@@ -46,7 +52,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // ==== Nguyên: passport
 
-// ==== Ngọc: app.engine -> chuyển qua file riêng middleware/view-engine. 
+// ==== Ngọc: app.engine -> chuyển qua file riêng middleware/view-engine.
 /*
 app.engine('handlebars', exphbs({
 
@@ -103,7 +109,7 @@ app.post('/upload', upload.single('flFileUpload'), async (req, res, next) => {
     res.redirect("back")
 });
 
-// ====/> 
+// ====/>
 
 //== Authenticate của Nguyên: Ngọc làm qua file mới lưu local : middlewares/auth
 /*
@@ -120,7 +126,7 @@ const passport = require('passport');
 const LocalStratery = require("passport-local");
 
     if (req.path !== '/login') {
-        loginUrl = `/login?returnUrl=${returnUrl}`;
+        loginUrl = `/login`;
     }
 
     return res.redirect(loginUrl);
@@ -138,7 +144,7 @@ function initLocals(req, res, next) {
 /*
 app.use('/', authRoutes);
 
-app.use(requireLogin);
+// app.use(requireLogin);
 app.use(initLocals);
 
 
@@ -172,13 +178,20 @@ app.use(require("express-session")({
 
 /*app.get('/admin/category',(req,res,end)=>{
     res.end('Hi');
-    
+
 })*/
-//app.use('/', authRoutes);
+//app.use('/', authRoutes);n
 //seedDB();
 app.get('/', (req, res) => {
     res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
 })
+///seedDB();
+
+app.use('/', require('./routes/home'));
+
+app.use('/', postRoutes);
+
+app.use('/', commentRoutes);
 
 app.use('/account', require('./routes/account.route'));
 
@@ -188,11 +201,6 @@ app.use('/writer', writer_authenticate, require('./routes/writter/main.route'));
 
 app.use('/editor', editor_authenticate, require('./routes/editor/main.route'));
 
-app.get('/try', (req, res, next) => {
-    res.render('layouts/try', {
-        layout: false,
-    })
-})
 app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');
 })

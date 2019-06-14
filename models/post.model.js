@@ -31,7 +31,11 @@ var postSchema = new Schema({
     author: {
         id: String,
         fullname: String,
-    }
+    },
+    comment: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    }],
 })
 
 module.exports = {
