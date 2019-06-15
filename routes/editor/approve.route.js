@@ -118,7 +118,7 @@ router.get('/:category/:title/getTag', (req, res, next) => {
 router.post('/:category/:title/publish', (req, res, next) => {
     var titleslug = req.params.title;
     var data = req.body;
- 
+    var editor = req.user;
     postModel.getbytitle(titleslug)
         .then(posts => {
             var post = posts[0];
@@ -127,6 +127,7 @@ router.post('/:category/:title/publish', (req, res, next) => {
             post.tag = tags;
             post.publishdate = data.publishdate;
             post.publish = true;
+            post.editor = editor.username;
             postModel.update(post._id, post)
                 .then(result => {
                     res.send({ code: 200, data: result });
@@ -140,14 +141,15 @@ router.post('/:category/:title/publish', (req, res, next) => {
         })
 })
 
-router.post('/:category/:title/reject', (req, res, next) => {
+router.post('/:category/:title/reject', (req, res) => {
     var titleslug = req.params.title;
+    var editor = req.user;
     postModel.getbytitle(titleslug)
         .then(posts => {
             var post = posts[0];
             post.rejected = true;
             post.rejectreason = req.body.reason;
-
+            post.editor = editor.username;
             postModel.update(post._id,post)
                 .then(result => {
                     res.send({code: 200, data: result});
@@ -155,6 +157,9 @@ router.post('/:category/:title/reject', (req, res, next) => {
                 .catch(err => {
                     res.send({code: 500, data: err});
                 })
+        })
+        .catch(err => {
+            console.log(err);
         })
 })
 module.exports = router;

@@ -6,6 +6,7 @@ var userModel = require('../models/user.model');
 const User = require('../models/user');
 var passport = require('passport');
 var auth = require('../middlewares/auth.viewer');
+
 const sgMail = require('@sendgrid/mail');
 
 router.get('/register', (req, res, next) => {
@@ -29,7 +30,6 @@ router.post('/register', (req, res, next) => {
     userModel.insert(entity)
         .then(
             result => {
-                console.log(result);
                 res.redirect('/account/login');
             }
         )
@@ -46,7 +46,6 @@ router.get('/is-available', (req, res, next) => {
     userModel.findbyname(username)
         .then(
             rows => {
-                console.log('len: ', rows.length);
                 if (rows.length > 0) {
                     return res.json(false);
                 }
@@ -61,6 +60,12 @@ router.get('/is-available', (req, res, next) => {
             }
         )
 });
+
+
+router.post('/logout', auth, (req,res,next)=>{
+    req.logOut();
+    res.redirect('/account/login');
+})
 
 router.get('/reset', (req, res) => {
     res.render('account/change_password', {layout: false, id: req.query.id});
@@ -172,10 +177,7 @@ router.post('/sendmail', function(req, res) {
     })
 })
 
-router.get('/profile', auth, (req, res, next) => {
-    res.end('profile');
-})
-
+/*
 router.get('/:username', auth, (req, res, next) => {
     var role = res.locals.authUser.role
 
@@ -187,5 +189,5 @@ router.get('/:username', auth, (req, res, next) => {
             res.end('Hi');
     }
 })
-
+*/
 module.exports = router;

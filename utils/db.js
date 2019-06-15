@@ -489,5 +489,59 @@ module.exports = {
         });
     },
 
+    pagebyeditor: (modelname, schema, value, offset, limit, ispublished, isrejected) => {
+        return new Promise((resolve, reject) => {
+            var model = mongoose.model(modelname, schema);
+            
+            if(isrejected==true){
+                model.find({ editor: value, rejected: true }).skip(offset).limit(limit).sort({ createdate: -1 })
+                .exec((err, rows) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else {
+                        resolve(rows);
+                    }
+                });  
+            }
+            else {
+                model.find({ editor: value, publish: true }).skip(offset).limit(limit).sort({ createdate: -1 })
+                .exec((err, rows) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else {
+                        resolve(rows);
+                    }
+                });  
+            }
+        });
+    },
+
+    countbyeditor: (modelname, schema, value, ispublished, isrejected) => {
+        return new Promise((resolve, reject) => {
+            var model = mongoose.model(modelname, schema);
+            if(isrejected==true){
+                model.find({ editor: value, rejected: true}).count((err, rows) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else {
+                        resolve(rows);
+                    }
+                });   
+            }
+            else{
+                model.find({ editor: value, publish: true}).count((err, rows) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else {
+                        resolve(rows);
+                    }
+                });   
+            }
+        });
+    },
 }
 

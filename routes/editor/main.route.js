@@ -52,6 +52,7 @@ router.get('/getTag', (req, res) => {
 
 
 router.use('/approve',require('./approve.route'));
+router.use('/history',require('./history.route'));
 /*
 router.get('/manage-posts', (req, res, next) => {
     var editor = req.user;
