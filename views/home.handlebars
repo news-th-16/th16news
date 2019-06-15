@@ -9,7 +9,7 @@
       <div class="col two-third">
         <div class="background-container" style="height: 350px;">
           <div class="background-img">
-            <img src={{top.imageURL}}>
+            <img src={{top.image}}>
           </div>
         </div>
       </div>
@@ -36,9 +36,11 @@
               </div>
             </div>
             <div class="padding small desc">
+              {{#each tag}} 
               <span class="type padding-16">
-                {{tag}}
+                {{this}} + {{user}}
               </span>
+              {{/each}}
               <span>
                 <a href="#"> {{category}}</a>
               </span>

@@ -11,6 +11,7 @@ const passport = require('passport');
 const LocalStrategy = require("passport-local");
 const User = require('./models/user');
 const bodyParser = require('body-parser');
+const listPosts = require('./routes/list_posts');
 //const passport = require('passport');
 //const LocalStrategy = require("passport-local");
 //const User = require('./models/user');
@@ -108,6 +109,15 @@ app.post('/upload', upload.single('flFileUpload'), async (req, res, next) => {
     res.redirect("back")
 });
 
+
+function initLocals(req, res, next) {
+    res.locals.user = req.user || {};
+    return next();
+}
+
+app.use(initLocals);
+
+
 // ====/>
 
 //== Authenticate của Nguyên: Ngọc làm qua file mới lưu local : middlewares/auth
@@ -186,6 +196,8 @@ app.use('/', require('./routes/home'));
 app.use('/', postRoutes);
 
 app.use('/', commentRoutes);
+
+app.use('/', listPosts)
 
 app.use('/account',require('./routes/account.route'));
 

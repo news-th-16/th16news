@@ -2,6 +2,7 @@ var express = require('express');
 const Post = require('../models/post')
 var router = express.Router();
 const middleware = require('./middleware');
+const _ = require('lodash');
 //=============FOR TESTING====//
 const story2 = {
     tag: 'Analysis',
@@ -33,8 +34,15 @@ const trendCol2 = [
 ]
 //=========================//
 router.get('/', (req, res) => {
-    Post.find({}, (err, story) => {
-        res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts', data: story, top, topNews, trendCol1, trendCol2 })
+    // let story;
+    return Post.find({tag: {$elemMatch: {$ne: 'Top Story'}}}, (err, story) => {
+        return story;
+    })
+    .then((story) => {
+        Post.find({tag: {$elemMatch: {$eq: 'Top Story'}}}, (err, topStory) => {
+            console.log(story);
+            return res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts', data: story, top: _.last(topStory), topNews, trendCol1, trendCol2, user: req.user })
+        })
     })
 });
 
