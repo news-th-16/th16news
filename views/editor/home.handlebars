@@ -18,28 +18,32 @@
             10-5-2019 - <span class="w3-tag w3-teal w3-round">Current</span>
         </h6>
         <h6 class=""><i class="fa  fa-birthday-cake fa-fw w3-margin-right w3-text-teal"></i>
-            {{parsedate authUser.dateofbirth}}
+            {{authUser.dateofbirth}}
         </h6>
         <hr>
     </div>
     <div class="w3-container">
         <h5 class="w3-opacity"><b>Công việc</b></h5>
-        {{#compare authUser.role  "writer"}}
+        <p class="w3-medium"><b><i class="fa fa-tasks fa-fw w3-margin-right w3-text-teal"></i>Chuyên mục quản lý</b></p>
+        {{#each this.categories}}
+        <p><i class="fa fa-check w3-margin-right" aria-hidden="true"></i>{{this}}</p>        
+        {{/each}}
+        {{#compare authUser.role  "editor"}}
         <p class="w3-medium"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Mức độ hoàn thành</b>
         </p>
-        <p>Số bài viết trong tuần: 3</p>
+        <p>Số bài viết đã duyệt trong tuần: 15</p>
         <div class="w3-light-grey w3-round-xlarge w3-small mb-3">
-            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">75%</div>
+            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:85%">85%</div>
         </div>
-        <p>Tổng số bài viết được duyệt: 40</p>
+        <p>Số bài viết được xuất bản trong tuần: 10 bài</p>
         <div class="w3-light-grey w3-round-xlarge w3-small mb-3">
-            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">
-                <div class="w3-center w3-text-white">80%</div>
+            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:66.67%">
+                <div class="w3-center w3-text-white">66.67%</div>
             </div>
         </div>
-        <p>Tổng số bài viết:</p>
+        <p>Tổng số bài viết đã duyệt:</p>
         <div class="w3-light-grey w3-round-xlarge w3-small mb-3">
-            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:100%">50 bài viết</div>
+            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:100%">150 bài viết</div>
         </div>
         {{/compare}}
     </div>

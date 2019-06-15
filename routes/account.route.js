@@ -15,12 +15,17 @@ router.get('/register', (req, res, next) => {
 })
 
 router.post('/register', (req, res, next) => {
-    
     var saltRounds = 10;
     var hash = bcrypt.hashSync(req.body.password, saltRounds);
     var entity = req.body;
     entity.password = hash;
-
+    var date = entity.dateofbirth;
+    var tmp = date.split('/');
+    var d = tmp[0];
+    var m = tmp[1];
+    var y = tmp[2];
+    var dob = new Date(y, m - 1, d, 0, 0);
+    entity.dateofbirth = dob;
     userModel.insert(entity)
         .then(
             result => {
@@ -36,7 +41,7 @@ router.post('/register', (req, res, next) => {
 })
 
 router.get('/is-available', (req, res, next) => {
-    
+
     var username = req.query.username;
     userModel.findbyname(username)
         .then(
@@ -98,7 +103,7 @@ router.post('/login', (req, res, next) => {
 
         if (!user) {
             return res.render('account/login', {
-                layout:false,
+                layout: false,
                 err_mess: info.message,
             });
         }
@@ -106,10 +111,10 @@ router.post('/login', (req, res, next) => {
         req.logIn(user, err => {
             if (err) {
                 return next(err);
-            }           
+            }
             return res.redirect('/');
         });
-        
+
     })(req, res, next);
 });
 
@@ -167,14 +172,14 @@ router.post('/sendmail', function(req, res) {
     })
 })
 
-router.get('/profile',auth,(req,res,next)=>{
+router.get('/profile', auth, (req, res, next) => {
     res.end('profile');
 })
 
-router.get('/:username',auth,(req,res,next)=>{
+router.get('/:username', auth, (req, res, next) => {
     var role = res.locals.authUser.role
-    
-    switch(role){
+
+    switch (role) {
         case 'admin': res.render('admin');
         case 'writer': res.render('writter');
         case 'editor': res.render('editor');

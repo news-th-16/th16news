@@ -10,13 +10,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheet/login.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
     <title>Register</title>
-     {{{_sections.css}}}
+    {{{_sections.css}}}
 </head>
 {{#section 'js'}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script>
-    $(function(){
+    $(function () {
         $('#registerForm').validate({
             rules: {
                 username: {
@@ -37,8 +41,11 @@
                     required: true,
                     email: true,
                 },
+                dateofbirth: {
+                    required: true,
+                }
             },
-            
+
             messages: {
                 username: {
                     required: 'Your username is required',
@@ -54,43 +61,59 @@
                     required: 'Your username is required',
                     email: 'Please enter a valid email address',
                 },
-            },  
+                dateofbirth: {
+                    required: "Your date of birth is required"
+                }
+            },
             errorElement: 'small',
             errorClass: 'help-block text-danger left',
             validClass: 'is-valid',
-            highlight: function(e){
+            highlight: function (e) {
                 $(e).removeClass('is-valid').addClass('is-invalid');
             },
-            unhighlight: function(e){
+            unhighlight: function (e) {
                 $(e).removeClass('is-invalid').addClass('is-valid');
             }
         });
     })
 </script>
-
-
 {{/section}}
-
-
 
 <body class="hold-transaction login-page">
     <div class="login-box">
         <div class="login-box-body" style="border-radius: 8px;">
-            <p class="login-box-msg"><h4>Register</h4>
-                <form  method="POST" id="registerForm">
+            <p class="login-box-msg">
+                <h4>Register</h4>
+                <form method="POST" id="registerForm">
                     <div class="help-block"><span class="text-primary"></span></div>
-                    <div class="form-group has-feedback"><input class="form-control" type="text" placeholder="Username" name="username"><span class="glyphicon glyphicon-user form-control-feedback"></span></div>
-                    <div class="form-group has-feedback"><input class="form-control" type="text" placeholder="Email" name="email"><span class="glyphicon glyphicon-user form-control-feedback"></span></div>
-                    <div class="form-group has-feedback"><input class="form-control" type="password" placeholder="Password" name="password"><span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <div class="form-group has-feedback"><input class="form-control" type="text" placeholder="Username"
+                            name="username"><span class="glyphicon glyphicon-user form-control-feedback"></span></div>
+                    <div class="form-group has-feedback"><input class="form-control" type="text" placeholder="Full Name"
+                            name="fullname"><span class="glyphicon glyphicon-user form-control-feedback"></span></div>
+                    <div class="form-group has-feedback"><input class="form-control" type="text" placeholder="Email"
+                            name="email"><span class="glyphicon glyphicon-user form-control-feedback"></span></div>
+                    <div class="form-group has-feedback">
+                        <input id="dateofbirth" class="form-control" name="dateofbirth" type="text" placeholder="Date of Birth"><span
+                            class="glyphicon glyphicon-user form-control-feedback"></span>
+                        <script type="text/javascript">
+                            $('#dateofbirth').datetimepicker({
+                                format: 'd/m/Y',
+                                timepicker: false,
+                            })
+                        </script>
+                    </div>
+
+                    <div class="form-group has-feedback"><input class="form-control" type="password"
+                            placeholder="Password" name="password"><span
+                            class="glyphicon glyphicon-lock form-control-feedback"></span>
                         <div class="help-block"><span class="text-danger"></span></div>
                     </div>
-                    <div class="form-group has-feedback"><input class="form-control" type="password" placeholder="Confirm Password" name="confirm_password"><span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <div class="form-group has-feedback"><input class="form-control" type="password"
+                            placeholder="Confirm Password" name="confirm_password"><span
+                            class="glyphicon glyphicon-lock form-control-feedback"></span>
                         <div class="help-block"><span class="text-danger"></span></div>
                     </div>
-                    <div class="checkbox icheck clearfix "><label class="pull-left"><input type="checkbox" name="remember">&nbsp;
-                        I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a>
-                    </label>
-                    <div class=" clearfix" >
+                    <div class=" clearfix">
                         <button class="btn btn-primary btn-block btn-flat" type="submit">Register</button></div>
                 </form>
             </p>

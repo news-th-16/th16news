@@ -39,6 +39,7 @@ router.get('/', (req, res) => {
         return story;
     })
     .then((story) => {
+        console.log(story);
         Post.find({tag: {$elemMatch: {$eq: 'Top Story'}}}, (err, topStory) => {
             console.log(story);
             return res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts', data: story, top: _.last(topStory), topNews, trendCol1, trendCol2, user: req.user })

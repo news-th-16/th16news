@@ -31,9 +31,10 @@ app.engine('handlebars', hbs.engine)
 require('./middlewares/session')(app);
 require('./middlewares/passport')(app);
 app.use(require('./middlewares/auth-locals'));
+var admin_authenticate = require('./middlewares/auth.admin');
 var viewer_authenticate = require('./middlewares/auth.viewer');
 var editor_authenticate = require('./middlewares/auth.editor');
-
+var writer_authenticate = require('./middlewares/auth.writer');
 // === Nguyên: passport -> Chuyển qua file midlewares/passport.js  của Ngọc
 /*
 //config passport
@@ -189,6 +190,11 @@ app.use(require("express-session")({
     res.end('Hi');
 
 })*/
+//app.use('/', authRoutes);n
+//seedDB();
+// app.get('/', (req, res) => {
+//     res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
+// })
 ///seedDB();
 
 app.use('/', require('./routes/home'));
@@ -197,16 +203,17 @@ app.use('/', postRoutes);
 
 app.use('/', commentRoutes);
 
+app.use('/account', require('./routes/account.route'));
 app.use('/', listPosts)
 
 app.use('/account',require('./routes/account.route'));
 
-app.use('/admin', require('./routes/admin/home.route'));
+app.use('/admin',admin_authenticate, require('./routes/admin/main.route'));
 
-app.use('/writter', require('./routes/writter/upload.route'));
+app.use('/writer', writer_authenticate, require('./routes/writter/main.route'));
 
-app.use('/editor',editor_authenticate,require('./routes/editor/editor.route'));
+app.use('/editor', editor_authenticate, require('./routes/editor/main.route'));
 
-app.listen(3100, () => {
+app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');
 })

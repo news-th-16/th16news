@@ -18,6 +18,18 @@ const newsSchema = new mongoose.Schema({
         type: Boolean,
         default: "false",
     },
+    rejected: {
+        type: Boolean,
+        default: "false",
+    },
+    rejectreason: {
+        type: String,
+        default: "",
+    },
+    author: {
+        id: String,
+        fullname: String,
+    },
     comment: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"

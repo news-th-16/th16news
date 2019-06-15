@@ -1,0 +1,25 @@
+<div class="w3-container w3-card w3-white w3-margin-bottom">
+    <h2 class="w3-text-grey w3-padding-16"><i
+            class="fa fa-address-book fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Hồ sơ cá nhân</h2>
+    <div class="w3-container">
+        <h5><b class="w3-opacity"> Thông tin tài khoản</b></h5>
+        <h6 class=""><i class="fa fa-user fa-fw w3-margin-right w3-text-teal"></i>
+            {{user.fullname}}
+        </h6>
+        <h6 class=""><i class="fa  fa-briefcase fa-fw w3-margin-right w3-text-teal"></i>
+            {{#switch user.role}}
+            {{#case "viewer" break=true}}Đọc giả{{/case}}
+            {{#case "writer" break=true}}Phóng viên{{/case}}
+            {{#case "editor" break=true}}Biên tập viên{{/case}}
+            {{/switch}}
+        </h6>
+        <h6 class=""><i class="fa fa-calendar fa-fw w3-margin-right w3-text-teal"></i>
+            {{parsedate user.createdate}} - <span class="w3-tag w3-teal w3-round">Current</span>
+        </h6>
+        <h6 class=""><i class="fa  fa-birthday-cake fa-fw w3-margin-right w3-text-teal"></i>
+            {{parsedate user.dateofbirth}}
+        </h6>
+        <hr>
+    </div>
+
+</div>

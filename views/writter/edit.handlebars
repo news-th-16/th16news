@@ -74,101 +74,91 @@
   }
 </style>
 <!-- PAGE CONTENT -->
-<div id="page-content">
-  <div style="height:100%;width:100%;margin:auto;">
-    <!--Poster -->
-    <div id="postid" style="display:none;">{{post._id}}</div>
-    <div id="categoryid" style="display:none;">{{post.categoryid}}</div>
-    <div id="home" class="container" style="margin-top:32px;">
-      <h1 class="xxlarge show line margin-32 clearfix">Edit Post</h1>
-      <div style="width: 100%;">
-        <form class="padding-32">
-          <table style="width: 100%">
-            <tbody>
-              <tr>
-                <th style="float:left;">
-                  Danh mục
-                </th>
-                <td>
-                  <select class="round" id="categories"></select>
-                </td>
-              </tr>
-              <tr>
-                <th style="float:left;">
-                  Tiêu đề
-                </th>
-                <td>
-                  <input id="title" class="round" type="text" name="" value="{{post.title}}">
-                </td>
-              </tr>
-              <tr>
-                <th style="float:left" style="vertical-align: top;">
-                  Tag
-                </th>
-                <td id="the-basics">
-                  <div style="float: left;">
-                    <input id="input_tag" class="typeahead" type="text" placeholder="Tag...">
-                    <button id="btn_opendrop" class="btn btn-light btn-outline-dark btn-sm" type="button">
-                      <i class="fa fa-caret-down" aria-hidden="true"></i>
-                    </button>
-                    <button id="btn_closedrop" class="btn btn-light btn-outline-dark btn-sm" type="button"
-                      style="display:none;">
-                      <i class="fa fa-caret-up" aria-hidden="true"></i>
-                    </button>
-                    <br />
-                    <span id="valid_tag" class="text-danger" style="display: none">Tag không có trong dữ liệu!</span>
-                    <select id="list_tag" style="display:none;" class="form-control"></select>
-                  </div>
-                  <div style="float:left;" class="ml-3">
-                    <button id="add_tag" class="btn btn-light btn-outline-dark btn-sm" type="button">
-                      <i class="fa fa-caret-right" aria-hidden="true"></i>
-                    </button>
-                    <button id="remove_tag" class="btn btn-light btn-outline-dark btn-sm" type="button">
-                      <i class="fa fa-caret-left" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  <div style="float:left;" class="ml-3">
-                    <select id="tag" class="round" size="1" style="width: 220px;">
-                      {{{createoption post.tag}}}
-                    </select>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th style="float:left">
-                  Tóm tắt
-                </th>
-                <td>
-                  <input id="summary" class="round" type="text" name="" value="{{post.summary}}">
-                </td>
-              </tr>
-              <tr>
-                <th style="vertical-align:top; float:left; ">
-                  Nội dung
-                </th>
-                <td>
-                  <textarea id="ckeditor" name="content" class="round" style="width: 100%;">
-                      {{post.content}}
-                  </textarea>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                </td>
-                <td colspan="2">
-                  <div class="text-center mt-4">
-                    <button id="save" class="btn btn-dark">Lưu</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-      </div>
+<div class="w3-container w3-card w3-white w3-margin-bottom">
+  <div id="postid" style="display:none;">{{post._id}}</div>
+  <div id="categoryid" style="display:none;">{{post.categoryid}}</div>
+  <h2 class="w3-text-grey w3-padding-16"><i
+      class="fa fa-pencil-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Chỉnh sửa bài viết</h2>
+  <div class="w3-container">
+    <table style="width: 100%">
+      <tbody>
+        <tr>
+          <th style="float:left;">
+            <h6><b> Danh mục</b></h6>
+          </th>
+          <td>
+            <select class="form-control" id="categories"></select>
+          </td>
+        </tr>
+        <tr>
+          <th style="float:left;">
+            <h6><b> Tiêu đề</b></h6>
+          </th>
+          <td>
+            <input id="title" class="form-control" type="text" name="" value="{{post.title}}">
+          </td>
+        </tr>
+        <tr>
+          <th style="float:left" style="vertical-align: top;">
+            <h6><b> Dán nhãn</b></h6>
+          </th>
+          <td id="the-basics">
+            <div style="float: left;">
+              <input id="input_tag" class="typeahead form-control" type="text" style="width:250px;"
+                placeholder="Tag...">
+              <button id="btn_opendrop" class="btn btn-light btn-outline-dark btn-sm" type="button">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </button>
+              <button id="btn_closedrop" class="btn btn-light btn-outline-dark btn-sm" type="button"
+                style="display:none;">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>
+              </button>
+              <br />
+              <span id="valid_tag" class="text-danger" style="display: none">Tag không có trong dữ liệu!</span>
+              <select id="list_tag" style="display:none;" class="form-control"></select>
+            </div>
+            <div style="float:left;" class="ml-5 mt-1">
+              <button id="add_tag" class="btn btn-light btn-outline-dark btn-sm" type="button">
+                <i class="fa fa-caret-right" aria-hidden="true"></i>
+              </button>
+              <button id="remove_tag" class="btn btn-light btn-outline-dark btn-sm" type="button">
+                <i class="fa fa-caret-left" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div style="float:left;" class="ml-5">
+              <select id="tag" class="form-control" size="1" style="width: 250px;">
+                {{{createoption post.tag}}}
+              </select>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th style="float:left">
+            <h6><b> Tóm tắt</b></h6>
+          </th>
+          <td>
+            <input id="summary" class="form-control" type="text" name="" value="{{post.summary}}">
+          </td>
+        </tr>
+        <tr>
+          <th style="vertical-align:top; float:left; ">
+            <h6><b> Nội dung</b></h6>
+          </th>
+          <td>
+            <textarea id="ckeditor" name="content" class="form-control" style="width: 100%;">{{post.content}}</textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center mt-3 mb-3">
+      {{#if rejected}}
+      <button id="re_send" type="button" class="btn w3-teal">Đăng lại</button>
+      {{else}}
+      <button id="save" type="button" class="btn w3-teal">Lưu</button>
+      {{/if}}
     </div>
   </div>
 </div>
-
 
 <script type="text/javascript">
   CKEDITOR.replace('ckeditor', {
@@ -180,11 +170,12 @@
 <script type="text/javascript">
   var tags = [];
   $(document).ready(function () {
-
+    $('#homelink').removeClass('w3-blue');
+    $('#edit').addClass('w3-blue');
     // Fill Categories
     $.ajax({
       type: 'GET',
-      url: '/writter/upload/getCat',
+      url: '/writer/getCat',
       contentType: 'application/json',
       dataType: 'json',
       success: function (res, textStatus, xhr) {
@@ -205,7 +196,7 @@
 
     $.ajax({
       type: 'GET',
-      url: '/writter/upload/getTag',
+      url: '/writer/getTag',
       contentType: 'application/json',
       dataType: 'json',
       success: function (res, textStatus, xhr) {
@@ -224,7 +215,6 @@
         }
       }
     })
-
 
     $('#save').on('click', function () {
       var tag = [];
@@ -245,16 +235,51 @@
       var id = $('#postid').text();
       $.ajax({
         type: 'POST',
-        url: `/writter/upload/edit/${id}`,
+        url: `/writer/edit/${id}`,
         data: JSON.stringify(data),
         contentType: 'application/json',
         dataType: 'json',
         async: true,
-        complete: function (xhr) {
-          console.log(xhr.status);
-          setTimeout(function () {
-            $(location).attr('href', `/writter/upload/watch/${id}`);
-          }, 9000);
+        success: function (data, textStatus, jqXHR) {
+          if (jqXHR.status == 200) {
+            setTimeout(function () {
+              $(location).attr('href', `/writer/review/${id}`);
+            }, 9000);
+          }
+        }
+      })
+    })
+
+    $('#re_send').on('click', function () {
+      var tag = [];
+
+      $('#tag > option').each(function () {
+        var name = $(this).text();
+        tag.push(name);
+      })
+      var data = {
+        "_id": $('#postid').text(),
+        "categoryid": $('#categories option:selected').val(),
+        "title": $('#title').val(),
+        "tag": tag,
+        "summary": $('#summary').val(),
+        "content": CKEDITOR.instances.ckeditor.getData(),
+      }
+
+      var id = $('#postid').text();
+      $.ajax({
+        type: 'POST',
+        url: `/writer/edit/resend/${id}`,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
+        async: true,
+        success: function (data, textStatus, jqXHR) {
+          if (jqXHR.status == 200) {
+            setTimeout(function () {
+              $(location).attr('href', `/writer/review/${id}`);
+            }, 9000);
+          }
         }
       })
     })
@@ -291,10 +316,6 @@
       else {
         $('#valid_tag').css({ 'display': 'none' })
       }
-
-      /*var option = $('#list_tag option').filter(function () {
-        return $(this).text() == $('#input_tag').val();
-      })*/
 
       if ($('#tag option').length == 0) {
         $('#list_tag > option').each(function () {

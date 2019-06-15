@@ -24,25 +24,17 @@ module.exports = {
         entity.slug = slugify.slugify(entity.name); 
         return db.update('tags', tagSchema, idfield, entity);
     },
-
+    remove: (idField) => {
+        return db.remove('tags', tagSchema,idField);
+    },
     getbyslug: (slug) => {
         return db.getbyslug('tags',tagSchema,slug);
+    },
+    page: (offset,limit) => {
+        return db.page('tags',tagSchema,offset,limit);
+    },
+
+    countall: ()=>{
+        return db.coutall('tags',tagSchema);
     }
-/*
-    getbycat: (catid) => {
-        return db.findby('tags', tagSchema, 'categoryid', catid);
-    },
-    count: (id, flag) => {
-        return db.count('tags', tagSchema, id, flag);
-    },
-    remove: (id) => {
-        return db.remove('tags', tagSchema, id);
-    },
-    findbypublish: (value) => {
-        return db.findbypublish('tags', tagSchema, value);
-    },
-    pagebycat: (value, offset, limit, flag) => {
-        return db.pagebycat('posts', tagSchema, value, offset, limit, flag);
-    }
-*/
 }

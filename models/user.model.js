@@ -6,11 +6,15 @@ var userSchema = new Schema({
     username: String,
     password: String,
     email: String,
+    term: Date,
+    fullname: String,
+    createdate: Date,
     role: {
         type: String,
         enum: ['viewer','writer','editor','admin'],
         default:'viewer'
-    }
+    },
+    dateofbirth: Date,
 })
 
 module.exports = {
@@ -18,6 +22,10 @@ module.exports = {
         return db.load('users',userSchema);
     },
     insert: entity => {       
+        var datenow = new Date();
+        entity.createdate = new Date();
+        var term = datenow.setTime(datenow.getTime()+ 7* 86400000)
+        entity.term = term;
         return db.insert('users', userSchema, entity);
     },
 
@@ -31,6 +39,11 @@ module.exports = {
 
     findbyname: (name) => {
         return db.findbyname('users',userSchema,name);
+    },
+    pagebyusers: (role,offset,limit) => {
+        return db.pagebyusers('users',userSchema,role,offset,limit);
+    },
+    countbyusers: role => {
+        return db.countbyusers('users',userSchema,role);
     }
-
 }

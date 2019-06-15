@@ -1,0 +1,126 @@
+<title>{{title}}</title>
+
+<div class="w3-container w3-card w3-white w3-margin-bottom">
+    <h2 class="w3-text-grey w3-padding-16"><i
+            class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> Duyệt bài viết</h2>
+    <div id="catname" style="display: none;">{{this.category.name}}</div>
+    <div class="w3-container mb-3">
+        <h5>
+            Danh mục:
+            <span>
+                <select id="categories" class="round form-control" style="width: 200px; display:inline-block">
+                </select>
+            </span>
+            <button id="filter" class="btn btn-light btn-outline-dark btn-sm ml-3" style="margin-top:-3px;"
+                type="button">
+                <i class="fa fa-eye" aria-hidden="true"></i> Xem
+            </button>
+        </h5>
+
+        <div class="row">
+            {{#each this.posts}}
+            <div class="col-sm-4 mt-3">
+                <div class="card h-100 shadow-sm">
+                    <div>
+                        <img src="{{{image}}}" alt="" title="" class="car-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{title}}</h5>
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                        <a class="btn btn-light btn-outline-primary btn-sm ml-4" role="button"
+                            href="/editor/approve/{{../category.slug}}/{{titleslug}} ">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            Chi tiết
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{#compare this.nPages  0 context=this operator=">"}}
+        <div class="row">
+            <div class="col-sm-12 mt-4">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        {{#compare page  1 operator="=="}}
+                        <li class="page-item  disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li>
+                            {{this.prePage}}
+                        </li>
+                        {{/compare}}
+                        {{#compare page  1 context=this operator=">"}}
+                        <li class="page-item ">
+                            <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+                        </li>
+                        <li>
+                        </li>
+                        {{/compare}}
+                        {{#each this.pages}}
+                        <li class="page-item {{#if active}} active {{/if}}">
+                            <a class="page-link" href="?page={{value}}">{{value}}</a>
+                        </li>
+                        {{/each}}
+                        {{#compare page  nPages context=this operator="<"}}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{this.nextPage}}">Next</a>
+                        </li>
+                        {{/compare}}
+                        {{#compare page  nPages operator=">="}}
+                        <li class="page-item  disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                        </li>
+                        {{/compare}}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {{/compare}}
+        {{#compare this.nPages  0 context=this operator="=="}}
+        <div class="row">
+            <div class="alert alert-warning alert-dismissible fade show text-center">
+                Không có bài viết nào chưa được duyệt!
+            </div>
+
+        </div>
+        {{/compare}}
+    </div>
+</div>
+
+<script src="/slugify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Fill Categories
+        $('#homelink').removeClass('w3-blue');
+        $('#approvelink').addClass('w3-blue');
+        $.ajax({
+            type: 'GET',
+            url: '/editor/getCat',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (res, textStatus, xhr) {
+                if (xhr.status == 200) {
+                    for (i = 0; i < res.length; i++) {
+                        $('#categories').append($('<option>')
+                            .text(res[i]))
+                    }
+                }
+            },
+            complete: function () {
+                $('#categories option').filter(function () {
+                    return $(this).text() == $('#catname').text();
+                }).prop('selected', true);
+            }
+        });
+
+        $('#filter').on('click', function () {
+            var catname = $('#categories option:selected').val();
+            var catslug = slugify(catname);
+            $(location).attr('href', `/editor/approve/${catslug}`);
+        })
+    });
+
+</script>

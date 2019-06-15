@@ -1,0 +1,80 @@
+<div class="w3-container w3-card w3-white w3-margin-bottom" style="min-height: 630px;">
+    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-eye fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+        Review bài viết</h2>
+    <div class="w3-container mb-5">
+        <div class="border-box">
+            <div id="postid" style="display:none">{{model._id}}</div>
+
+            <div class="body-post ">
+                <h1 class="padding-16 xxlarge" style="line-height: 40px;">
+                    {{model.title}}
+                </h1>
+                <p class="text-grey medium">
+                    {{{model.summary}}}
+                </p>
+                <div class="text-grey small">
+                    <i class="fa fa-clock-o large" aria-hidden="true" style="margin-top:8px;"></i>
+                    <span style="padding-left: 5px;">{{parsedate model.createdate}}</span>
+                    <span class="text-grey" style="font-size:14px; right:120px; position:absolute;">
+                        {{#if model.tag}}
+                        <span>Sự kiện: </span>
+                        {{{gettag model.tag}}}
+                        {{/if}}
+                    </span>
+                </div>
+            </div>
+            <!-- CONTENT POST -->
+            <div class="white padding-16 clearfix">
+                <!--FEED BACK -->
+                <div style="display: flex; margin-left: 100px; margin-bottom:20px;"
+                    class="feedback-bar clearfix padding-16">
+                    <div class="feedback-icon">
+                        <a id="facebook" href="#" style="padding-left:4.5px;">
+                            <i class="fa fa-facebook icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="feedback-icon">
+                        <a id="twitter" href="#">
+                            <i class="fa fa-twitter icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="feedback-icon">
+                        <a id="youtube" href="#">
+                            <i class="fa fa-youtube-play icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="feedback-icon">
+                        <a id="instagram" href="#">
+                            <i class="fa fa-instagram icon" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- BODY POST -->
+                <div class="body-post padding-16">
+                    {{{model.content}}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tools" style="position:fixed; bottom: 20px; right:20px; z-index:3;">
+    <button class="btn btn-dark btn-sm" id="editpost" type="button">
+        <i class="fa fa-wrench" aria-hidden="true"></i> Hiệu chỉnh
+    </button>
+    <button class="btn btn-dark btn-sm">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Quay về
+    </button>
+</div>
+<script type="text/javascript">
+    $('#homelink').removeClass('w3-blue');
+    $('#viewpost').addClass('w3-blue');
+
+    $(document).ready(function () {
+        $('#editpost').on('click', function () {
+            var id = $('#postid').text();
+            // if user is writter 
+            $(location).attr('href', `/writer/edit/${id}`);
+        })
+    })
+</script>
