@@ -4,7 +4,7 @@
     <div class="w3-container mb-5">
         <div class="border-box">
             <div id="postid" style="display:none">{{model._id}}</div>
-            <div id="rejected" style="display:none">{{model.rejected}}</div>
+
             <div class="body-post ">
                 <h1 class="padding-16 xxlarge" style="line-height: 40px;">
                     {{model.title}}
@@ -57,33 +57,8 @@
         </div>
     </div>
 </div>
-
-<div id="tools" style="position:fixed; bottom: 20px; right:20px; z-index:3;">
-    <button class="btn btn-dark btn-sm" id="editpost" type="button">
-        <i class="fa fa-wrench" aria-hidden="true"></i> Hiệu chỉnh
-    </button>
-    <button class="btn btn-dark btn-sm" type="button" id="back">
-        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Quay về
-    </button>
-</div>
 <script type="text/javascript">
     $('#homelink').removeClass('w3-blue');
-    $('#viewpost').addClass('w3-blue');
+    $('#history').addClass('w3-blue');
 
-    $(document).ready(function () {
-        $('#editpost').on('click', function () {
-            var id = $('#postid').text();
-            // if user is writter 
-            $(location).attr('href', `/writer/edit/${id}`);
-        })
-        $('#back').on('click',function(){
-            var rejected = $('#rejected').text();
-            if(rejected=="true"){
-                $(location).attr('href', `/writer/review/rejected`)
-            }
-            else{
-                $(location).attr('href', `/writer/review/draft`)
-            }
-        })
-    })
 </script>

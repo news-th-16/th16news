@@ -98,6 +98,7 @@
           </th>
           <td>
             <input id="title" class="form-control" type="text" name="">
+            <div class="text-danger small" id="valid_title" style="display: none">Không được để trống mục này</div>
           </td>
         </tr>
         <tr>
@@ -210,36 +211,40 @@
     })
 
     $('#submit').on('click', function () {
-      var tag = [];
-
-      $('#tag option').each(function () {
-        var name = $(this).text();
-        tag.push(name);
-      })
-      var date = new Date();
-      console.log(date);
-      var data = {
-        "categoryid": $('#categories').val(),
-        "title": $('#title').val(),
-        "summary": $('#summary').val(),
-        "tag": tag,
-        "content": CKEDITOR.instances.ckeditor.getData(),
-        "createdate": date,
+      if ($('#title').val() == '') {
+        $('#valid_title').css({ 'display': 'block' })
       }
+      else {
+        var tag = [];
 
-      console.log(data);
-      $.ajax({
-        type: 'POST',
-        url: '/writer/upload',
-        data: JSON.stringify(data),
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function (res, textStatus, xhr) {
-          setTimeout(function () {
-              $(location).attr('href', `/writer/review/${res._id}`);
-            }, 9000);
+        $('#tag option').each(function () {
+          var name = $(this).text();
+          tag.push(name);
+        })
+        var date = new Date();
+
+        var data = {
+          "categoryid": $('#categories').val(),
+          "title": $('#title').val(),
+          "summary": $('#summary').val(),
+          "tag": tag,
+          "content": CKEDITOR.instances.ckeditor.getData(),
+          "createdate": date,
         }
-      })
+
+        $.ajax({
+          type: 'POST',
+          url: '/writer/upload',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          dataType: 'json',
+          success: function (res, textStatus, xhr) {
+            setTimeout(function () {
+              $(location).attr('href', `/writer/review/${res._id}`);
+            }, 8000);
+          }
+        })
+      }
 
     })
 

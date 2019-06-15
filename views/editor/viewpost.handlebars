@@ -7,6 +7,7 @@
     .bootstrap-tagsinput input {
         display: none;
     }
+
     /*
     .bootstrap-tagsinput {
         border: none;
@@ -89,7 +90,8 @@
 </style>
 
 <div class="w3-container w3-card w3-white w3-margin-bottom" style="min-height: 630px;">
-    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+    <h2 class="w3-text-grey w3-padding-16"><i
+            class="fa fa-check-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
         Duyệt bài viết</h2>
     <div class="w3-container mb-5">
         <div class="border-box">
@@ -106,7 +108,7 @@
                 </p>
                 <div class="text-grey small">
                     <i class="fa fa-clock-o large" aria-hidden="true" style="margin-top:8px;"></i>
-                    <span style="padding-left: 5px;">{{parsedate model.createdate}}</span>
+                    <span style="padding-left: 5px;">{{parsedate model.createdate "true"}}</span>
                     <span class="text-grey" style="font-size:14px; right:120px; position:absolute;">
                         {{#if model.tag}}
                         <span>Sự kiện: </span>
@@ -237,7 +239,8 @@
             <div class="modal-body">
                 <div id="the-basics">
                     <span style="float: left;">
-                        <input id="input_tag" class="typeahead form-control" type="text" style="width: 200px;" placeholder="Tag...">
+                        <input id="input_tag" class="typeahead form-control" type="text" style="width: 200px;"
+                            placeholder="Tag...">
                     </span>
                     <span>
                         <button id="btn_opendrop" class="btn btn-light btn-outline-dark btn-sm mt-1 ml-1" type="button">
@@ -248,7 +251,8 @@
                             <i class="fa fa-caret-up" aria-hidden="true"></i>
                         </button>
                     </span>
-                    <button id="btn_add_tag" type="button" class="btn btn-sm btn-light mt-1 ml-1" data-toggle="modal">+</button>
+                    <button id="btn_add_tag" type="button" class="btn btn-sm btn-light mt-1 ml-1"
+                        data-toggle="modal">+</button>
                     <br />
                     <span id="valid_tag" class="text-danger small" style="display: none; position:absolute;left: 15px;">
                         Tag không có trong dữ liệu!
@@ -328,8 +332,8 @@
             }
             var datetime = $('#datetimepicker').val();
             datetime = datetime.match(/(\d+)\/(\d+)\/(\d+)\s*(\d+):(\d+)/);
-            datetime  = new Date(datetime[3], datetime[2]-1, datetime[1], datetime[4], datetime[5], 0, 0);
-            console.log('datetime: ',datetime);
+            datetime = new Date(datetime[3], datetime[2] - 1, datetime[1], datetime[4], datetime[5], 0, 0);
+            console.log('datetime: ', datetime);
             var data = {
                 "categoryid": $('#categories option:selected').val(),
                 "tag": tags,
@@ -350,7 +354,7 @@
                         console.log(data.result);
                         $('#publish_dialog').modal('toggle');
                         NotifySuccess();
-                        //$(location).attr('href', `/editor/approve/${slug}`)
+                        $('#back').click();
                     }
                 }
             })
@@ -358,7 +362,7 @@
 
         $('#deny').on('click', function () {
             var url = $(location).attr('href');
-            var slug = slugify($('#categories option:selected').text())
+
             var data = {
                 "reason": $("#reason").val(),
             }
@@ -370,7 +374,7 @@
                 data: JSON.stringify(data),
                 success: (data, textStatus, jqXHR) => {
                     if (data.code == 200) {
-                        $(location).attr('href', `/editor/approve/${slug}`)
+                        $('#back').click();
                     }
                     else {
                         console.log(data.data);
@@ -380,12 +384,10 @@
         })
 
         $('#back').on('click', function () {
-            if (publish == 'true') {
-                $(location).attr('href', `/admin/category/${catid}/posts`);
-            }
-            else {
-                $(location).attr('href', `/admin/category/${catid}/posts/unpublished`);
-            }
+            var url = $(location).attr('href');
+            var array = url.split('/');
+            console.log(array);
+            $(location).attr('href', `/editor/approve/${array[5]}`);
         })
     })
 

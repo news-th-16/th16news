@@ -28,6 +28,7 @@ var postSchema = new Schema({
         type: String,
         default: "",
     },
+    editor: String,
     author: {
         id: String,
         fullname: String,
@@ -111,7 +112,14 @@ module.exports = {
     
     countbyauthor: (authorid, ispublished,isrejected,flag) => {
         return db.countbyauthor('posts',postSchema,authorid,ispublished,isrejected,flag);
-    } 
+    },
+    pagebyeditor: (editor, offset, limit, ispublished, isrejected) => {
+        return db.pagebyeditor('posts',postSchema,editor,offset,limit, ispublished, isrejected);
+    },
+    
+    countbyeditor: (editor, ispublished,isrejected,flag) => {
+        return db.countbyeditor('posts',postSchema,editor,ispublished,isrejected);
+    },
 
 
 }

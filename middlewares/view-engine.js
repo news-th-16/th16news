@@ -48,7 +48,6 @@ var hbs = exphbs.create({
             for (i = 0; i < len; i++) {
                 html = html + "<option>" + array[i] + "</option>";
             }
-            console.log('html: ', html);
             return html;
         },
 
@@ -56,7 +55,7 @@ var hbs = exphbs.create({
             var array = date.toString().split(" ");
             var date = "";
             var e = flag;
-            if (e = "false") {
+            if (e == "false") {
                 var m;
                 switch (array[1]) {
                     case "Jan": m = 1; break;
@@ -77,18 +76,14 @@ var hbs = exphbs.create({
             }
             else {
                 for (i = 0; i < 5; i++) {
-                    date = date + array[i];
+                    date = date + array[i] + " ";
                 }
             }
             return date;
         },
         parsedate2: date => {
-            console.log(date);
-            var a = "t";
-            a.toUpperCase();
             var d = date.toString();
             d = d.substring(0, 10);
-            console.log(d);
             var array = d.split("-");
             var result = "";
             for (i = 0; i < 3; i++) {

@@ -219,7 +219,7 @@
                         Trang chủ
                     </a>
                     {{#if isAuthenticated}}
-                    <a href="/account/{{authUser.username}}" class="header_item_link">
+                    <a href="/{{authUser.role}}" class="header_item_link">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         Hi. {{authUser.username}}
                     </a>
@@ -315,11 +315,12 @@
     <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
         <div class="w3-container w3-row">
             <div class="w3-col s9 w3-bar">
-                <div class="text-center">Welcome,
+                <div class="text-center">Welcome, 
                     {{#switch authUser.role}}
                     {{#case "viewer" break=true}}Viewer!{{/case}}
                     {{#case "writer" break=true}}Writer!{{/case}}
                     {{#case "editor" break=true}}Editor!{{/case}}
+                    {{#case "admin" break=true}}Admin!{{/case}}
                     {{#default}}Quản trị viên{{/default}}
                     {{/switch}}
                     <br /> <strong>{{authUser.fullname}}</strong></div>
@@ -369,11 +370,11 @@
                 <i class="fa fa-cloud-upload" aria-hidden="true" style=""></i>  Đăng bài
             </a>
             <a id="viewpost" href="/writer/review" class="w3-bar-item w3-button w3-padding"><i
-                    class="fa fa-eye fa-fw"></i>  Views</a>
+                    class="fa fa-eye fa-fw"></i>  Xem</a>
             <a id="edit" href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-pencil-square-o fa-fw"></i> 
-                Edit</a>
+                Chỉnh sửa</a>
             <a id="history" href="/writer/history" class="w3-bar-item w3-button w3-padding"><i
-                    class="fa fa-history fa-fw"></i>  History</a>
+                    class="fa fa-history fa-fw"></i>  Lịch sử</a>
             {{/compare}}
 
             {{#compare authUser.role  "editor"}}
@@ -382,16 +383,13 @@
             </a>
             <!--a id="viewpost" href="/writer/review" class="w3-bar-item w3-button w3-padding"><i
                     class="fa fa-eye fa-fw"></i>  Views</a-->
-            <a id="history" href="/writer/history" class="w3-bar-item w3-button w3-padding"><i
-                    class="fa fa-history fa-fw"></i>  History</a>
+            <a id="history" href="/editor/history" class="w3-bar-item w3-button w3-padding"><i
+                    class="fa fa-history fa-fw"></i>  Lịch sử</a>
             {{/compare}}
-
-            <!--a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Traffic</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Orders</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  General</a-->
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
+            <form id="Signout" action="/account/logout" method="POST"></form>
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Cài đặt</a>
+            <a href="javascript: $('#Signout').submit();" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sign-out fa-fw"></i>  Đăng xuất</a><br><br>
+            <br><br>
         </div>
     </nav>
     <div style="margin-left:310px;">

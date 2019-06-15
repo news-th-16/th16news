@@ -4,6 +4,7 @@
     <!-- HEADER POST -->
     <div id="postid" style="display:none">{{model._id}}</div>
     <div id="catid" style="display:none">{{model.categoryid}}</div>
+    <div id="tagslug" style="display:none">{{model.tagslug}}</div>
     <div id="ispublish" style="display:none">{{model.publish}}</div>
     <div class="body-post">
         <h1 class="padding-16 xxlarge" style="line-height: 40px;">
@@ -233,7 +234,7 @@
     var catid = $('#catid').text();
     var id = $('#postid').text();
     var publish = $('#ispublish').text();
-
+    var tagslug=$('#tagslug').text();
     $(document).ready(function () {
         $('#deletepost').on('click', function () {
             $('#delete_dialog').modal('toggle');
@@ -264,21 +265,32 @@
         $('#publishpost').on('click', function () {
             $('#publish_dialog').modal('toggle');
         })
-
         $('#back').on('click', function () {
-            if (publish == 'true') {
-                $(location).attr('href', `/admin/manage-posts/bycat/${catid}`);
+            var url = $(location).attr('href');
+            var array = url.split('/');
+            console.log(array);
+           if (publish == 'true') {
+               if(array[6]=="bycat"){
+                    $(location).attr('href', `/admin/manage-posts/bycat/${catid}`);
+               }
+               else{
+                   $(location).attr('href', `/admin/manage-posts/bytag/${array[7]}`);
+               }
             }
             else {
-                $(location).attr('href', `/admin/manage-posts/bycat/${catid}/unpublished`);
+                if(array[6]=="bycat"){
+                    $(location).attr('href', `/admin/manage-posts/bycat/${catid}/unpublished`);
+               }
+               else{
+                   $(location).attr('href', `/admin/manage-posts/bytag/${array[7]}/unpublished`);
+               }
             }
         })
     })
 </script>
 <script src="/slugify.js"></script>
 <script type="text/javascript">
-    $('#homelink').removeClass('w3-blue');
-    //$('#approvelink').addClass('w3-blue');
+
     var tags = [];
     var catid = $('#catid').text();
     var id = $('#postid').text();
@@ -305,10 +317,6 @@
                 }
             },
 
-        })
-
-        $('#publishpost').on('click', function () {
-            $('#publish_dialog').modal('toggle');
         })
 
         $('#denypost').on('click', function () {
@@ -358,7 +366,7 @@
                 "reason": $("#reason").val(),
             }
             $.ajax({
-                url: `${url}/reject`,
+                url: `/admin/manage-posts/view/${id}/reject`,
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -374,14 +382,6 @@
             })
         })
 
-        $('#back').on('click', function () {
-            if (publish == 'true') {
-                $(location).attr('href', `/admin/manage-posts/bycat/${catid}`);
-            }
-            else {
-                $(location).attr('href', `/admin/manage-posts/bycat/${catid}/unpublished`);
-            }
-        })
     })
 </script>
 <script>

@@ -1,25 +1,21 @@
 <title>{{title}}</title>
 <div class="w3-container w3-card w3-white w3-margin-bottom">
-    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-tags fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i> Quản
-        lý bài viết theo dán nhãn:
-        {{this.tag.name}}
-    </h2>
-    <div id="tagslug" style="display: none;">{{this.tag.slug}}</div>
+    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-history fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+        Lịch sử bài viết</h2>
     <div class="w3-container mb-3">
-        <div class="row">
-            <h6 class="card-title">
-            <i class="fa fa-pencil" aria-hidden="true"></i> Xem bài viết:
+        <h5>
+            Xem bài viết:
             <span>
-                <select id="type" class="round form-control" style="width: 130px; display:inline-block">
-                    <option value="true">Đã duyệt</option>
-                    <option value="false" {{#if this.flag}} selected {{/if}}>Chưa duyệt</option>
+                <select id="type" class="round form-control" style="width: 150px; display:inline-block">
+                    <option value="approved">Đã duyệt</option>
+                    <option value="denied">Đã từ chối</option>
                 </select>
             </span>
             <button id="filter" class="btn btn-light btn-outline-dark btn-sm ml-3" style="margin-top:-3px;"
                 type="button">
                 <i class="fa fa-eye" aria-hidden="true"></i> Xem
             </button>
-        </h6>
+        </h5>
 
         <div class="row">
             {{#each this.posts}}
@@ -32,13 +28,11 @@
                         <h5 class="card-title">{{title}}</h5>
                     </div>
                     <div class="card-footer text-muted text-center">
-                        <a class="btn btn-light btn-outline-primary btn-sm ml-4" role="button"
-                            href="/admin/manage-posts/view/bytag/{{../tag.slug}}/{{_id}}">
+                        <a class="btn w3-teal btn-sm" role="button" href="/editor/history/{{_id}} ">
                             <i class="fa fa-eye" aria-hidden="true"></i>
-                            Chi tiết
+                            Xem
                         </a>
                     </div>
-
                 </div>
             </div>
             {{/each}}
@@ -90,25 +84,34 @@
             </div>
         </div>
         {{/compare}}
-        </div>
+
     </div>
 </div>
-
-
 <script type="text/javascript">
     $('#homelink').removeClass('w3-blue');
-    $('#managepost').addClass('w3-blue');
-    $(document).ready(function () {
-        $('#filter').on('click', function () {
-            var type = $('#type option:selected').val();
-            var tagslug = $('#tagslug').text();
+    $('#history').addClass('w3-blue');
+    var url = $(location).attr('href');
+    var tmp = url.split('/');
+    var type = tmp[tmp.length - 1];
+    console.log(type);
+    switch (type) {
+        case "approved":
+            $('#type option').filter(function () {
+                return $(this).val() == "approved";
+            }).prop('selected', true);
+            break;
+        case "denied":
+            $('#type option').filter(function () {
+                return $(this).val() == "denied";
+            }).prop('selected', true);
+            break;
+    }
 
-            if (type == 'true') {
-                $(location).attr('href', `/admin/manage-posts/bytag/${tagslug}`);
-            }
-            else {
-                $(location).attr('href', `/admin/manage-posts/bytag/${tagslug}/unpublished`);
+    $('#filter').on('click', function () {
+            var type = $('#type option:selected').val();
+            switch (type) {
+                case 'approved': $(location).attr('href', `/editor/history/approved`); break;
+                case 'denied': $(location).attr('href', `/editor/history/denied`); break;
             }
         })
-    });
 </script>
