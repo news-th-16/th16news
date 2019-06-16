@@ -57,7 +57,7 @@
             </div>
             <ul class="medium">
               <li>
-                <a href="#">Home</a>
+                <a href="/">Home</a>
               </li>
               <li>
                 <div id="a">
@@ -97,7 +97,7 @@
           <!-- TOP NAV BAR -->
           <ul class="clearfix nav-bar">
             <li>
-              <a href="#" id="active" style="padding-left: 0px;">
+              <a href="/" id="active" style="padding-left: 0px;">
                 <div class="padding-16">Home</div>
               </a>
             </li>
@@ -183,17 +183,18 @@
         </div>
     </div>
     <!-- BODY -->
-    {{#post}}
+   
     <div id="body" class="container-post padding-32">
     	<!-- POST -->
-          	<!-- HEADER POST -->
+      <!-- HEADER POST -->
+      {{#post}}
       <div class="body-post">
         <h1 class="padding-16 xxlarge" style="line-height: 40px;">
           {{title}}  
         </h1>
         <p class="text-grey medium">{{summary}}</p>
         <div class="text-grey small padding-16">
-          <i class="fa fa-clock-o large" aria-hidden="true"></i>{{createdate}}
+          <i class="fa fa-clock-o large mr-2" aria-hidden="true"></i>{{createdate}}
           {{#each tag}}
           <a href="#" class="right tag">
             {{this}}
@@ -210,14 +211,11 @@
       </div>
       <!-- COMMENT --->
       <div class="container-post body-post padding-16 clearfix">
-        <h1 class="des" style="color: blue; text-align:center;">Add New Comment</h1>
         <form action="/post/{{_id}}/comments" method="POST">
-          <textarea rows="4" cols="50" name="comment[text]" class="form-control mt-3 des">
-          </textarea>
+          <textarea rows="4" cols="50" name="comment[text]" class="form-control mt-3 des" placeholder="Để lại bình luận của bạn tại đây"></textarea>
           <button class="btn btn-primary mt-3 des" style="hover: background-color:blue"> Submit!</button>
         </form>
       </div>
-
       <div class="card card-header container-post body-post padding-16 clearfix">
         {{#each comment}}
           <div class="row">
@@ -233,31 +231,6 @@
       </div>
       
       <!-- GALLERY POSTS --->
-      <div class="container-post body-post padding-16 clearfix">
-        <div class="linebreak">
-          <h2>More from Sky</h2>
-          <div>
-            <a class="gallery half col">
-              <div class="img-container">
-                <img src="./images/post/gallery_new1.jpg">
-                <div class="category">
-                  <img src="./images/skysports_tag.png">
-                </div>
-              </div>
-              <div class="des">Saqib Mahmood becomes first Lancashire player to take successive List A...</div>
-            </a>
-            <a class="gallery half col">
-              <div class="img-container">
-                <img src="./images/post/gallery_new2.jpg">
-                <div class="category">
-                  <img src="./images/skynews_tag.png">
-                </div>
-              </div>
-              <div class="des">Game Of Thrones review: The heroes of The Battle Of Winterfell</div>
-            </a>
-          </div>
-        </div>
-      </div>
 
       <div class="container-post body-post padding-16 clearfix">
         <div class="linebreak">
@@ -518,6 +491,7 @@
     });
 
   </script>
+  <script src="/js/post.js"></script>
 </html>
 
 

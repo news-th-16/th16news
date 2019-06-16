@@ -2,85 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a03c2079-fb43-48db-b81c-530fd7ccce38" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/middlewares/auth.admin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/middlewares/auth.writer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/home/logo1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/admin/main.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/admin/manage_categories.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/admin/manage_users.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/editor/approve.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/writter/edit.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/writter/history.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/writter/main.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/writter/review.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/admin/home.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/admin/manage_categories.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/admin/manage_posts_bycat.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/admin/manage_tags.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/admin/manage_users.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/admin/view_profile.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/admin/viewpost.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/editor/home.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/layouts/vwadmin.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/writter/history.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/writter/history_view.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/writter/review.handlebars" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/writter/viewpost.handlebars" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middlewares/auth.editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/auth.editor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middlewares/view-engine.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/view-engine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/category.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/category.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/editor.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/editor.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/post.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/post.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/post.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/post.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tag.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/tag.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/1405807814.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/2185839360.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/2653794094.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/3286417526.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/3945785645.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/4076490954.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/4389689731.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/5195682008.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/5669537448.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/5672991052.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/6154728855.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/6225363563.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/6298525825.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/6502019061.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/7445070206.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/7763170901.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/8024719487.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/8650439322.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/8994693869.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/upload/9586731523.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/account.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/account.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin/category.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin/manage-posts.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin/home.route.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin/tag.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin/manage_tags.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/editor/editor.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/editor/main.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/writter/upload.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/writter/upload.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/account/login.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/account/login.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/account/register.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/account/register.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/admin/category.handlebars" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/admin/postdetail.handlebars" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/admin/postsbycat.handlebars" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/admin/postsbytag.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/manage_posts_bytag.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/admin/tag.handlebars" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/editor/managepost.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/editor/review.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/editor/postdetail.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/editor/viewpost.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/home.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/home.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/layouts/main.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/login.handlebars" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/writter/edit.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/writter/edit.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/writter/home.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/writter/home.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/writter/uploadpost.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/writter/uploadpost.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/writter/watchpost.handlebars" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -120,7 +42,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/home.handlebars">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1680">
@@ -129,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/home.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+            <state relative-caret-position="506">
+              <caret line="42" column="33" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -150,8 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/post.model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="992">
-              <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+            <state relative-caret-position="1008">
+              <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -278,7 +200,7 @@
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18852027" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18852027" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -289,7 +211,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.29166666" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.25747862" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.16987179" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -492,13 +414,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/home.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="105" selection-start-line="105" selection-end-line="105" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/login.handlebars">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
@@ -515,15 +430,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/post.model.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="992">
-          <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+        <state relative-caret-position="1008">
+          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/home.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+        <state relative-caret-position="506">
+          <caret line="42" column="33" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/home.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1680">
+          <caret line="105" selection-start-line="105" selection-end-line="105" />
         </state>
       </provider>
     </entry>

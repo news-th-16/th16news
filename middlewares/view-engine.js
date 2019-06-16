@@ -123,6 +123,10 @@ var hbs = exphbs.create({
                     console.log(err);
                 })
         },
+        times: (n) => {
+            console.log(n);
+            return n;
+        },
 
         section: hbs_sections(),
     }
