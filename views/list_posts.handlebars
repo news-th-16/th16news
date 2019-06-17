@@ -1,0 +1,50 @@
+
+<!-- BODY CONTENT -->
+<div id="body" class="content row">
+  <!--Hiển thị 3-4 bài viết nổi bật nhất tuần-->
+  <div class="clearfix">
+    <h1 class="padding-16">{{categoryName}}</h1>
+    
+    <!-- No.1 post -->
+    {{#each posts}}
+    <a href="/post/{{_id}}">
+      <div class="gallery clearfix top_post" style="width: 100%; display:block">
+        <div class="col two-third">
+          <div class="background-container" style="height: 350px">
+            <div class="background-img">
+              <img src={{image}}>
+            </div>
+            
+          </div>
+        </div>
+        <div class="col third padding-48 padding-large">
+          <span class="opacity">
+            <a href="#" style="margin-bottom: 5px">Bóng đá</a>
+          </span>
+          <br/>
+          <br />
+          <p class="xlarge padding-32">
+            {{title}}
+          </p>
+        </div>
+      </div>
+    </a>
+    {{/each}}
+    <p>{{times '10'}}</p>
+    <script id="pagination-post" type="text/x-handlebars-template">
+    
+    <p>{{foo}}</p>
+      <ul class="pagination">
+        <li><a href="#">{{this}}</a></li>
+        {{!-- <li  class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li> --}}
+      </ul>
+    </script>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+<script src="/js/list_posts.js"></script>
+<!--Footer -->

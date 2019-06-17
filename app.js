@@ -11,6 +11,7 @@ const passport = require('passport');
 const LocalStrategy = require("passport-local");
 const User = require('./models/user');
 const bodyParser = require('body-parser');
+const listPosts = require('./routes/list_posts');
 //const passport = require('passport');
 //const LocalStrategy = require("passport-local");
 //const User = require('./models/user');
@@ -109,6 +110,15 @@ app.post('/upload', upload.single('flFileUpload'), async (req, res, next) => {
     res.redirect("back")
 });
 
+
+function initLocals(req, res, next) {
+    res.locals.user = req.user || {};
+    return next();
+}
+
+app.use(initLocals);
+
+
 // ====/>
 
 //== Authenticate của Nguyên: Ngọc làm qua file mới lưu local : middlewares/auth
@@ -174,7 +184,7 @@ app.use(require("express-session")({
  */
 // ==/>
 
-//Use routes
+ //Use routes
 
 /*app.get('/admin/category',(req,res,end)=>{
     res.end('Hi');
@@ -182,9 +192,9 @@ app.use(require("express-session")({
 })*/
 //app.use('/', authRoutes);n
 //seedDB();
-app.get('/', (req, res) => {
-    res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
-})
+// app.get('/', (req, res) => {
+//     res.render('home', { layout: 'main.handlebars', layoutsDir: 'views/layouts' });
+// })
 ///seedDB();
 
 app.use('/', require('./routes/home'));
@@ -194,6 +204,9 @@ app.use('/', postRoutes);
 app.use('/', commentRoutes);
 
 app.use('/account', require('./routes/account.route'));
+app.use('/', listPosts)
+
+app.use('/account',require('./routes/account.route'));
 
 app.use('/admin',admin_authenticate, require('./routes/admin/main.route'));
 

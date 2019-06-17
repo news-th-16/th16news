@@ -22,7 +22,8 @@
                     {{err_mess}}
                 </div>
                 {{/if}}
-                <form method="POST" action="/account/login"><input type="hidden" name="returnUrl">
+                <form method="POST" action="/account/login" enctype="application/json">
+                    <input type="hidden" name="returnUrl">
                     <div class="help-block"><span class="text-primary"></span></div>
                     <div class="form-group has-feedback"><input class="form-control" type="text" placeholder="Username" name="username"><span class="glyphicon glyphicon-user form-control-feedback"></span></div>
                     <div class="form-group has-feedback"><input class="form-control" type="password" placeholder="Password" name="password"><span class="glyphicon glyphicon-lock form-control-feedback"></span>

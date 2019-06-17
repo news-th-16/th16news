@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const newsSchema = new mongoose.Schema({
-    categoryid: String,
     title: String,
     titleslug: String,
     summary: String,
@@ -10,6 +9,7 @@ const newsSchema = new mongoose.Schema({
     content: String,
     image: String,
     createdate: Date,
+    categoryid:String,
     modifieddate: Date,
     createby: String,
     modifiedby: String,
@@ -18,10 +18,23 @@ const newsSchema = new mongoose.Schema({
         type: Boolean,
         default: "false",
     },
+    rejected: {
+        type: Boolean,
+        default: "false",
+    },
+    rejectreason: {
+        type: String,
+        default: "",
+    },
+    author: {
+        id: String,
+        fullname: String,
+    },
     comment: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
     }],
+
 })
 
 module.exports = mongoose.model("Post", newsSchema);

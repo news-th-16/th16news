@@ -104,25 +104,11 @@ var hbs = exphbs.create({
                 return options.fn(this);
             }
         },
-
-        createcategory: (usrname) => {
-            editorModel.findbyname(usrname)
-                .then(editors => {
-                    /* var editor = editors[0];
-                     console.log(editor);
-                     var categories = editor.assigned;//data-role='tagsinput'
-                     var html = '<input type="text"  value="';
-                     for (i = 0; i < categories.length; i++) {
-                         html = html + categories[i];
-                     }
-                     html = html + ' "/>';
-                     console.log(html);*/
-                    return "hi";
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+        times: (n) => {
+            console.log(n);
+            return n;
         },
+
         section: hbs_sections(),
     }
 });
