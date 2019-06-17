@@ -49,14 +49,15 @@
                     <td>{{parsedate term "false"}}</td>
                     {{/compare}}
                     <td>
-                        <a class="btn-link btn" href="/admin/manage-users/profile/{{username}}"> Xem hồ sơ</a>
+                        <a class="btn-link small" href="/admin/manage-users/profile/{{username}}"> Xem hồ sơ</a>
                         {{#compare role  "viewer" context=_id}}
-                        <a class="btn-link " href="javascript:void(0)" onclick="extend('{{this}}')"> Gia hạn tài khoản</a>
+                        <a class="btn-link small" href="javascript:void(0)" onclick="extend('{{this}}')"> Gia hạn tài khoản</a>
                         {{/compare}}
                         {{#compare role  "editor" context=username}}
-                        <a class="btn btn-link" href="javascript:void(0)" onclick="assign('{{this}}')"> Phân công
+                        <a class="btn btn-link small" href="javascript:void(0)" onclick="assign('{{this}}')"> Phân công
                             chuyên mục</a>
                         {{/compare}}
+                        <a class="btn btn-link small" href="javascript:void(0)" onclick="deleteuser('{{_id}}')">Xóa</a>
                     </td>
                 </tr>
                 {{/each}}
@@ -201,6 +202,31 @@
     </div>
 </div>
 
+<div class="modal fade" id="delete_account_dialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header w3-teal">
+                <h5 class="modal-title">Xóa tài khoản</h5>
+                <div style="display:none" id="user_del_id"></div>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div>
+                        <p class="control-label">Bạn có muốn <span class="bold text-danger">Xóa </span>tài khoản này không? </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Không</button>
+                <button id="delete" class="btn btn-danger">Có</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     var maxcat = 3;
     function extend(id) {
@@ -230,6 +256,11 @@
                 }
             }
         })
+    }
+    
+    function deleteuser(id){
+        $('#delete_account_dialog').modal('toggle');
+        $('#user_del_id').text(id);
     }
     $('#addcat_dialog').on('shown.bs.modal', function () {
         $('#added_cats').tagsinput('removeAll');
@@ -321,6 +352,17 @@
         })
     })
 
+    $('#delete').on('click',function(){
+        var id = $('#user_del_id').text();
+        $.ajax({
+            type: 'post',
+            url: `/admin/manage-users/delete/${id}`,
+            success: (data) => {
+                NotifySuccess();
+                location.reload();
+            }
+        })
+    })
 
 </script>
 
@@ -368,10 +410,10 @@
                             dataType: 'json',
                             contentType: 'application/json',
                             success: function (res) {
-                                var cell = $('#t_data tbody tr').eq(0).find('td').eq(4);
-                                for (i = 0; i < res.length; i++) {
+                                var cell = $('#t_data tbody tr').eq(i).find('td').eq(4);
+                                for (j = 0; j < res.length; j++) {
                                     cell.append($('<button type="button" class="w3-teal small btn ml-1" style="padding:4px;">')
-                                        .text(res[i]));
+                                        .text(res[j]));
                                 }
                             }
                         })

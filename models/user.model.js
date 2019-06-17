@@ -28,6 +28,9 @@ module.exports = {
         entity.term = term;
         return db.insert('users', userSchema, entity);
     },
+    remove: idfield => {
+        return db.remove('users', userSchema,idfield);
+    },
 
     getbyid: idfield => {
         return db.getbyid('users', userSchema, idfield);

@@ -86,6 +86,17 @@
       <tbody>
         <tr>
           <th style="float:left;">
+            <h6><b> Loại bài viết</b></h6>
+          </th>
+          <td>
+            <select class="form-control" id="ispremium">
+              <option value="false">Normal</option>
+              <option value="true">Premium</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th style="float:left;">
             <h6><b> Danh mục</b></h6>
           </th>
           <td>
@@ -230,6 +241,7 @@
           "tag": tag,
           "content": CKEDITOR.instances.ckeditor.getData(),
           "createdate": date,
+          "ispremium" : $('#ispremium').val(),
         }
 
         $.ajax({

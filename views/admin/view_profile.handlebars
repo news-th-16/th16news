@@ -14,10 +14,10 @@
             {{/switch}}
         </h6>
         <h6 class=""><i class="fa fa-calendar fa-fw w3-margin-right w3-text-teal"></i>
-            {{parsedate user.createdate}} - <span class="w3-tag w3-teal w3-round">Current</span>
+            {{parsedate user.createdate "false"}} - <span class="w3-tag w3-teal w3-round">Current</span>
         </h6>
         <h6 class=""><i class="fa  fa-birthday-cake fa-fw w3-margin-right w3-text-teal"></i>
-            {{parsedate user.dateofbirth}}
+            {{parsedate user.dateofbirth "false"}}
         </h6>
         <hr>
     </div>
