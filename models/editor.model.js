@@ -12,5 +12,8 @@ module.exports = {
     },
     update: (username, entity) => {
         return db.updateeditor('editors',editorSchema,username,entity);
+    },
+    insert: (entity) => {
+        return db.insert('editors',editorSchema,entity);
     }
 }

@@ -123,7 +123,6 @@ var hbs = exphbs.create({
                     console.log(err);
                 })
         },
-
         section: hbs_sections(),
     }
 });

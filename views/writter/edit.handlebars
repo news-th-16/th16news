@@ -84,6 +84,17 @@
       <tbody>
         <tr>
           <th style="float:left;">
+            <h6><b> Loại bài viết</b></h6>
+          </th>
+          <td>
+            <select class="form-control" id="ispremium">
+              <option value="false">Normal</option>
+              <option value="true">Premium</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th style="float:left;">
             <h6><b> Danh mục</b></h6>
           </th>
           <td>
@@ -230,6 +241,7 @@
         "tag": tag,
         "summary": $('#summary').val(),
         "content": CKEDITOR.instances.ckeditor.getData(),
+        "ispremium" : $('#ispremium').val(),
       }
 
       var id = $('#postid').text();
@@ -264,6 +276,7 @@
         "tag": tag,
         "summary": $('#summary').val(),
         "content": CKEDITOR.instances.ckeditor.getData(),
+         "ispremium" : $('#ispremium').val(),
       }
 
       var id = $('#postid').text();

@@ -37,6 +37,10 @@ var postSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
     }],
+    ispremium: {
+        type: Boolean,
+        default: false,
+    }
 })
 
 module.exports = {

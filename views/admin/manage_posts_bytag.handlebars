@@ -8,88 +8,100 @@
     <div class="w3-container mb-3">
         <div class="row">
             <h6 class="card-title">
-            <i class="fa fa-pencil" aria-hidden="true"></i> Xem bài viết:
-            <span>
-                <select id="type" class="round form-control" style="width: 130px; display:inline-block">
-                    <option value="true">Đã duyệt</option>
-                    <option value="false" {{#if this.flag}} selected {{/if}}>Chưa duyệt</option>
-                </select>
-            </span>
-            <button id="filter" class="btn btn-light btn-outline-dark btn-sm ml-3" style="margin-top:-3px;"
-                type="button">
-                <i class="fa fa-eye" aria-hidden="true"></i> Xem
-            </button>
-        </h6>
+                <i class="fa fa-pencil" aria-hidden="true"></i> Xem bài viết:
+                <span>
+                    <select id="type" class="round form-control" style="width: 130px; display:inline-block">
+                        <option value="true">Đã duyệt</option>
+                        <option value="false" {{#if this.flag}} selected {{/if}}>Chưa duyệt</option>
+                    </select>
+                </span>
+                <button id="filter" class="btn btn-light btn-outline-dark btn-sm ml-3" style="margin-top:-3px;"
+                    type="button">
+                    <i class="fa fa-eye" aria-hidden="true"></i> Xem
+                </button>
+            </h6>
 
-        <div class="row">
-            {{#each this.posts}}
-            <div class="col-sm-4 mt-3">
-                <div class="card h-100 shadow-sm">
-                    <div>
-                        <img src="{{{image}}}" alt="" title="" class="car-img-top">
+            <div class="row">
+                {{#each this.posts}}
+                <div class="col-sm-4 mt-3">
+                    <div class="card shadow-sm" style="height:425px;">
+                    <div class="background-container clearfix" style="">
+                        <div class="background-img clearfix" style="background-image: url({{image}});">
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{title}}</h5>
+                    <div class="card-body" style="position: relative">
+                        <h6 class="card-title" style="margin-top: -5px">{{title}}</h6>
+                        <div style="position:absolute; bottom:5px;" class="clearfix">
+                            <div class="small w3-opacity">
+                                    <i class="fa fa-clock-o large" style="margin-right:5px;" aria-hidden="true"></i>
+                                    <span style="padding-top:-10px;">{{parsedate createdate }}</span>                                                        
+                            </div>
+                            <div class="small w3-opacity">
+                                {{#if tag}}
+                                <i class="fa fa-tag large" aria-hidden="true" style="margin-right:5px;"></i>
+                                {{{gettag tag}}}
+                                {{/if}}
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer text-muted text-center">
-                        <a class="btn btn-light btn-outline-primary btn-sm ml-4" role="button"
-                            href="/admin/manage-posts/view/bytag/{{../tag.slug}}/{{_id}}">
+                        <a class="btn w3-teal btn-sm ml-4" role="button" href="/admin/manage-posts/view/bycat/{{_id}} ">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                             Chi tiết
                         </a>
                     </div>
 
                 </div>
+                </div>
+                {{/each}}
             </div>
-            {{/each}}
-        </div>
-        {{#compare this.nPages  0 context=this operator=">"}}
-        <div class="row">
-            <div class="col-sm-12 mt-4">
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        {{#compare page  1 operator="=="}}
-                        <li class="page-item  disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li>
-                            {{this.prePage}}
-                        </li>
-                        {{/compare}}
-                        {{#compare page  1 context=this operator=">"}}
-                        <li class="page-item ">
-                            <a class="page-link" href="?page={{this.prePage}}">Previous</a>
-                        </li>
-                        <li>
-                        </li>
-                        {{/compare}}
-                        {{#each this.pages}}
-                        <li class="page-item {{#if active}} active {{/if}}">
-                            <a class="page-link" href="?page={{value}}">{{value}}</a>
-                        </li>
-                        {{/each}}
-                        {{#compare page  nPages context=this operator="<"}}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{this.nextPage}}">Next</a>
-                        </li>
-                        {{/compare}}
-                        {{#compare page  nPages operator=">="}}
-                        <li class="page-item  disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
-                        </li>
-                        {{/compare}}
-                    </ul>
-                </nav>
+            {{#compare this.nPages  0 context=this operator=">"}}
+            <div class="row">
+                <div class="col-sm-12 mt-4">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            {{#compare page  1 operator="=="}}
+                            <li class="page-item  disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li>
+                                {{this.prePage}}
+                            </li>
+                            {{/compare}}
+                            {{#compare page  1 context=this operator=">"}}
+                            <li class="page-item ">
+                                <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+                            </li>
+                            <li>
+                            </li>
+                            {{/compare}}
+                            {{#each this.pages}}
+                            <li class="page-item {{#if active}} active {{/if}}">
+                                <a class="page-link" href="?page={{value}}">{{value}}</a>
+                            </li>
+                            {{/each}}
+                            {{#compare page  nPages context=this operator="<"}}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{this.nextPage}}">Next</a>
+                            </li>
+                            {{/compare}}
+                            {{#compare page  nPages operator=">="}}
+                            <li class="page-item  disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                            </li>
+                            {{/compare}}
+                        </ul>
+                    </nav>
+                </div>
             </div>
-        </div>
-        {{/compare}}
-        {{#compare this.nPages  0 context=this operator="=="}}
-        <div class="row">
-            <div class="alert alert-warning alert-dismissible fade show text-center">
-                Không có bài viết nào!
+            {{/compare}}
+            {{#compare this.nPages  0 context=this operator="=="}}
+            <div class="row">
+                <div class="alert alert-warning alert-dismissible fade show text-center">
+                    Không có bài viết nào!
+                </div>
             </div>
-        </div>
-        {{/compare}}
+            {{/compare}}
         </div>
     </div>
 </div>

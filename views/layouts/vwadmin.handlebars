@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -22,7 +20,7 @@
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
     <style>
-        <style>html,
+        html,
         body,
         h1,
         h2,
@@ -31,7 +29,11 @@
         h5,
         h6 {
             font-family: "Roboto", sans-serif
+        };
+        body {
+            min-width: 1024px !important;
         }
+        
     </style>
     <style>
     .bootstrap-tagsinput input {
@@ -215,7 +217,7 @@
                     </a>
                 </div>
                 <div class="header_col header_col2">
-                    <a href="#" class="header_item_link">
+                    <a href="/" class="header_item_link">
                         Trang chủ
                     </a>
                     {{#if isAuthenticated}}
@@ -237,78 +239,8 @@
                         <i class="fa fa-search" aria-hidden="true" style="font-size: 15px;"></i>
                     </div>
                 </div>
-
-
-                <!-- RESPONSIVE MENU -->
-                <div class="header_col header_col4">
-                    <a href="#" id="btn_side_bar">
-                        <i class="fa fa-bars xxlarge text-white" aria-hidden="true"></i>
-                    </a>
-                </div>
             </div>
-            <!-- REPONSIVE SIDE BAR -->
-            <div id="sb" class="side_bar clearfix" style="display: none;">
-                <div class="darkgrey medium">
-
-                    {{#if isAuthenticated}}
-                    <a href="/account/profile" class="button hover_grey">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                        Hi. {{authUser.username}}
-                    </a>
-                    {{else}}
-                    <a href="account/login" class="button hover_grey">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                        Log In
-                    </a>
-                    {{/if}}
-
-                    <a href="#" class="button hover_grey">
-                        Get Sky Sports
-                    </a>
-                </div>
-                <ul class="medium">
-                    <li>
-                        <a href="#">Home</a>
-                    </li>
-                    <li>
-                        <div id="a">
-                            <a href="#" id="btn_sb_sport_dropdown">Sport <i class="fa fa-angle-down"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" id="btn_close_sb_sport_dropdown" style="display: none">Sport <i
-                                    class="fa fa-angle-up" aria-hidden="true"></i></a>
-                            <ul class="dropdown dropdown_left" id="sb_sport_dropdown">
-                                <li>
-                                    <a href="#">Sport News</a>
-                                </li>
-                                <li>
-                                    <a href="#">Videos</a>
-                                </li>
-                                <li>
-                                    <a href="#" id="btn_sb_sport_tv_dropdown">TV <i class="fa fa-angle-down"
-                                            aria-hidden="true"></i></a>
-                                    <a href="#" id="btn_close_sb_sport_tv_dropdown" style="display: none;">TV <i
-                                            class="fa fa-angle-up" aria-hidden="true"></i></a>
-                                    <ul class="dropdown dropdown_left" id="sb_sport_tv_dropdown">
-                                        <li>
-                                            <a href="#">TV Guide</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">Score Centre</a>
-                    </li>
-                    <li>
-                        <a href="#">Games</a>
-                    </li>
-                    <li>
-                        <a href="#" id="btn_sb_more_dropdown">More <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            
         </div>
     </div>
     <!-- Side bar -->
@@ -354,6 +286,8 @@
                 <a class="dropdown-item" href="/admin/manage-users/viewer">Độc giả</a>
                 <a class="dropdown-item" href="/admin/manage-users/writer">Phóng viên</a>
                 <a class="dropdown-item" href="/admin/manage-users/editor">Biên tập viên</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/admin/manage-users/add">Thêm User</a>
             </div>
             <div id="managepost" class="dropdown" style="margin-top:0px;">
                 <a onclick="myFunction()" role="button" aria-haspopup="true" aria-expanded="false"
@@ -408,7 +342,7 @@
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
-
+  
         // Close the dropdown if the user clicks outside of it
         window.onclick = function (event) {
             if (!event.target.matches('.dropbtn')) {
