@@ -6,15 +6,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
   <link rel="stylesheet" href="/stylesheet/style.css">
   <script src="/ckeditor/ckeditor.js"></script>
-  
 </head>
 
 <body>
@@ -31,16 +29,79 @@
         </div>
         <div class="header_col header_col2">
           <a href="#" class="header_item_link">
-            Get Sky Sports2
+            Get Sky Sports
           </a>
           {{#if isAuthenticated}}
-          <a {{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
+          <div class="dropdown show" style="display: inline-block; border:0ch">
+             <a class="dropdown-toggle header_item_link"
+                href="#"
+                id="dropdownMenuLink"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Hi. {{authUser.username}}
+              </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item btn btn-primary"
+               data-toggle="modal"
+               data-target="#exampleModal"
+               data-whatever="@mdo"
+               >
+                Chỉnh sửa thông tin
+                </a>
+              <a class="dropdown-item" href="/change_password">Đổi mật khẩu</a>
+              <a class="dropdown-item"{{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
                 {{#case "writer" break=true}}href="/writer" {{/case}} {{#case "editor" break=true}}href="/editor"
                 {{/case}} {{#case "admin" break=true}}href="/admin"
-                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} class="header_item_link">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            Hi. {{authUser.username}}
-          </a>
+                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} >Another action</a>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="POST" action="/changeinfo" id="my-form">
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tên đầy đủ:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Email: </label>
+                        <input type="text" class="form-control" id="recipient-name">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                      </div>
+                      <div class="form-group">
+                        <input id="dateofbirth" class="form-control" name="dateofbirth" type="text" placeholder="Date of Birth"><span
+                            class="glyphicon glyphicon-user form-control-feedback"></span>
+                        <script type="text/javascript">
+                            $('#dateofbirth').datetimepicker({
+                                format: 'd/m/Y',
+                                timepicker: false,
+                            })
+                        </script>
+                    </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="event.preventDefault();document.getElementById('my-form').submit();">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           {{else}}
           <a href="/account/login"class="header_item_link">
             <i class="fa fa-user" aria-hidden="true"></i>
@@ -84,7 +145,7 @@
         </div>
         <ul class="medium">
           <li>
-            <a href="/">Home</a>
+            <a href="#">Home</a>
           </li>
           <li>
             <div id="a">
@@ -469,6 +530,8 @@
 
 
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
 
