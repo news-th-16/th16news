@@ -14,6 +14,10 @@ const newsSchema = new mongoose.Schema({
     createby: String,
     modifiedby: String,
     publishdate: Date,
+    ispremium: {
+        type: Boolean,
+        default: false,
+    },
     publish: {
         type: Boolean,
         default: "false",
@@ -34,7 +38,10 @@ const newsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
     }],
-
+    coutViews: {
+        type: Number,
+        default: 0,
+    },
 })
-
+newsSchema.index({title: "text", content: "text"})
 module.exports = mongoose.model("Post", newsSchema);

@@ -30,7 +30,6 @@ app.set('view engine', 'handlebars');
 app.engine('handlebars', hbs.engine)
 require('./middlewares/session')(app);
 require('./middlewares/passport')(app);
-app.use(require('./middlewares/auth-locals'));
 var admin_authenticate = require('./middlewares/auth.admin');
 var viewer_authenticate = require('./middlewares/auth.viewer');
 var editor_authenticate = require('./middlewares/auth.editor');
@@ -116,7 +115,7 @@ function initLocals(req, res, next) {
     return next();
 }
 
-app.use(initLocals);
+app.use(require('./middlewares/auth-locals'));
 
 
 // ====/>
@@ -213,6 +212,8 @@ app.use('/admin',admin_authenticate, require('./routes/admin/main.route'));
 app.use('/writer', writer_authenticate, require('./routes/writter/main.route'));
 
 app.use('/editor', editor_authenticate, require('./routes/editor/main.route'));
+
+app.use('/', require('./routes/user'));
 
 app.listen(3000, () => {
     console.log('Web Server is running at http://localhost:3000');
