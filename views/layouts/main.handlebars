@@ -17,6 +17,7 @@
 <style>
   body {
     background: #FFFAFC;
+  }
 </style>
 <body>
   <!--HEADER -->
@@ -58,17 +59,20 @@
                 </a>
                
               <a class="dropdown-item" href="/change_password">Đổi mật khẩu</a>
-              <a class="dropdown-item"{{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
+               <a class="dropdown-item"{{#switch authUser.role}}
                 {{#case "writer" break=true}}href="/writer" {{/case}} {{#case "editor" break=true}}href="/editor"
                 {{/case}} {{#case "admin" break=true}}href="/admin"
-                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} >Another action</a>
+                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} >Profile</a>
+               <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/change_password">Đăng xuất</a>
+             
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -80,13 +84,15 @@
                         <input type="text" class="form-control" id="fullname" name="fullname" value="{{authUser.fullname}}">
                       </div>
                       <div class="form-group">
-                        <label for="email" class="col-form-label pull-left" >Email: {{authUser.email}} </label>
+                        <label for="email" class="col-form-label pull-left" >Email: </label>
                         <input type="email" class="form-control" id="email" name="email" value="{{authUser.email}}">
                       </div>
+                      {{#compare authUser.role "viewer"}}
                       <div class="form-group">
                         <label for="isPremium" class="col-form-label pull-left">Premium:</label>
                         <input type="text" class="form-control" id="isPremium" value="{{dateDiff authUser.term}}" disabled/>
                       </div>
+                      {{/compare}}
                       <div class="form-group">
                         <label for="dateofbirth" class="col-form-label pull-left">Ngày sinh: </label>
                         <input id="dateofbirth" class="form-control" name="dateofbirth" type="text" placeholder="Date of Birth" value={{date authUser.dateofbirth}}><span
@@ -101,7 +107,9 @@
                     </form>
                   </div>
                   <div class="modal-footer">
+                    {{#compare authUser.role "viewer"}}
                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal" id="upgrade-button">Nâng cấp</button>
+                    {{/compare}}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" id="submit-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Save changes</button>
                   </div>
