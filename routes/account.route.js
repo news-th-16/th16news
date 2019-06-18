@@ -127,6 +127,8 @@ router.get('/forgot_password', (req, res) => {
     const id = req.query.id;
     res.render('account/forgot_password', {layout: false, id: id});
 });
+
+
 router.post('/sendmail', function(req, res) {
     const email = req.body.email;
     User.find({ email })
@@ -139,7 +141,7 @@ router.post('/sendmail', function(req, res) {
             console.log(link1);
 
             const value = `<html><head></head><body><p>Khôi phục mật khẩu: </p><a href=${link1}>${link1}</a></body></html>`
-            sgMail.setApiKey('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');
+            sgMail.setApiKey('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');
             const msg = {
                 personalizations: [
                   {
@@ -166,7 +168,7 @@ router.post('/sendmail', function(req, res) {
                 if(error) {
                     console.error(error);
                 } else {
-                    console.log("Thanh cong");
+                    alert('Check your email !')
                 }
             });
         }
@@ -175,6 +177,12 @@ router.post('/sendmail', function(req, res) {
     .catch(err => {
         console.log(err);
     })
+})
+
+router.get("/sign-out",function(req,res){
+    req.logout();
+    // req.flash("error","Logged you out");
+    res.redirect("/");
 })
 
 /*
