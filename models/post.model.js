@@ -40,7 +40,11 @@ var postSchema = new Schema({
     ispremium: {
         type: Boolean,
         default: false,
-    }
+    },
+    coutViews: {
+        type: Number,
+        default: 0,
+    },
 })
 
 module.exports = {

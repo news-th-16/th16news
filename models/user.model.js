@@ -15,6 +15,7 @@ var userSchema = new Schema({
         default:'viewer'
     },
     dateofbirth: Date,
+    
 })
 
 module.exports = {

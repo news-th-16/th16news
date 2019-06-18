@@ -8,7 +8,7 @@
           {{categoryName}}
         </h1>
         <h1 class="padding-16 xxlarge" style="line-height: 40px;">
-          {{title}}  
+          {{title}}
         </h1>
         <p class="text-grey medium">{{summary}}</p>
         <div class="text-grey small padding-16">
@@ -48,194 +48,27 @@
         {{/each}}
       </div>
       {{/post}}
-      
+
       <!-- GALLERY POSTS --->
 
-      <div class="container-post body-post padding-16 clearfix">
-        <div class="linebreak">
-          <h2>Các bài viết cùng chuyên mục</h2>
-          <div>
-            {{#each relativePosts}}
-            <a class="gallery half col" href="/post/{{_id}}">
-              <div class="img-container">
-                <img src="{{image}}" style="heig">
-                <div class="category">
-                </div>
-              </div>
-              <div class="des">{{title}}</div>
-            </a>
-            {{/each}}
+  <div class="container-post body-post padding-16 clearfix">
+    <div class="linebreak">
+      <h2>Các bài viết cùng chuyên mục</h2>
+      <div>
+        {{#each relativePosts}}
+        <a class="gallery half col" href="/post/{{_id}}">
+          <div class="background-container clearfix" style="">
+            <div class="background-img clearfix" style="background-image: url({{image}});">
+            </div>
           </div>
-        </div>
+          <div class="des">{{title}}</div>
+        </a>
+        {{/each}}
       </div>
-   
     </div>
-    <!-- FOOTER -->
-    <div id="footer" class="white text-grey">
-      <!--FOLLOW -->
-      <div id="follow" class="row content padding-32 clearfix  medium line">
-        <ul class="clearfix">
-          <li>
-            <a id="facebook" href="#">
-              <i class="fa fa-facebook icon"
-                 aria-hidden="true"></i>
-                 <span>Facebook</span>
-            </a>
-          </li>
-          <li>
-            <a id="twitter" href="#">
-              <i class="fa fa-twitter icon"
-                 aria-hidden="true"></i>
-                 <span>Twitter</span>
-            </a>
-          </li>
-          <li>
-            <a id="youtube" href="#">
-              <i class="fa fa-youtube-play icon"
-                 aria-hidden="true"></i>
-                 <span>Youtube</span>
-            </a>
-          </li>
-          <li>
-            <a id="instagram" href="#">
-              <i class="fa fa-instagram icon"
-                 aria-hidden="true"></i>
-                 <span>Instagram</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+  </div>
 
-      <!--ABOUT-->
-      <div id="about" class="row content clearfix text-grey white line padding-32">
-        <div class="col fourth">
-          <h2>About Sky News</h2>
-          <ul class="medium">
-            <li class="">
-              <a href="#">About Us</a>
-            </li>
-            <li>
-              <a href="#">Sky Data</a>
-            </li>
-            <li>
-              <a href="#">Sky News International</a>
-            </li>
-            <li>
-              <a href="#">Sky News Library Sales</a>
-            </li>
-            <li>
-              <a href="#">Site Map</a>
-            </li>
-            <li>
-              <a href="#">Editorial Guidelines</a>
-            </li>
-            <li>
-              <a href="#">Supreme Court Live</a>
-            </li>
-            <li>
-              <a href="#">Sky News Board</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col fourth">
-          <h2>Sky News Services</h2>
-          <ul class="medium">
-            <li class="">
-              <a href="#"> Sky News RSS</a>
-            </li>
-            <li>
-              <a href="#">Sky News For Your Phone</a>
-            </li>
-            <li>
-              <a href="#">Sky News Radio</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col fourth">
-          <h2>Sky Channels</h2>
-          <ul class="medium">
-            <li class="">
-              <a href="#">Sky 1</a>
-            </li>
-            <li>
-              <a href="#">Sky Data</a>
-            </li>
-            <li>
-              <a href="#">Sky Witness</a>
-            </li>
-            <li>
-              <a href="#">Sky Atlantic</a>
-            </li>
-            <li>
-              <a href="#">Sky Arts</a>
-            </li>
-            <li>
-              <a href="#">Sky Cinema</a>
-            </li>
-            <li>
-              <a href="#">Sky Sports</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col fourth">
-          <h2>More Sky Sites</h2>
-          <ul class="medium">
-            <li class="">
-              <a href="#">NOW TV</a>
-            </li>
-            <li>
-              <a href="#">Sky Ocean Rescue</a>
-            </li>
-            <li>
-              <a href="#">Sky Academy Studios</a>
-            </li>
-            <li>
-              <a href="#">Bigger Picture</a>
-            </li>
-            <li>
-              <a href="#">Sky Corporate</a>
-            </li>
-            <li>
-              <a href="#">Sky Bet</a>
-            </li>
-            <li>
-              <a href="#">Sky.com</a>
-            </li>
-            <li>
-              <a href="#">Sky News Arabia</a>
-            </li>
-            <li>
-              <a href="#">Advertise With Us</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!--Legal and Contact-->
-      <div id="contact" class="row content clearfix">
-        <ul>
-          <li>
-            <a href="#">Terms & Conditions</a>
-          </li>
-          <li>
-            <a href="#">Privacy & Cookies</a>
-          </li>
-          <li>
-            <a href="#">Privacy Options</a>
-          </li>
-          <li>
-            <a href="#">Accessibility</a>
-          </li>
-          <li>
-            <a href="#">Contact Us</a>
-          </li>
-        </ul>
-        <div class="padding-16">
-          <a href="#">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Sky_Italia_-_Logo_2018.svg/1280px-Sky_Italia_-_Logo_2018.svg.png" style="width:70px; vertical-align:-15px;">
-          </a>
-          <span class="medium">© 2019 Sky UK</span>
-        </div>
+</div>
 
 
       </div>

@@ -16,8 +16,10 @@ var hbs = exphbs.create({
             return `${date.getUTCDate()}/${date.getUTCMonth() + 1}/${date.getUTCFullYear()}`
         },
         dateDiff: (date1) => {
+            console.log(date1);
             const date2 = Date.now();
             const dateDiff = Math.floor((Date.UTC(new Date(date1).getUTCFullYear(), new Date(date1).getUTCMonth(), new Date(date1).getUTCDate()) - Date.UTC(new Date(date2).getUTCFullYear(), new Date(date2).getUTCMonth(), new Date(date2).getUTCDate())) / MS_DAY);
+            console.log(dateDiff);
             return `Còn lại ${dateDiff} ngày`;
         },
         compare: (lvalue, rvalue, options) => {

@@ -187,7 +187,7 @@ module.exports = {
 
             var model = mongoose.model(modelname, schema);
 
-            model.find({ tagslug: { $all: value }, publish: flag }).count(function (err, count) {
+            model.find({ tagslug: { $all: value }, publish: flag ,rejected:false}).count(function (err, count) {
                 if (err) {
                     reject(err);
                 }
@@ -278,9 +278,8 @@ module.exports = {
 
     pagebytag: (modelname, schema, value, offset, limit, flag) => {
         return new Promise((resolve, reject) => {
-
             var model = mongoose.model(modelname, schema);
-            model.find({ tagslug: { $all: [value] }, publish: flag }).skip(offset).limit(limit).sort({ createdate: -1 })
+            model.find({ tagslug: { $all: [value] }, publish: flag ,rejected:false }).skip(offset).limit(limit).sort({ createdate: -1 })
                 .exec((err, rows) => {
                     if (err) {
                         reject(err);

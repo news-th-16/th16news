@@ -19,7 +19,6 @@ router.get('/approved', (req, res, next) => {
         postModel.pagebyauthor(writer._id, offset, limit, true, false,false),
         postModel.countbyauthor(writer._id, true,false,false),
     ]).then(([rows, count]) => {
-
         var nPages = Math.floor(count / limit);
 
         if (count % limit > 0) {

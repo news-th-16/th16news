@@ -1,10 +1,9 @@
-
 <!-- BODY CONTENT -->
 <div id="body" class="content row">
   <!--Hiển thị 3-4 bài viết nổi bật nhất tuần-->
   <div class="clearfix">
     <h1 class="padding-16"> Bài viết nổi bật nhất trong tuần</h1>
-    
+
     <!-- No.1 post -->
     <a href="/post/{{top._id}}">
       <div class="gallery clearfix top_post" style="width: 100%;">
@@ -13,16 +12,16 @@
             <div class="background-img">
               <img src={{top.image}}>
             </div>
-            
+
           </div>
         </div>
         <div class="col third padding-48 padding-large">
           <span class="opacity">
-            <a href="/posts/{{categorySlug}}"" class="ml-3"> {{categoryName}}</a>           </span>
-          <br/>
+            <a href="/posts/{{categorySlug}}" class=" ml-3"> {{categoryName}}</a> </span>
+          <br />
           <span class="red bold text-white padding-small small">Nổi bật</span>
           {{#if top.ispremium}}
-            <span class="yellow bold padding-small small">Premium</span>
+          <span class="yellow bold padding-small small">Premium</span>
           {{/if}}
           <br />
           <p class="xlarge padding-32">
@@ -32,38 +31,37 @@
       </div>
     </a>
     <!-- Hiển thị bài viết No.2 - No.4 -->
-    <div class="row nopadding"> 
+    <div class="row nopadding">
       {{!-- {{#each data}} --}}
-        {{#each data}}
-        <a href="/post/{{_id}}">
-          <div class="ml-2 mt-2 col-md-4 third gallery">
-            <div class="background-container clearfix">
-              <div class="background-img clearfix">
-                <img src={{image}}>
-              </div>
-            </div>
-            <a href="/posts/{{categorySlug}}"" class="ml-3"> {{categoryName}}</a>
-            <div class="padding small desc">
-               {{#if ispremium}}
-                <span class="yellow bold padding-small small">Premium</span>
-                {{/if}}
-             {{#each tags}} 
-              {{#each this}}
-              <a href="/posts/tag/{{this}}">
-                <span class="type padding-16">
-                  {{@key}}
-                </span>
-              </a>
-              {{/each}}
-            {{/each}}
-              <div class="medium padding-16">
-                {{title}}
-              </div>
+      {{#each data}}
+      <a href="/post/{{_id}}">
+        <div class="ml-2 mt-2 col-md-4 third gallery">
+          <div class="background-container clearfix" style="">
+            <div class="background-img clearfix" style="background-image: url({{image}});">
             </div>
           </div>
-          </a>
-        {{/each}}
-        {{!-- {{/each}} --}}
+          <a href="/posts/{{categorySlug}}" class=" ml-3"> {{categoryName}}</a>
+          <div class="padding small desc">
+            {{#if ispremium}}
+            <span class="yellow bold padding-small small">Premium</span>
+            {{/if}}
+            {{#each tags}}
+              {{#each this}}
+                <a href="/posts/tag/{{this}}">
+                  <span class="type padding-16">
+                    {{@key}}
+                  </span>
+                </a>
+              {{/each}}
+            {{/each}}
+            <div class="medium padding-16">
+              {{title}}
+            </div>
+          </div>
+        </div>
+      </a>
+      {{/each}}
+      {{!-- {{/each}} --}}
     </div>
   </div>
   <!-- 10 bài viết mọi chuyên mục, mới nhất -->
@@ -73,25 +71,24 @@
       {{#each topNews}}
       <a href="/post/{{_id}}">
         <div class="col-md-4 third ml-2 mt-2 gallery">
-          <div class="background-container clearfix">
-            <div class="background-img clearfix">
-              <img src={{image}}>
+          <div class="background-container clearfix" style="">
+            <div class="background-img clearfix" style="background-image: url({{image}});">
             </div>
           </div>
           <a href="/posts/{{categorySlug}}" class="ml-3"> {{categoryName}}</a>
           <div class="padding small desc">
-            {{#each tags}} 
-              {{#each this}}
-              <a href="/posts/tag/{{this}}">
-                <span class="type padding-16">
-                  {{@key}}
-                </span>
-              </a>
-              {{/each}}
+            {{#each tags}}
+            {{#each this}}
+            <a href="/posts/tag/{{this}}">
+              <span class="type padding-16">
+                {{@key}}
+              </span>
+            </a>
             {{/each}}
-              <div class="medium padding-16">
-                {{title}}
-              </div>
+            {{/each}}
+            <div class="medium padding-16">
+              {{title}}
+            </div>
           </div>
         </div>
       </a>
@@ -105,32 +102,31 @@
       {{#each latestNews}}
       <a href="/post/{{_id}}">
         <div class="col-md-4 third ml-2 mt-2 gallery">
-          <div class="background-container clearfix">
-            <div class="background-img clearfix">
-              <img src={{image}}>
+          <div class="background-container clearfix" style="">
+            <div class="background-img clearfix" style="background-image: url({{image}});">
             </div>
           </div>
-          <a href="/posts/{{categorySlug}}"" class="ml-3"> {{categoryName}}</a>
+          <a href="/posts/{{categorySlug}}" class="ml-3"> {{categoryName}}</a>
           <div class="padding small desc">
-            {{#each tags}} 
-              {{#each this}}
-              <a href="/posts/tag/{{this}}">
-                <span class="type padding-16">
-                  {{@key}}
-                </span>
-              </a>
-              {{/each}}
+            {{#each tags}}
+            {{#each this}}
+            <a href="/posts/tag/{{this}}">
+              <span class="type padding-16">
+                {{@key}}
+              </span>
+            </a>
             {{/each}}
-              <div class="medium padding-16">
-                {{title}}
-              </div>
+            {{/each}}
+            <div class="medium padding-16">
+              {{title}}
+            </div>
           </div>
         </div>
       </a>
       {{/each}}
     </div>
   </div>
-  
+
 
   <!-- Mỗi chuyên mục 1 bài vi -->
   <div class="clearfix">
@@ -139,23 +135,22 @@
       {{#each topCategory}}
       <a href="/post/{{_id}}">
         <div class="col-md-4 third ml-2 mt-2 gallery">
-          <div class="background-container clearfix">
-            <div class="background-img clearfix">
-              <img src={{image}}>
+          <div class="background-container clearfix" style="">
+            <div class="background-img clearfix" style="background-image: url({{image}});">
             </div>
           </div>
-          <a href="/posts/{{categorySlug}}"" class="ml-3"> {{categoryName}}</a>
+          <a href="/posts/{{categorySlug}}" class=" ml-3"> {{categoryName}}</a>
           <div class="padding small desc">
-            {{#each tag}} 
-              <span class="type padding-16">
-                {{this}}
-              </span>
-                {{/each}}
-              <div class="medium padding-16">
-                {{title}}
-              </div>
+            {{#each tag}}
+            <span class="type padding-16">
+              {{this}}
+            </span>
+            {{/each}}
+            <div class="medium padding-16">
+              {{title}}
+            </div>
           </div>
-      </div>
+        </div>
       </a>
       {{/each}}
     </div>
