@@ -9,13 +9,14 @@ var userSchema = new Schema({
     term: Date,
     fullname: String,
     createdate: Date,
+    googleid: String,
     role: {
         type: String,
         enum: ['viewer','writer','editor','admin'],
         default:'viewer'
     },
     dateofbirth: Date,
-    
+
 })
 
 module.exports = {
