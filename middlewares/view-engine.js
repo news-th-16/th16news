@@ -1,11 +1,22 @@
 var exphbs = require('express-handlebars');
 var hbs_sections = require('express-handlebars-sections');
 var editorModel = require('./../models/editor.model');
+const MS_DAY = 24 * 60 * 60 * 1000;
 
 var hbs = exphbs.create({
     helpers: {
         counter: (index) => {
             return index + 1;
+        },
+        date: (value) => {
+            date = new Date(value);
+            console.log(typeof value);
+            return `${date.getUTCDate()}/${date.getUTCMonth() + 1}/${date.getUTCFullYear()}`
+        },
+        dateDiff: (date1) => {
+            const date2 = Date.now();
+            const dateDiff = Math.floor((Date.UTC(new Date(date1).getUTCFullYear(), new Date(date1).getUTCMonth(), new Date(date1).getUTCDate()) - Date.UTC(new Date(date2).getUTCFullYear(), new Date(date2).getUTCMonth(), new Date(date2).getUTCDate())) / MS_DAY);
+            return `Còn lại ${dateDiff} ngày`;
         },
         compare: (lvalue, rvalue, options) => {
             context = options.hash.context;
@@ -104,8 +115,27 @@ var hbs = exphbs.create({
                 return options.fn(this);
             }
         },
+
+        createcategory: (usrname) => {
+            editorModel.findbyname(usrname)
+                .then(editors => {
+                    /* var editor = editors[0];
+                     console.log(editor);
+                     var categories = editor.assigned;//data-role='tagsinput'
+                     var html = '<input type="text"  value="';
+                     for (i = 0; i < categories.length; i++) {
+                         html = html + categories[i];
+                     }
+                     html = html + ' "/>';
+                     console.log(html);*/
+                    return "hi";
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        },
         times: (n) => {
-            console.log(n);
+            
             return n;
         },
 

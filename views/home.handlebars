@@ -18,11 +18,12 @@
         </div>
         <div class="col third padding-48 padding-large">
           <span class="opacity">
-            <a href="#" style="margin-bottom: 5px">Bóng đá</a>
-          </span>
+            <a href="/posts/{{categorySlug}}"" class="ml-3"> {{categoryName}}</a>           </span>
           <br/>
-          <span class="red bold text-white padding-small small">LIVE</span>
-          <span class="yellow bold padding-small small">BREAKING</span>
+          <span class="red bold text-white padding-small small">Nổi bật</span>
+          {{#if top.ispremium}}
+            <span class="yellow bold padding-small small">Premium</span>
+          {{/if}}
           <br />
           <p class="xlarge padding-32">
             {{top.title}}
@@ -41,14 +42,20 @@
                 <img src={{image}}>
               </div>
             </div>
-            </span>
             <a href="/posts/{{categorySlug}}"" class="ml-3"> {{categoryName}}</a>
             <div class="padding small desc">
-              {{#each tag}} 
-              <span class="type padding-16">
-                {{this}}
-              </span>
+               {{#if ispremium}}
+                <span class="yellow bold padding-small small">Premium</span>
+                {{/if}}
+             {{#each tags}} 
+              {{#each this}}
+              <a href="/posts/tag/{{this}}">
+                <span class="type padding-16">
+                  {{@key}}
+                </span>
+              </a>
               {{/each}}
+            {{/each}}
               <div class="medium padding-16">
                 {{title}}
               </div>
@@ -64,19 +71,30 @@
     <h1 class="padding-16">Các bài viết mới nhất</h1>
     <div class="row nopadding">
       {{#each topNews}}
-      <div class="col-md-4 third ml-2 mt-2 gallery">
-        <div class="background-container clearfix">
-          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
+      <a href="/post/{{_id}}">
+        <div class="col-md-4 third ml-2 mt-2 gallery">
+          <div class="background-container clearfix">
+            <div class="background-img clearfix">
+              <img src={{image}}>
+            </div>
           </div>
-          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
+          <a href="/posts/{{categorySlug}}" class="ml-3"> {{categoryName}}</a>
+          <div class="padding small desc">
+            {{#each tags}} 
+              {{#each this}}
+              <a href="/posts/tag/{{this}}">
+                <span class="type padding-16">
+                  {{@key}}
+                </span>
+              </a>
+              {{/each}}
+            {{/each}}
+              <div class="medium padding-16">
+                {{title}}
+              </div>
+          </div>
         </div>
-        <div class="padding small clearfix desc">
-          <a href="#">World</a>
-          <p class="medium padding-16">
-            Great white shark hunts near surfers
-          </p>
-        </div>
-      </div>
+      </a>
       {{/each}}
     </div>
   </div>
@@ -84,27 +102,67 @@
   <div class="clearfix">
     <h1 class="padding-16">Các bài viết được xem nhiều nhất</h1>
     <div class="row nopadding">
-      {{#each topNews}}
-      <div class="col-md-4 third ml-2 mt-2 gallery">
-        <div class="background-container clearfix">
-          <div class="background-img" style="background-image: url('./images/home/videos/video1.png');">
+      {{#each latestNews}}
+      <a href="/post/{{_id}}">
+        <div class="col-md-4 third ml-2 mt-2 gallery">
+          <div class="background-container clearfix">
+            <div class="background-img clearfix">
+              <img src={{image}}>
+            </div>
           </div>
-          <i class="fa fa-play-circle-o button-play" aria-hidden="true"></i>
+          <a href="/posts/{{categorySlug}}"" class="ml-3"> {{categoryName}}</a>
+          <div class="padding small desc">
+            {{#each tags}} 
+              {{#each this}}
+              <a href="/posts/tag/{{this}}">
+                <span class="type padding-16">
+                  {{@key}}
+                </span>
+              </a>
+              {{/each}}
+            {{/each}}
+              <div class="medium padding-16">
+                {{title}}
+              </div>
+          </div>
         </div>
-        <div class="padding small clearfix desc">
-          <a href="#">World</a>
-          <p class="medium padding-16">
-            Great white shark hunts near surfers
-          </p>
-        </div>
-      </div>
+      </a>
       {{/each}}
     </div>
   </div>
   
 
   <!-- Mỗi chuyên mục 1 bài vi -->
-  <div id="trending" class="padding-16" style="width: 100%;">
+  <div class="clearfix">
+    <h1 class="padding-16">Mỗi chuyên mục một bài viết mới</h1>
+    <div class="row nopadding">
+      {{#each topCategory}}
+      <a href="/post/{{_id}}">
+        <div class="col-md-4 third ml-2 mt-2 gallery">
+          <div class="background-container clearfix">
+            <div class="background-img clearfix">
+              <img src={{image}}>
+            </div>
+          </div>
+          <a href="/posts/{{categorySlug}}"" class="ml-3"> {{categoryName}}</a>
+          <div class="padding small desc">
+            {{#each tag}} 
+              <span class="type padding-16">
+                {{this}}
+              </span>
+                {{/each}}
+              <div class="medium padding-16">
+                {{title}}
+              </div>
+          </div>
+      </div>
+      </a>
+      {{/each}}
+    </div>
+  </div>
+
+  <!-- the end -->
+  {{!-- <div id="trending" class="padding-16" style="width: 100%;">
     <h1 class="padding-32">Top các bài viết</h1>
     <div class="clearfix border-box white row medium padding-large">
       <div class="half col padding-large">
@@ -125,7 +183,7 @@
         </ol>
       </div>
     </div>
-  </div>
+  </div> --}}
 
 </div>
 

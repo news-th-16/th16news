@@ -1,189 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Post</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheet/style.css">
-</head>
-  <body>
-    <!--HEADER -->
-    <div class="header">
 
-        <!-- LOGO BAR -->
-        <div class="content clearfix row">
-          <div class="header_body">
-            <div class="header_col header_col1">
-              <a class="header_logo" href="#" style="margin-left: -3px;">
-                  <img class="svg-logo_image" src="../public/images/home/logo.png">
-              </a>
-            </div>
-            <div class="header_col header_col2">
-              <a href="#" class="header_item_link">
-                Get Sky Sports
-              </a>
-              <a href="#" class="header_item_link">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                Log In
-              </a>
-            </div>
-            <div class="header_col header_col3">
-              <div class="search_box" id="search_box">
-                <input type="text" name="search_box" placeholder="Search Sky Sports" style="color: white; width: 88%">
-                <i class="fa fa-search" aria-hidden="true" style="font-size: 15px;"></i>
-              </div>
-            </div>
-
-            <!-- RESPONSIVE MENU -->
-            <div class="header_col header_col4">
-              <a href="#" id="btn_side_bar">
-                <i class="fa fa-bars xxlarge text-white" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-          <!-- REPONSIVE SIDE BAR -->
-          <div id="sb" class="side_bar clearfix" style="display: none;">
-            <div class="darkgrey medium">
-              <a href="#" class="button hover_grey">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                Log In
-              </a>
-              <a href="#" class="button hover_grey">
-                Get Sky Sports
-              </a>
-            </div>
-            <ul class="medium">
-              <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <div id="a">
-                <a href="#" id="btn_sb_sport_dropdown">Sport <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                <a href="#" id="btn_close_sb_sport_dropdown" style="display: none">Sport <i class="fa fa-angle-up" aria-hidden="true"></i></a>
-                <ul class="dropdown dropdown_left" id="sb_sport_dropdown">
-                  <li>
-                    <a href="#">Sport News</a>
-                  </li>
-                  <li>
-                    <a href="#">Videos</a>
-                  </li>
-                  <li>
-                    <a href="#" id="btn_sb_sport_tv_dropdown">TV <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                    <a href="#" id="btn_close_sb_sport_tv_dropdown" style="display: none;">TV <i class="fa fa-angle-up" aria-hidden="true"></i></a>
-                    <ul class="dropdown dropdown_left" id="sb_sport_tv_dropdown">
-                      <li>
-                        <a href="#">TV Guide</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-                </div>
-              </li>
-              <li>
-                <a href="#">Score Centre</a>
-              </li>
-              <li>
-                <a href="#">Games</a>
-              </li>
-              <li>
-                <a href="#" id="btn_sb_more_dropdown">More <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <!-- TOP NAV BAR -->
-          <ul class="clearfix nav-bar">
-            <li>
-              <a href="/" id="active" style="padding-left: 0px;">
-                <div class="padding-16">Home</div>
-              </a>
-            </li>
-            <li>
-              <a href="#" id="btn_sports_menu">
-                <div class="padding-16">Sports
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </div>
-              </a>
-              <ul class="dropdown dropdown_left" id="sports_menu">
-                <li>
-                  <a href="#">Sport News</a>
-                </li>
-                <li>
-                  <a href="#" id="btn_sports_video_menu">Videos
-                    <i class="fa fa-angle-right medium" aria-hidden="true" style="padding-left: 5px;"></i>
-                  </a>
-                  <ul class="dropdown dropdown_sub" id="sports_video_menu"style ="display: block;">
-                    <li>
-                      <a href="#">
-                        Sport Videos
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        Games
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#">TV</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">
-                <div class="padding-16">
-                Score Center
-              </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="padding-16">Games</div>
-              </a>
-            </li>
-            <li style="margin-left: 20px;">
-              <a href="#" class="red padding text-white round-medium">
-                Watch Sky Sports
-              </a>
-            </li>
-            <li style="float: right">
-              <a href="#" id="btn_more_menu">
-                <div class="padding-16" id="down">
-                  More
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </div>
-                <div id="up" class="padding-16" style="display: none;">
-                  More
-                  <i class="fa fa-angle-up" aria-hidden="true"></i>
-                </div>
-              </a>
-              <ul class="dropdown dropdown_right" id="more_menu">
-                <li>
-                  <a href="#">Analysis</a>
-                </li>
-                <li>
-                  <a href="#">Opinion</a>
-                </li>
-                <li>
-                  <a href="#">Sky Views</a>
-                </li>
-                <li>
-                  <a href="#">Videos</a>
-                </li>
-                <li>
-                  <a href="#">Weather</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-    </div>
-    <!-- BODY -->
-   
     <div id="body" class="container-post padding-32">
     	<!-- POST -->
       <!-- HEADER POST -->
@@ -229,35 +44,28 @@
           </div>
         {{/each}}
       </div>
+      {{/post}}
       
       <!-- GALLERY POSTS --->
 
       <div class="container-post body-post padding-16 clearfix">
         <div class="linebreak">
-          <h2>More from Sky</h2>
+          <h2>Các bài viết cùng chuyên mục</h2>
           <div>
-            <a class="gallery half col">
+            {{#each relativePosts}}
+            <a class="gallery half col" href="/post/{{_id}}">
               <div class="img-container">
-                <img src="./images/post/gallery_new1.jpg">
+                <img src="{{image}}" style="heig">
                 <div class="category">
-                  <img src="./images/skysports_tag.png">
                 </div>
               </div>
-              <div class="des">Saqib Mahmood becomes first Lancashire player to take successive List A...</div>
+              <div class="des">{{title}}</div>
             </a>
-            <a class="gallery half col">
-              <div class="img-container">
-                <img src="./images/post/gallery_new2.jpg">
-                <div class="category">
-                  <img src="./images/skynews_tag.png">
-                </div>
-              </div>
-              <div class="des">Game Of Thrones review: The heroes of The Battle Of Winterfell</div>
-            </a>
+            {{/each}}
           </div>
         </div>
       </div>
-      {{/post}}
+   
     </div>
     <!-- FOOTER -->
     <div id="footer" class="white text-grey">
@@ -429,9 +237,7 @@
 
       </div>
     </div>
-
-  </body>
-  <script type="text/javascript">
+  {{!-- <script type="text/javascript">
 
     $('#btn_more_menu').on('click',function(){
       $('#more_menu').css({'display':'block'})
@@ -490,8 +296,6 @@
       $(this).css({'display':'none'})
     });
 
-  </script>
-  <script src="/js/post.js"></script>
-</html>
+  </script> --}}
 
 

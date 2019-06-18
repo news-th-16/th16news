@@ -6,15 +6,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
   <link rel="stylesheet" href="/stylesheet/style.css">
   <script src="/ckeditor/ckeditor.js"></script>
-  
 </head>
 
 <body>
@@ -31,16 +29,83 @@
         </div>
         <div class="header_col header_col2">
           <a href="#" class="header_item_link">
-            Get Sky Sports2
+            Get Sky Sports
           </a>
           {{#if isAuthenticated}}
-          <a {{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
+          <div class="dropdown show" style="display: inline-block; border:0ch">
+             <a class="dropdown-toggle header_item_link"
+                href="#"
+                id="dropdownMenuLink"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Hi. {{authUser.fullname}}
+              </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item btn btn-primary"
+               data-toggle="modal"
+               data-target="#exampleModal"
+               data-whatever="@mdo"
+               >
+                Chỉnh sửa thông tin
+                
+                </a>
+               
+              <a class="dropdown-item" href="/change_password">Đổi mật khẩu</a>
+              <a class="dropdown-item"{{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
                 {{#case "writer" break=true}}href="/writer" {{/case}} {{#case "editor" break=true}}href="/editor"
                 {{/case}} {{#case "admin" break=true}}href="/admin"
-                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} class="header_item_link">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            Hi. {{authUser.username}}
-          </a>
+                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} >Another action</a>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="POST" action="/changeinfo" id="my-form">
+                      <div class="form-group">
+                        <label for="fullname" class="col-form-label pull-left" >Tên đầy đủ: </label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" value="{{authUser.fullname}}">
+                      </div>
+                      <div class="form-group">
+                        <label for="email" class="col-form-label pull-left" >Email: {{authUser.email}} </label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{authUser.email}}">
+                      </div>
+                      <div class="form-group">
+                        <label for="isPremium" class="col-form-label pull-left">Premium:</label>
+                        <input type="text" class="form-control" id="isPremium" value="{{dateDiff authUser.term}}" disabled/>
+                      </div>
+                      <div class="form-group">
+                        <label for="dateofbirth" class="col-form-label pull-left">Ngày sinh: </label>
+                        <input id="dateofbirth" class="form-control" name="dateofbirth" type="text" placeholder="Date of Birth" value={{date authUser.dateofbirth}}><span
+                            class="glyphicon glyphicon-user form-control-feedback"></span>
+                        <script type="text/javascript">
+                            $('#dateofbirth').datetimepicker({
+                                format: 'd/m/Y',
+                                timepicker: false,
+                            })
+                        </script>
+                    </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal" id="upgrade-button">Nâng cấp</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="submit-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           {{else}}
           <a href="/account/login"class="header_item_link">
             <i class="fa fa-user" aria-hidden="true"></i>
@@ -50,8 +115,9 @@
         </div>
         <div class="header_col header_col3">
           <div class="search_box" id="search_box">
-            <input type="text" name="search_box" placeholder="Search Sky Sports" style="color: white; width: 88%">
-            <i class="fa fa-search" aria-hidden="true" style="font-size: 15px;"></i>
+            <form action="/posts/search", method="GET">
+              <input type="search" name="search" placeholder="Search Sky Sports" width: 88%">
+            </form>
           </div>
         </div>
 
@@ -84,7 +150,7 @@
         </div>
         <ul class="medium">
           <li>
-            <a href="/">Home</a>
+            <a href="#">Home</a>
           </li>
           <li>
             <div id="a">
@@ -126,7 +192,7 @@
       <!-- TOP NAV BAR -->
       <ul class="clearfix nav-bar">
         <li>
-          <a href="#" id="active" style="padding-left: 0px;">
+          <a href="/" id="active" style="padding-left: 0px;">
             <div class="padding-16">Trang chủ</div>
           </a>
         </li>
@@ -149,58 +215,70 @@
               </a>
               <ul class="dropdown dropdown_sub"  style="width:250px;" id="sports_video_menu" style="display: none;">
                 <li>
-                  <a href="#">
+                  <a href="/posts/su-kien-binh-luan">
                     Sự kiện - Bình luận
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href="/posts/video-ban-thang">
                     Video bàn thắng
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href="/posts/tin-van-bong-da">
                     Tin vắn bóng đá
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href="/posts/bong-da-viet-nam">
                     Bóng đá Việt Nam
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href="/posts/bong-da-ngoai-hang-anh">
                     Bóng đá Ngoại hạng Anh
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href="/posts/cup-c1-champions-league">
                     Cup C1 - Champions League
                   </a>
                 </li>
               </ul>
             </li>
             <li>
-              <a href="#">Tennis</a>              
+              <a href="/posts/tennis">
+                Tennis
+              </a>              
             </li>
             <li>
-              <a href="#">Võ thuật - UFC - Quyền Anh</a>
+              <a href="/posts/vo-thuat-ufc-quyen-anh">
+                Võ thuật - UFC - Quyền Anh
+                </a>
               
             </li>
             <li>
-              <a href="#">Video tennis</a>
+              <a href="/posts/video-tennis">
+                Video tennis
+                </a>
              
             </li>
             <li>
-               <a href="#">Tin bên lề thể thao</a>
+               <a href="/posts/tin-ben-le-the-thao">
+                 Tin bên lề thể thao
+                </a>
              
             </li>
             <li>
-               <a href="#">Bóng chuyền</a>
+               <a href="/posts/bong-chuyen">
+                 Bóng chuyền
+                 </a>
               
             </li>
             <li>
-              <a href="#">Thể thao Việt Nam</a>
+              <a href="/posts/the-thao-viet-nam">
+                Thể thao Việt Nam
+                </a>
             </li>
           </ul>
         </li>
@@ -406,6 +484,10 @@
 
 
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
 

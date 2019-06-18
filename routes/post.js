@@ -7,10 +7,16 @@ var router = express.Router();
 router.get('/post/:id',(req, res) => {
     return Post.findById({_id: req.params.id}).populate('comment').exec()
     .then((post) => {
-        return Category.getbyid(post.categoryid)
-        .then((category) => {
-            res.render('post.handlebars', {layout: false, post, categoryName: category.name});
-        })
+        post.coutViews += 1;
+        post.save();
+        return Post.find({categoryid: post.categoryid, _id: {$ne: req.params.id}}).limit(5)
+         .then(relativePosts => {
+            return Category.getbyid(post.categoryid)
+                .then((category) => {
+                    res.render('post.handlebars', { layout: 'main.handlebars', layoutsDir: 'views/layouts',post, relativePosts, categoryName: category.name});
+                })
+         }) 
+        
     })
 });
 
