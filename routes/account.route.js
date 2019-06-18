@@ -168,11 +168,11 @@ router.post('/sendmail', function(req, res) {
                 if(error) {
                     console.error(error);
                 } else {
-                    alert('Check your email !')
+                    console.log(info);
                 }
             });
         }
-        res.send('Success')
+        res.redirect('/account/login')
     })
     .catch(err => {
         console.log(err);
