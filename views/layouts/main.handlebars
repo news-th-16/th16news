@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
+  <title>Home</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
   <link rel="stylesheet" href="/stylesheet/style.css">
   <script src="/ckeditor/ckeditor.js"></script>
 </head>
@@ -19,6 +23,7 @@
     background: #FFFAFC;
   }
 </style>
+
 <body>
   <!--HEADER -->
   <div class="header">
@@ -37,38 +42,31 @@
           </a>
           {{#if isAuthenticated}}
           <div class="dropdown show" style="display: inline-block; border:0ch">
-             <a class="dropdown-toggle header_item_link"
-                href="#"
-                id="dropdownMenuLink"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                Hi. {{authUser.fullname}}
-              </a>
+            <a class="dropdown-toggle header_item_link" href="#" id="dropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              Hi. {{authUser.fullname}}
+            </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item btn btn-primary"
-               data-toggle="modal"
-               data-target="#exampleModal"
-               data-whatever="@mdo"
-               >
+              <a class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                data-whatever="@mdo">
                 Chỉnh sửa thông tin
-                
-                </a>
-               
-              <a class="dropdown-item" href="/change_password">Đổi mật khẩu</a>
-               <a class="dropdown-item"{{#switch authUser.role}}
+              </a>
+              <a class="dropdown-item" href="/account/reset/?id={{authUser._id}}">Đổi mật khẩu</a>
+              <a class="dropdown-item" {{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
                 {{#case "writer" break=true}}href="/writer" {{/case}} {{#case "editor" break=true}}href="/editor"
-                {{/case}} {{#case "admin" break=true}}href="/admin"
-                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} >Profile</a>
-               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/change_password">Đăng xuất</a>
-             
+                {{/case}} {{#case "admin" break=true}}href="/admin" {{/case}} {{#default}}href="#" {{/default}}
+                {{/switch}}>Khu vực admin
+              </a>
+              {{!-- {{/case}} {{#default}}href="#" {{/default}} {{/switch}} >Profile</a> --}}
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/account/sign-out">Đăng xuất</a>
+
             </div>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true" style="color: black">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -80,45 +78,49 @@
                   <div class="modal-body">
                     <form method="POST" action="/changeinfo" id="my-form">
                       <div class="form-group">
-                        <label for="fullname" class="col-form-label pull-left" >Tên đầy đủ: </label>
-                        <input type="text" class="form-control" id="fullname" name="fullname" value="{{authUser.fullname}}">
+                        <label for="fullname" class="col-form-label pull-left">Tên đầy đủ: </label>
+                        <input type="text" class="form-control" id="fullname" name="fullname"
+                          value="{{authUser.fullname}}">
                       </div>
                       <div class="form-group">
-                        <label for="email" class="col-form-label pull-left" >Email: </label>
+                        <label for="email" class="col-form-label pull-left">Email: </label>
                         <input type="email" class="form-control" id="email" name="email" value="{{authUser.email}}">
                       </div>
                       {{#compare authUser.role "viewer" context=authUser.term}}
                       <div class="form-group">
                         <label for="isPremium" class="col-form-label pull-left">Premium:</label>
-                        <input type="text" class="form-control" id="isPremium" value="{{dateDiff this}}" disabled/>
+                        <input type="text" class="form-control" id="isPremium" value="{{dateDiff this}}" disabled />
                       </div>
                       {{/compare}}
                       <div class="form-group">
                         <label for="dateofbirth" class="col-form-label pull-left">Ngày sinh: </label>
-                        <input id="dateofbirth" class="form-control" name="dateofbirth" type="text" placeholder="Date of Birth" value={{date authUser.dateofbirth}}><span
-                            class="glyphicon glyphicon-user form-control-feedback"></span>
+                        <input id="dateofbirth" class="form-control" name="dateofbirth" type="text"
+                          placeholder="Date of Birth" value={{date authUser.dateofbirth}}><span
+                          class="glyphicon glyphicon-user form-control-feedback"></span>
                         <script type="text/javascript">
-                            $('#dateofbirth').datetimepicker({
-                                format: 'd/m/Y',
-                                timepicker: false,
-                            })
+                          $('#dateofbirth').datetimepicker({
+                            format: 'd/m/Y',
+                            timepicker: false,
+                          })
                         </script>
-                    </div>
+                      </div>
                     </form>
                   </div>
                   <div class="modal-footer">
                     {{#compare authUser.role "viewer"}}
-                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal" id="upgrade-button">Nâng cấp</button>
+                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal"
+                      id="upgrade-button">Nâng cấp</button>
                     {{/compare}}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="submit-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Save changes</button>
+                    <button type="button" id="submit-button" class="btn btn-primary" data-toggle="modal"
+                      data-target="#exampleModal">Save changes</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           {{else}}
-          <a href="/account/login"class="header_item_link">
+          <a href="/account/login" class="header_item_link">
             <i class="fa fa-user" aria-hidden="true"></i>
             Log In
           </a>
@@ -126,7 +128,7 @@
         </div>
         <div class="header_col header_col3">
           <div class="search_box" id="search_box">
-            <form action="/posts/search", method="GET">
+            <form action="/posts/search" , method="GET">
               <input type="search" name="search" placeholder="Search Sky Sports" width: 88%">
             </form>
           </div>
@@ -213,7 +215,7 @@
               <i class="fa fa-angle-down" aria-hidden="true"></i>
             </div>
           </a>
-          <ul class="dropdown dropdown_left"  style="width:250px;" id="sports_menu">
+          <ul class="dropdown dropdown_left" style="width:250px;" id="sports_menu">
             <!--li>
               <a href="#">Sport News</a>
             </li!-->
@@ -224,7 +226,7 @@
               <a href="#" id="btn_close_sports_video_menu" style="display: none;">Bóng đá
                 <i class="fa fa-angle-left medium" aria-hidden="true" style="padding-left: 5px;"></i>
               </a>
-              <ul class="dropdown dropdown_sub"  style="width:250px;" id="sports_video_menu" style="display: none;">
+              <ul class="dropdown dropdown_sub" style="width:250px;" id="sports_video_menu" style="display: none;">
                 <li>
                   <a href="/posts/su-kien-binh-luan">
                     Sự kiện - Bình luận
@@ -260,36 +262,36 @@
             <li>
               <a href="/posts/tennis">
                 Tennis
-              </a>              
+              </a>
             </li>
             <li>
               <a href="/posts/vo-thuat-ufc-quyen-anh">
                 Võ thuật - UFC - Quyền Anh
-                </a>
-              
+              </a>
+
             </li>
             <li>
               <a href="/posts/video-tennis">
                 Video tennis
-                </a>
-             
+              </a>
+
             </li>
             <li>
-               <a href="/posts/tin-ben-le-the-thao">
-                 Tin bên lề thể thao
-                </a>
-             
+              <a href="/posts/tin-ben-le-the-thao">
+                Tin bên lề thể thao
+              </a>
+
             </li>
             <li>
-               <a href="/posts/bong-chuyen">
-                 Bóng chuyền
-                 </a>
-              
+              <a href="/posts/bong-chuyen">
+                Bóng chuyền
+              </a>
+
             </li>
             <li>
               <a href="/posts/the-thao-viet-nam">
                 Thể thao Việt Nam
-                </a>
+              </a>
             </li>
           </ul>
         </li>
@@ -387,7 +389,7 @@
       </ul>
     </div>
     <!--About-->
- 
+
 
     <!--Legal and Contact-->
     <div id="contact" class="row content clearfix">
@@ -497,8 +499,12 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
   <script src="/js/main.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 
 </body>
 

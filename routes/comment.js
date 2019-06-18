@@ -2,6 +2,7 @@ const express = require("express");
 const router  = express.Router();
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const moment = require('moment');
 
 router.post('/post/:id/comments', (req, res ) => {
     return Post.findById({_id: req.params.id}, (err, news) => {
@@ -15,6 +16,7 @@ router.post('/post/:id/comments', (req, res ) => {
                     console.log(comment);
                     comment.author.id = req.user._id;
                     comment.author.username = req.user.username;
+                    comment.timestamp = moment().unix();
                     comment.save();
 
                     news.comment.push(comment);

@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     passport: String,
+    term: Date,
+    fullname: String,
+    createdate: Date,
+    dateofbirth: Date,
     role: {
         type: String,
         default: 'viewer',

@@ -21,7 +21,11 @@
           <span class="opacity">
           </span>
           <br/>
-          <br />
+         
+          {{#if ispremium}}
+                <span class="yellow bold padding-small small">Premium</span>
+          {{/if}}
+           <br />
           <p class="xlarge padding-32">
             {{title}}
           </p>
@@ -29,6 +33,58 @@
       </div>
     </a>
     {{/each}}
+    {{#compare this.nPages  0 context=this operator=">"}}
+            <div class="row">
+                <div class="col-sm-12 mt-4">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            {{#compare page  1 operator="=="}}
+                            <li class="page-item  disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li>
+                                {{this.prePage}}
+                            </li>
+                            {{/compare}}
+                            {{#compare page  1 context=this operator=">"}}
+                            <li class="page-item ">
+                                {{#if search}}
+                                  <a class="page-link" href="?page={{this.prePage}}">Previous1</a>
+                                {{else}}
+                                  <a class="page-link" href="?search={{searchText}}&page={{this.prePage}}">Previous</a>
+                                {{/if}}
+                            </li>
+                            <li>
+                            </li>
+                            {{/compare}}
+                            {{#each this.pages}}
+                            <li class="page-item {{#if active}} active {{/if}}">
+                              {{#if search}}
+                                <a class="page-link" href="?search={{searchText}}&page={{value}}">{{value}}</a>                              
+                              {{else}}
+                                <a class="page-link" href="?page={{value}}">{{value}}</a>
+                              {{/if}}
+                            </li>
+                            {{/each}}
+                            {{#compare page  nPages context=this operator="<"}}
+                            <li class="page-item">
+                              {{#if search}}
+                                <a class="page-link" href="?search={{searchText}}&page={{this.nextPage}}">Next</a>                     
+                              {{else}}
+                                <a class="page-link" href="?page={{this.nextPage}}">Next</a>
+                              {{/if}}
+                            </li>
+                            {{/compare}}
+                            {{#compare page  nPages operator=">="}}
+                            <li class="page-item  disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                            </li>
+                            {{/compare}}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+      {{/compare}}
 
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>

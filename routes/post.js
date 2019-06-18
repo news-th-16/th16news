@@ -13,6 +13,8 @@ router.get('/post/:id',(req, res) => {
          .then(relativePosts => {
             return Category.getbyid(post.categoryid)
                 .then((category) => {
+                    console.log(category);
+                    post.categoryName = category.name;
                     res.render('post.handlebars', { layout: 'main.handlebars', layoutsDir: 'views/layouts',post, relativePosts, categoryName: category.name});
                 })
          }) 

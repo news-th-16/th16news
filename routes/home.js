@@ -14,7 +14,7 @@ function isPremiumUser(user) {
     const date2 = Date.now();
     const dateDiff = Math.floor((Date.UTC(new Date(date1).getUTCFullYear(), new Date(date1).getUTCMonth(), new Date(date1).getUTCDate()) - Date.UTC(new Date(date2).getUTCFullYear(), new Date(date2).getUTCMonth(), new Date(date2).getUTCDate())) / MS_DAY);
 
-    if(dateDiff < 7) {
+    if(dateDiff < 0) {
         return false;
     } 
     return true;
@@ -105,7 +105,7 @@ router.get('/', (req, res) => {
     }
 
     const aggregate = [match, sort, group, replaceRoot]
-
+    console.log(isPremium);
     if(!isPremium)
     {
         promise = Promise.all([
