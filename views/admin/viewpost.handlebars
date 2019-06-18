@@ -249,12 +249,7 @@
                     success: function (res, textStatus, jqXHR) {
                         console.log(jqXHR);
                         if (jqXHR.status == 200) {
-                            if (publish == 'true') {
-                                $(location).attr('href', `/admin/manage-posts/bycat/${catid}`);
-                            }
-                            else {
-                                $(location).attr('href', `/admin/manage-posts/bycat/${catid}/unpublished`);
-                            }
+                            $('#back').click();
                         }
                     }
                 })
@@ -319,10 +314,6 @@
 
         })
 
-        $('#denypost').on('click', function () {
-            $('#deny_dialog').modal('toggle');
-        })
-
         $('#publish').on('click', function () {
             var tags = [];
             var edit_tags = $('#tags').tagsinput('items');
@@ -344,7 +335,7 @@
             console.log('data:', data);
             $.ajax({
                 type: 'POST',
-                url: `${url}/publish`,
+                url: `/admin/manage-posts/${id}/publish`,
                 contentType: 'application/json',
                 dataType: 'json',
                 data: JSON.stringify(data),
@@ -359,6 +350,10 @@
             })
         })
 
+         $('#denypost').on('click', function () {
+            $('#deny_dialog').modal('toggle');
+        })
+
         $('#deny').on('click', function () {
             var url = $(location).attr('href');
             var slug = slugify($('#categories option:selected').text())
@@ -366,7 +361,7 @@
                 "reason": $("#reason").val(),
             }
             $.ajax({
-                url: `/admin/manage-posts/view/${id}/reject`,
+                url: `/admin/manage-posts/${id}/reject`,
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -419,7 +414,7 @@
         var url = $(location).attr('href');
         $.ajax({
             type: 'GET',
-            url: `${url}/getTag`,
+            url: `/admin/manage-posts/${id}/getTag`,
             contentType: 'application/json',
             dataType: 'json',
             success: function (res, textStatus, xhr) {

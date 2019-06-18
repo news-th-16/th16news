@@ -148,7 +148,7 @@ router.get('/bytag/:slug/unpublished', (req, res) => {
     Promise.all([
         tagModel.getbyslug(slug),
         postModel.pagebytag(slug, offset, limit, false),
-        postModel.countbytag2(slug, false),
+        postModel.countbytag2(slug, false,),
     ]).then(([tag, rows, count]) => {
         var nPages = Math.floor(count / limit);
         console.log('rows: ',rows);
@@ -240,7 +240,7 @@ router.post('/:id/delete', (req, res) => {
             }
         )
 })
-router.post('/view/:id/reject', (req, res, next) => {
+router.post('/:id/reject', (req, res, next) => {
     var id = req.params.id;
     postModel.getbyid(id)
         .then(post => {
@@ -257,7 +257,7 @@ router.post('/view/:id/reject', (req, res, next) => {
         })
 })
 
-router.get('/view/:id/getTag', (req, res, next) => {
+router.get('/:id/getTag', (req, res, next) => {
     var id = req.params.id;
 
     postModel.getbyid(id)
@@ -269,7 +269,7 @@ router.get('/view/:id/getTag', (req, res, next) => {
         })
 })
 
-router.post('/view/:id/publish', (req, res) => {
+router.post('/:id/publish', (req, res) => {
     var id = req.params.id;
     console.log('id: ', id);
     var data = req.body;
