@@ -18,7 +18,7 @@ const listPosts = require('./routes/list_posts');
 //const session = require("express-session");
 //var seedDB= require("./seeds");
 
-mongoose.connect('mongodb://localhost:27017/News', { useNewUrlParser: true });
+mongoose.connect('mongodb://xnguyen9:xuannguyen12f@ds139167.mlab.com:39167/news', { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
