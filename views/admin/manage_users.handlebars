@@ -51,7 +51,7 @@
                     <td>
                         <a class="btn-link small" href="/admin/manage-users/profile/{{username}}"> Xem hồ sơ</a>
                         {{#compare role  "viewer" context=_id}}
-                        <a class="btn-link small" href="javascript:void(0)" onclick="extend('{{this}}')"> Gia hạn tài khoản</a>
+                        <a class="btn-link small btn" href="javascript:void(0)" onclick="extend('{{this}}')"> Gia hạn tài khoản</a>
                         {{/compare}}
                         {{#compare role  "editor" context=username}}
                         <a class="btn btn-link small" href="javascript:void(0)" onclick="assign('{{this}}')"> Phân công

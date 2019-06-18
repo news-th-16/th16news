@@ -87,10 +87,10 @@
                         <label for="email" class="col-form-label pull-left" >Email: </label>
                         <input type="email" class="form-control" id="email" name="email" value="{{authUser.email}}">
                       </div>
-                      {{#compare authUser.role "viewer"}}
+                      {{#compare authUser.role "viewer" context=authUser.term}}
                       <div class="form-group">
                         <label for="isPremium" class="col-form-label pull-left">Premium:</label>
-                        <input type="text" class="form-control" id="isPremium" value="{{dateDiff authUser.term}}" disabled/>
+                        <input type="text" class="form-control" id="isPremium" value="{{dateDiff this}}" disabled/>
                       </div>
                       {{/compare}}
                       <div class="form-group">
