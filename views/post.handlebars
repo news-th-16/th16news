@@ -5,6 +5,9 @@
       {{#post}}
       <div class="body-post">
         <h1 class="padding-16 xxlarge" style="line-height: 40px;">
+          {{categoryName}}
+        </h1>
+        <h1 class="padding-16 xxlarge" style="line-height: 40px;">
           {{title}}  
         </h1>
         <p class="text-grey medium">{{summary}}</p>
@@ -38,7 +41,7 @@
               {{#author}}
               <strong>{{username}}</strong>
               {{/author}}
-                <span class="float-right">10 days ago</span>
+                <span class="float-right">{{diff timestamp}}</span>
                   <p class="des">{{text}}</p>
             </div>
           </div>

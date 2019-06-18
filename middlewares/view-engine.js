@@ -1,6 +1,8 @@
 var exphbs = require('express-handlebars');
 var hbs_sections = require('express-handlebars-sections');
 var editorModel = require('./../models/editor.model');
+const _ = require('lodash');
+const moment = require('moment');
 const MS_DAY = 24 * 60 * 60 * 1000;
 
 var hbs = exphbs.create({
@@ -135,8 +137,11 @@ var hbs = exphbs.create({
                 })
         },
         times: (n) => {
-            
             return n;
+        },
+        diff: (value) => {
+            console.log(value);
+            return moment.unix(value).fromNow();
         },
 
         section: hbs_sections(),

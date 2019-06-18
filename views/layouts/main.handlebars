@@ -54,11 +54,11 @@
                 
                 </a>
                
-              <a class="dropdown-item" href="/change_password">Đổi mật khẩu</a>
+              <a class="dropdown-item" href="/account/reset/?id={{authUser._id}}">Đổi mật khẩu</a>
               <a class="dropdown-item"{{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
                 {{#case "writer" break=true}}href="/writer" {{/case}} {{#case "editor" break=true}}href="/editor"
                 {{/case}} {{#case "admin" break=true}}href="/admin"
-                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} >Another action</a>
+                {{/case}} {{#default}}href="#" {{/default}} {{/switch}} >Khu vực admin</a>
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black">
