@@ -233,7 +233,11 @@
           tag.push(name);
         })
         var date = new Date();
-
+        var ispremium = false;
+        console.log($('#ispremium').val());
+        if ($('#ispremium').val() == "true") {
+          ispremium = true;
+        }
         var data = {
           "categoryid": $('#categories').val(),
           "title": $('#title').val(),
@@ -241,7 +245,7 @@
           "tag": tag,
           "content": CKEDITOR.instances.ckeditor.getData(),
           "createdate": date,
-          "ispremium" : $('#ispremium').val(),
+          "ispremium": ispremium,
         }
 
         $.ajax({

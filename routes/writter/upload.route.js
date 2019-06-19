@@ -37,6 +37,7 @@ router.post('/', async (req, res, next) => {
             "content": req.body.content,
             "createdate": req.body.createdate,
             "image": "",
+            "ispremium": req.body.ispremium,
         }
         data.author = {
             "id": writer._id,
