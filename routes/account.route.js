@@ -123,10 +123,18 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
+router.get('/auth/google', passport.authenticate('google'), (req, res) => {
+    res.redirect('/');
+})
+
 router.get('/forgot_password', (req, res) => {
     const id = req.query.id;
     res.render('account/forgot_password', {layout: false, id: id});
 });
+
+router.get('/auth_google', passport.authenticate('google', {
+    scope: ['profile']
+}))
 
 
 router.post('/sendmail', function(req, res) {
@@ -168,11 +176,11 @@ router.post('/sendmail', function(req, res) {
                 if(error) {
                     console.error(error);
                 } else {
-                    alert('Check your email !')
+                    console.log(info);
                 }
             });
         }
-        res.send('Success')
+        res.redirect('/account/login')
     })
     .catch(err => {
         console.log(err);

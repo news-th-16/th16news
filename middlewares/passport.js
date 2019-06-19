@@ -2,6 +2,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var userModel = require('../models/user.model');
 var bcrypt = require('bcrypt');
+const GoogleStrategy = require('passport-google-oauth20');
+const User = require('../models/user');
 
 module.exports = function (app) {
     app.use(passport.initialize());
@@ -26,7 +28,35 @@ module.exports = function (app) {
                     return done(err,false);
                 })
         }
-    ))
+    ));
+
+    passport.use(
+        new GoogleStrategy({
+            callbackURL: '/account/auth/google',
+            clientID: '84485726795-4qkmmj1ek83f6h22c6psrrl5e6d4r3vo.apps.googleusercontent.com',
+            clientSecret: 'Y-vGkobaD67haRjqw7EkuNkw'
+        }, (accessToken, refreshToken, profile, done) => {
+            return User.find({googleid: profile.id})
+                .then((data) => {
+                    if(data) {
+                        console.log(data);
+                        return done(null, data[0]);
+                    }
+                    const time = new Date();
+                    const user = new User({
+                        fullname: profile.displayName,
+                        googleid: profile.id,
+                        term: new Date( time.getTime() + 7 * 24 * 60 * 60 * 1000 )
+                    });
+                    return User.create({
+                        fullname: profile.displayName,
+                        googleid: profile.id,
+                    }).then(() => {
+                        return done(null, user);
+                    })
+                })            
+        })
+    )
 
     passport.serializeUser((user, done) => {
         return done(null, user);

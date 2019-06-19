@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     fullname: String,
     createdate: Date,
     dateofbirth: Date,
+    googleid: String,
     role: {
         type: String,
         default: 'viewer',
