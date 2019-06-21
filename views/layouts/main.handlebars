@@ -33,19 +33,20 @@
       <div class="header_body">
         <div class="header_col header_col1">
           <a class="header_logo" href="#" style="margin-left: -3px;">
-            <img class="svg-logo_image" src="./images/home/logo.png">
+            <img class="svg-logo_image" src="/images/home/logo.png">
+            {{!-- SPORT NEWS --}}
           </a>
         </div>
         <div class="header_col header_col2">
           <a href="#" class="header_item_link">
-            Get Sky Sports
+            Get more
           </a>
           {{#if isAuthenticated}}
           <div class="dropdown show" style="display: inline-block; border:0ch">
             <a class="dropdown-toggle header_item_link" href="#" id="dropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-user" aria-hidden="true"></i>
-              Hi. {{authUser.fullname}}
+              Xin chào. {{authUser.fullname}}
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -129,7 +130,7 @@
         <div class="header_col header_col3">
           <div class="search_box" id="search_box">
             <form action="/posts/search" , method="GET">
-              <input type="search" name="search" placeholder="Search Sky Sports" width: 88%">
+              <input type="search" name="search" placeholder="Tìm kiếm" width: 88%">
             </form>
           </div>
         </div>

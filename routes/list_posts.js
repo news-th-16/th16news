@@ -5,7 +5,7 @@ var router = express.Router();
 const middleware = require('./middleware');
 const _ = require('lodash');
 const MS_DAY = 24 * 60 * 60 * 1000;
-
+const datenow = Date.now();
 
 function isPremiumUser(user) {
     if(!user) {
@@ -62,11 +62,11 @@ router.get('/posts/search', (req, res) => {
     })
     .then(()=> {
         const slug = req.params.slug;
-        return Post.find({publish: true, rejected: false, $text: {$search : `"\" ${text} "\"`}}).count()
+        return Post.find({publish: true, rejected: false, $text: {$search : `"\" ${text} "\"`}, publishdate: {$lt : datenow}}).count()
          .then(total => {
             if(!isPremium)
             {
-                return Post.find({ispremium: {$ne: true}, publish: true, rejected: false, $text: {$search : `"\" ${text} "\"`}}).sort({createdate: -1}).skip((page - 1) * limit).limit(5)
+                return Post.find({ispremium: {$ne: true}, publish: true, rejected: false, $text: {$search : `"\" ${text} "\"`},publishdate: {$lt : datenow}}).sort({createdate: -1}).skip((page - 1) * limit).limit(5)
                 .then((posts) => {
                     const count = total;
                     var nPages = Math.floor(count / limit);
@@ -96,7 +96,7 @@ router.get('/posts/search', (req, res) => {
                     });
                 })    
             } else {
-                return Post.find({publish: true, rejected: false, $text: {$search : `"\" ${text} "\"`}}).sort({ispremium: 1, createdate: -1}).skip((page - 1) * limit).limit(5)
+                return Post.find({publish: true, rejected: false, $text: {$search : `"\" ${text} "\"`},publishdate: {$lt : datenow}}).sort({ispremium: 1, createdate: -1}).skip((page - 1) * limit).limit(5)
                 .then((posts) => {
                     const count = total;
                     var nPages = Math.floor(count / limit);
@@ -155,9 +155,9 @@ router.get('/posts/:slug', (req, res) => {
         const slug = req.params.slug;
         if(!isPremium)
         {   
-            return Post.find({ispremium: {$ne: true},categoryid: _category[slug], rejected: false, publish: true}).count()
+            return Post.find({ispremium: {$ne: true},categoryid: _category[slug], rejected: false, publish: true, publishdate: {$lt : datenow}}).count()
             .then(total => {
-                return Post.find({ispremium:false ,categoryid: _category[slug], rejected: false, publish: true}).sort({createdate: -1}).skip((page - 1) * limit).limit(limit)
+                return Post.find({ispremium:false ,categoryid: _category[slug], rejected: false, publish: true,publishdate: {$lt : datenow}}).sort({createdate: -1}).skip((page - 1) * limit).limit(limit)
                 .then((posts) => {
                     const count = total;
                     var nPages = Math.floor(count / limit);
@@ -187,7 +187,7 @@ router.get('/posts/:slug', (req, res) => {
         } else {
             return Post.find({categoryid: _category[slug], rejected: false, publish: true}).count()
             .then(total => {
-                return Post.find({categoryid: _category[slug], rejected: false, publish: true}).sort({ispremium: 1,createdate: -1}).skip((page - 1) * limit).limit(limit)
+                return Post.find({categoryid: _category[slug], rejected: false, publish: true, publishdate: {$lt : datenow}}).sort({ispremium: 1,createdate: -1}).skip((page - 1) * limit).limit(limit)
                 .then((posts) => {
                     const count = total;
                     var nPages = Math.floor(count / limit);
@@ -228,7 +228,7 @@ router.get('/posts/tag/:tagSlug', (req, res) => {
     let _name;
     const slug = req.params.slug;
     if(!isPremium) {
-        return Post.find({ispremium: {$ne: true}, rejected: false, publish: true, tagslug: {$elemMatch: {$eq: tagSlug}}}).sort({createdate: -1})
+        return Post.find({ispremium: {$ne: true}, rejected: false, publish: true, tagslug: {$elemMatch: {$eq: tagSlug}},publishdate: {$lt : datenow}}).sort({createdate: -1})
         .then(posts => {
             console.log(posts);
             _.forEach(posts[0].tag, (tag, index) => {
@@ -244,7 +244,7 @@ router.get('/posts/tag/:tagSlug', (req, res) => {
         })
     } else 
     {
-        return Post.find({rejected: false, publish: true, tagslug: {$elemMatch: {$eq: tagSlug}}}).sort({ispremium: 1, createdate: -1})
+        return Post.find({rejected: false, publish: true, tagslug: {$elemMatch: {$eq: tagSlug}},publishdate: {$lt : datenow}}).sort({ispremium: 1, createdate: -1})
         .then(posts => {
             console.log(posts);
             _.forEach(posts[0].tag, (tag, index) => {

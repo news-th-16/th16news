@@ -5,6 +5,7 @@ var router = express.Router();
 const middleware = require('./middleware');
 const _ = require('lodash');
 const MS_DAY = 24 * 60 * 60 * 1000;
+const datenow = Date.now();
 
 function isPremiumUser(user) {
     if(!user) {
@@ -118,21 +119,21 @@ router.get('/', (req, res) => {
                 }),
     
             // Bài viêt nổi bật theo lượt view
-            Post.find({ rejected: false, publish: true, ispremium: false}).sort({ coutViews: -1}).limit(4)
+            Post.find({ rejected: false, publish: true, ispremium: false, publishdate: {$lt : datenow}}).sort({ coutViews: -1}).limit(4)
                 .then((_story) => {
                     story = _.tail(_story);
                     topStory = _story[0];
                 }),
     
             //10 bài viết được xem nhiều nhất
-            Post.find({ rejected: false, publish: true, ispremium: false }).sort({ coutViews: -1}).limit(10)
+            Post.find({ rejected: false, publish: true, ispremium: false,publishdate: {$lt : datenow}}).sort({ coutViews: -1}).limit(10)
                 .then((_topNews) => {
                     _topNews = filterPremium(_topNews);
                     topNews = handlePostWithCategory(_topNews, _category, _categorySlug);
                 }),
     
             //10 bài viết mới nhất(mọi chuyên mục)
-            Post.find({ rejected: false, publish: true, ispremium: false }).sort({ createdate: -1}).limit(10)
+            Post.find({ rejected: false, publish: true, ispremium: false, publishdate: {$lt : datenow}}).sort({ createdate: -1}).limit(10)
                 .then((_latestNews) => {
                     _latestNews = filterPremium(_latestNews);
                     latestNews = handlePostWithCategory(_latestNews, _category, _categorySlug);
@@ -156,7 +157,7 @@ router.get('/', (req, res) => {
                 }),
     
             // Bài viêt nổi bật theo lượt view
-            Post.find({ rejected: false, publish: true }).sort({coutViews: -1}).limit(4)
+            Post.find({ rejected: false, publish: true ,publishdate: {$lt : datenow}}).sort({coutViews: -1}).limit(4)
                 .then((_story) => {
                     console.log("zô");
                     story = _.tail(_story);
@@ -164,13 +165,13 @@ router.get('/', (req, res) => {
                 }),
     
             //10 bài viết được xem nhiều nhất
-            Post.find({ rejected: false, publish: true }).sort({ coutViews: -1}).limit(10)
+            Post.find({ rejected: false, publish: true , publishdate: {$lt : datenow}}).sort({ coutViews: -1}).limit(10)
                 .then((_topNews) => {
                     topNews = handlePostWithCategory(_topNews, _category, _categorySlug);
                 }),
     
             //10 bài viết mới nhất(mọi chuyên mục)
-            Post.find({ rejected: false, publish: true }).sort({ createdate: -1}).limit(10)
+            Post.find({ rejected: false, publish: true ,publishdate: {$lt : datenow}}).sort({ createdate: -1}).limit(10)
                 .then((_latestNews) => {
                     latestNews = handlePostWithCategory(_latestNews, _category, _categorySlug);
                 }),
