@@ -1,55 +1,63 @@
+<div id="body" class="container-post padding-32">
+  <!-- POST -->
+  <!-- HEADER POST -->
+  {{#post}}
+  <div class="body-post">
+    <h6 class="padding-16" style="line-height: 40px;">
+      <div class="container-post">
+        <div class="linebreak" style="color: #2E8B57;">
+        TRANG CHỦ | <span class="bold">SỰ KIỆN - BÌNH LUẬN</span>
+      </div>
+      </div>
+      
+    </h6>
+    <h1 class="padding-16 xxlarge" style="line-height: 40px;">
+      {{title}}
+    </h1>
+    <p class="text-grey medium">{{summary}}</p>
+    <div class="text-grey small padding-16">
+      <i class="fa fa-clock-o large mr-2" aria-hidden="true"></i>{{parsedate publishdate}}
+      {{#each tag}}
+      <a href="#" class="right tag">
+        {{this}}
+      </a>
+      {{/each}}
+    </div>
+  </div>
+  <!-- CONTENT POST -->
+  <div class="white padding-16">
+    <!-- BODY POST -->
+    <div class="body-post padding-16">
+      {{{content}}}
+      <div class="bold medium" style="text-align:right;font-style:italic">
+        {{author.fullname}}
+      </div>
+    </div>
+  </div>
+  <!-- COMMENT --->
+  <div class="container-post body-post padding-16 clearfix">
+    <form action="/post/{{_id}}/comments" method="POST">
+      <textarea rows="4" cols="50" name="comment[text]" class="form-control mt-3 des"
+        placeholder="Để lại bình luận của bạn tại đây"></textarea>
+      <button class="btn btn-primary mt-3 des" style="hover: background-color:blue"> Submit!</button>
+    </form>
+  </div>
+  <div class="card card-header container-post body-post padding-16 clearfix">
+    {{#each comment}}
+    <div class="row">
+      <div class="col-md-12">
+        {{#author}}
+        <strong>{{username}}</strong>
+        {{/author}}
+        <span class="float-right">{{diff timestamp}}</span>
+        <p class="des">{{text}}</p>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/post}}
 
-    <div id="body" class="container-post padding-32">
-    	<!-- POST -->
-      <!-- HEADER POST -->
-      {{#post}}
-      <div class="body-post">
-        <h1 class="padding-16 xxlarge" style="line-height: 40px;">
-          {{categoryName}}
-        </h1>
-        <h1 class="padding-16 xxlarge" style="line-height: 40px;">
-          {{title}}
-        </h1>
-        <p class="text-grey medium">{{summary}}</p>
-        <div class="text-grey small padding-16">
-          <i class="fa fa-clock-o large mr-2" aria-hidden="true"></i>{{createdate}}
-          {{#each tag}}
-          <a href="#" class="right tag">
-            {{this}}
-          </a>
-          {{/each}}
-        </div>
-      </div>
-            <!-- CONTENT POST -->
-      <div class="white padding-16">
-        <!-- BODY POST -->
-        <div class="body-post padding-16">
-          {{{content}}}
-        </div>
-      </div>
-      <!-- COMMENT --->
-      <div class="container-post body-post padding-16 clearfix">
-        <form action="/post/{{_id}}/comments" method="POST">
-          <textarea rows="4" cols="50" name="comment[text]" class="form-control mt-3 des" placeholder="Để lại bình luận của bạn tại đây"></textarea>
-          <button class="btn btn-primary mt-3 des" style="hover: background-color:blue"> Submit!</button>
-        </form>
-      </div>
-      <div class="card card-header container-post body-post padding-16 clearfix">
-        {{#each comment}}
-          <div class="row">
-            <div class="col-md-12">
-              {{#author}}
-              <strong>{{username}}</strong>
-              {{/author}}
-                <span class="float-right">{{diff timestamp}}</span>
-                  <p class="des">{{text}}</p>
-            </div>
-          </div>
-        {{/each}}
-      </div>
-      {{/post}}
-
-      <!-- GALLERY POSTS --->
+  <!-- GALLERY POSTS --->
 
   <div class="container-post body-post padding-16 clearfix">
     <div class="linebreak">
@@ -71,67 +79,64 @@
 </div>
 
 
-      </div>
-    </div>
-  {{!-- <script type="text/javascript">
+</div>
+</div>
+{{!-- <script type="text/javascript">
 
-    $('#btn_more_menu').on('click',function(){
-      $('#more_menu').css({'display':'block'})
-    })
-    $('#btn_more_menu').focusout(function(){
-      $('#more_menu').css({'display':'none'})
-    });
+  $('#btn_more_menu').on('click', function () {
+    $('#more_menu').css({ 'display': 'block' })
+  })
+  $('#btn_more_menu').focusout(function () {
+    $('#more_menu').css({ 'display': 'none' })
+  });
 
-    $('#btn_sports_menu').focusout(function(){
-      $('#sports_menu').css({'display':'none'})
-    })
-    $('#search_box').on('click',function(){
-      $(this).css({'background':'white'})
-      $(this).find('i') .css({'color':'black'})
-    })
-    $('#btn_sports_menu').on('click',function(){
-      $('#sports_menu').css({'display':'block'})
-    })
-    $('#search_box').focusout(function(){
-      $(this).css({'background':'transparent'})
-      $(this).find('i').css({'color':'white'})
-    })
+  $('#btn_sports_menu').focusout(function () {
+    $('#sports_menu').css({ 'display': 'none' })
+  })
+  $('#search_box').on('click', function () {
+    $(this).css({ 'background': 'white' })
+    $(this).find('i').css({ 'color': 'black' })
+  })
+  $('#btn_sports_menu').on('click', function () {
+    $('#sports_menu').css({ 'display': 'block' })
+  })
+  $('#search_box').focusout(function () {
+    $(this).css({ 'background': 'transparent' })
+    $(this).find('i').css({ 'color': 'white' })
+  })
 
-    /* --- SIDE BAR BUTTON -- */
-    $('#btn_side_bar').on('click',function(){
-      if($('#sb').css('display')=='none')
-      {
-        $('#sb').css({'display':'block'})
-      }
-      else {
-        $('#sb').css({'display':'none'})
-      }
-    })
+  /* --- SIDE BAR BUTTON -- */
+  $('#btn_side_bar').on('click', function () {
+    if ($('#sb').css('display') == 'none') {
+      $('#sb').css({ 'display': 'block' })
+    }
+    else {
+      $('#sb').css({ 'display': 'none' })
+    }
+  })
 
-    $('#btn_sb_sport_dropdown').on('click',function(){
-      $('#sb_sport_dropdown').css({'display':'block'})
-      $('#sb_sport_tv_dropdown').css({'display':'none'})
-      $('#btn_close_sb_sport_dropdown').css({'display':'block'})
-      $('#btn_sb_sport_dropdown').css({'display':'none'})
-    });
+  $('#btn_sb_sport_dropdown').on('click', function () {
+    $('#sb_sport_dropdown').css({ 'display': 'block' })
+    $('#sb_sport_tv_dropdown').css({ 'display': 'none' })
+    $('#btn_close_sb_sport_dropdown').css({ 'display': 'block' })
+    $('#btn_sb_sport_dropdown').css({ 'display': 'none' })
+  });
 
-    $('#btn_close_sb_sport_dropdown').on('click',function(){
-      $('#sb_sport_dropdown').css({'display':'none'})
-      $('#btn_sb_sport_dropdown').css({'display':'block'})
-      $(this).css({'display':'none'})
-    });
+  $('#btn_close_sb_sport_dropdown').on('click', function () {
+    $('#sb_sport_dropdown').css({ 'display': 'none' })
+    $('#btn_sb_sport_dropdown').css({ 'display': 'block' })
+    $(this).css({ 'display': 'none' })
+  });
 
-    $('#btn_sb_sport_tv_dropdown').on('click',function(){
-      $('#sb_sport_tv_dropdown').css({'display':'block'})
-      $('#btn_close_sb_sport_tv_dropdown').css({'display':'block'})
-      $('#btn_sb_sport_tv_dropdown').css({'display':'none'})
-    });
-    $('#btn_close_sb_sport_tv_dropdown').on('click',function(){
-      $('#sb_sport_tv_dropdown').css({'display':'none'})
-      $('#btn_sb_sport_tv_dropdown').css({'display':'block'})
-      $(this).css({'display':'none'})
-    });
+  $('#btn_sb_sport_tv_dropdown').on('click', function () {
+    $('#sb_sport_tv_dropdown').css({ 'display': 'block' })
+    $('#btn_close_sb_sport_tv_dropdown').css({ 'display': 'block' })
+    $('#btn_sb_sport_tv_dropdown').css({ 'display': 'none' })
+  });
+  $('#btn_close_sb_sport_tv_dropdown').on('click', function () {
+    $('#sb_sport_tv_dropdown').css({ 'display': 'none' })
+    $('#btn_sb_sport_tv_dropdown').css({ 'display': 'block' })
+    $(this).css({ 'display': 'none' })
+  });
 
-  </script> --}}
-
-
+</script> --}}

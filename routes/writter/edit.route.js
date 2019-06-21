@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
 var postModel = require('../../models/post.model');
-
 var path = require('path');
 var fs = require('fs');
 
@@ -126,8 +124,8 @@ router.post('/resend/:id', async (req, res) => {
             }
             data.image = a[0];
             data.content = content;
-            data.rejected = false,
-                data.modifieddate = new Date();
+            data.rejected = false;
+            data.modifieddate = new Date();
             postModel.update(data._id, data)
                 .then(
                     result => {
