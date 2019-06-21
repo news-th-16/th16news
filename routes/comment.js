@@ -3,8 +3,10 @@ const router  = express.Router();
 const Post = require('../models/post');
 const Comment = require('../models/comment');
 const moment = require('moment');
-
-router.post('/post/:id/comments', (req, res ) => {
+const middleware = require('./middleware');
+const  middleware2 = require('../middlewares/auth-locals');
+console.log(middleware2);
+router.post('/post/:id/comments', middleware.requireLogin, (req, res ) => {
     return Post.findById({_id: req.params.id}, (err, news) => {
         if(err) {
             console.log(err);

@@ -6,6 +6,7 @@ var userModel = require('../models/user.model');
 const User = require('../models/user');
 var passport = require('passport');
 var auth = require('../middlewares/auth.viewer');
+const apiKey = require('../env');
 
 const sgMail = require('@sendgrid/mail');
 
@@ -149,7 +150,7 @@ router.post('/sendmail', function(req, res) {
             console.log(link1);
 
             const value = `<html><head></head><body><p>Khôi phục mật khẩu: </p><a href=${link1}>${link1}</a></body></html>`
-            sgMail.setApiKey('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');
+            sgMail.setApiKey(apiKey);
             const msg = {
                 personalizations: [
                   {

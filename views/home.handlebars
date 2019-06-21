@@ -38,31 +38,35 @@
       <a href="/post/{{_id}}">
         <div class="ml-2 mt-2 col-md-4 third gallery">
           <div class="clearfix">
-          <div class="background-container clearfix" style="position:relative;">
-            <div class="background-img clearfix" style="background-image: url({{image}});">
+            <div class="background-container clearfix" style="position:relative;">
+              <div class="background-img clearfix" style="background-image: url({{image}});">
+              </div>
+            </div>
+            {{#if ispremium}}
+            <div style="position:absolute; top:10px; left:10px;">
+              <div class="btn btn-sm  yellow bold padding-small small" style="padding:2px 2px;">Premium</div>
+            </div>
+            {{/if}}
+          </div>
+          <div class="clearfix mt-2">
+            <a href="/posts/{{categorySlug}}" class="ml-3 w3-teal" style="margin-top:10px;"> {{categoryName}}</a>
+            <div class="padding small desc">
+              {{#each tags}}
+              {{#each this}}
+              <a href="/posts/tag/{{this}}">
+                <span class="type padding-16">
+                  {{@key}}
+                </span>
+              </a>
+              {{/each}}
+              {{/each}}
+              <div class="medium padding-16">
+                {{title}}
+              </div>
             </div>
           </div>
-          {{#if ispremium}}
-          <div style="position:absolute; top:10px; left:10px;">
-            <div class="btn btn-sm  yellow bold padding-small small"style="padding:2px 2px;">Premium</div>
-          </div>
-          {{/if}}
-          </div>
-          <a href="/posts/{{categorySlug}}" class=" ml-3"style="margin-top:10px;"> {{categoryName}}</a>
-          <div class="padding small desc">
-            {{#each tags}}
-            {{#each this}}
-            <a href="/posts/tag/{{this}}">
-              <span class="type padding-16">
-                {{@key}}
-              </span>
-            </a>
-            {{/each}}
-            {{/each}}
-            <div class="medium padding-16">
-              {{title}}
-            </div>
-          </div>
+
+
         </div>
       </a>
       {{/each}}

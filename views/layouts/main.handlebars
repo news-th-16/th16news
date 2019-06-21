@@ -34,18 +34,19 @@
         <div class="header_col header_col1">
           <a class="header_logo" href="#" style="margin-left: -3px;">
             <img class="svg-logo_image" src="./images/home/logo2.png">
+            {{!-- SPORT NEWS --}}
           </a>
         </div>
         <div class="header_col header_col2">
           <a href="#" class="header_item_link">
-            Get Sky Sports
+            Get more
           </a>
           {{#if isAuthenticated}}
           <div class="dropdown show" style="display: inline-block; border:0ch">
             <a class="dropdown-toggle header_item_link" href="#" id="dropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-user" aria-hidden="true"></i>
-              Hi. {{authUser.fullname}}
+              Xin chào. {{authUser.fullname}}
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -54,11 +55,14 @@
                 Chỉnh sửa thông tin
               </a>
               <a class="dropdown-item" href="/account/reset/?id={{authUser._id}}">Đổi mật khẩu</a>
-              <a class="dropdown-item" {{#switch authUser.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
+              {{#compare authUser.role  "viewer" operator="!=" context=authUser}}
+              
+              <a class="dropdown-item" {{#switch this.role}} {{#case "viewer" break=true}}href="/viewer" {{/case}}
                 {{#case "writer" break=true}}href="/writer" {{/case}} {{#case "editor" break=true}}href="/editor"
                 {{/case}} {{#case "admin" break=true}}href="/admin" {{/case}} {{#default}}href="#" {{/default}}
-                {{/switch}}>Khu vực admin
+                {{/switch}}>Dashboard
               </a>
+              {{/compare}}
               {{!-- {{/case}} {{#default}}href="#" {{/default}} {{/switch}} >Profile</a> --}}
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/account/sign-out">Đăng xuất</a>
@@ -129,7 +133,7 @@
         <div class="header_col header_col3">
           <div class="search_box" id="search_box">
             <form action="/posts/search" , method="GET">
-              <input type="search" name="search" placeholder="Search Sky Sports" width: 88%">
+              <input type="search" name="search" placeholder="Tìm kiếm" width: 88%">
             </form>
           </div>
         </div>

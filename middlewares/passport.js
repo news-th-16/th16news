@@ -38,20 +38,22 @@ module.exports = function (app) {
         }, (accessToken, refreshToken, profile, done) => {
             return User.find({googleid: profile.id})
                 .then((data) => {
-                    if(data) {
-                        console.log(data);
-                        return done(null, data[0]);
-                    }
+                    // console.log(data);
+
+                    // if(data) {
+                    //     console.log(data);
+                    //     return done(null, data[0]);
+                    // }
                     const time = new Date();
                     const user = new User({
                         fullname: profile.displayName,
                         googleid: profile.id,
                         term: new Date( time.getTime() + 7 * 24 * 60 * 60 * 1000 )
                     });
-                    return User.create({
+                    return User.update({
                         fullname: profile.displayName,
                         googleid: profile.id,
-                    }).then(() => {
+                    }, {upsert: true}).then(() => {
                         return done(null, user);
                     })
                 })            
