@@ -15,7 +15,7 @@ body {
    display: contents;
 }
 .header{
-  background-image: linear-gradient(0, rgba(0, 0, 0, 0.3), transparent 76%), linear-gradient(90deg, rgb(18, 45, 104), rgb(18, 45, 104) 50%, rgb(214, 23, 38) 0px, rgb(214, 23, 38)) !important;
+  background-image: linear-gradient(0, rgba(0, 0, 0, 0.3), transparent 76%), linear-gradient(90deg, rgb(18, 45, 104), rgb(18, 45, 104) 50%, rgb(214, 23, 50) 0px, rgb(214, 23, 38)) !important;
   background-size: 100% 94px;
   position: relative;
   margin-bottom: 0px;
@@ -26,7 +26,7 @@ body {
 }
 .header_body {
   height: 94px;
-  background-image: linear-gradient(0, rgba(0, 0, 0, 0.3), transparent 76%), linear-gradient(90deg, rgb(18, 45, 104) 0px, rgb(18, 45, 104) 78px, rgb(214, 23, 38) 0px, rgb(214, 23, 38));
+  background-image: linear-gradient(0, rgba(0, 0, 0, 0.3), transparent 76%), linear-gradient(90deg, rgb(18, 45, 104) 0px, rgb(18, 45, 104) 92px, rgb(214, 23, 38) 0px, rgb(214, 23, 38));
   background-origin: content-box;
   background-repeat: no-repeat;
   display: table;
@@ -117,8 +117,8 @@ body {
 }
 
 .header_logo {
-  width: 220px;
-  height: 42px;
+  width: 212px;
+  height: 50px;
   display: block;
 }
 .svg-logo_image {

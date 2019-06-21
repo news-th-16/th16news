@@ -8,11 +8,15 @@
     <a href="/post/{{top._id}}">
       <div class="gallery clearfix top_post" style="width: 100%;">
         <div class="col two-third">
-          <div class="background-container" style="height: 350px;">
+          <div class="background-container" style="height: 350px;position:relative;">
             <div class="background-img">
               <img src={{top.image}}>
             </div>
-
+            {{#if top.ispremium}}
+            <div style="position:absolute; top:10px; left:10px;">
+              <div class="btn btn-sm  yellow bold padding-small small">Premium</div>
+            </div>
+            {{/if}}
           </div>
         </div>
         <div class="col third padding-48 padding-large">
@@ -20,9 +24,6 @@
             <a href="/posts/{{categorySlug}}" class=" ml-3"> {{categoryName}}</a> </span>
           <br />
           <span class="red bold text-white padding-small small">Nổi bật</span>
-          {{#if top.ispremium}}
-          <span class="yellow bold padding-small small">Premium</span>
-          {{/if}}
           <br />
           <p class="xlarge padding-32">
             {{top.title}}
@@ -36,23 +37,27 @@
       {{#each data}}
       <a href="/post/{{_id}}">
         <div class="ml-2 mt-2 col-md-4 third gallery">
-          <div class="background-container clearfix" style="">
+          <div class="clearfix">
+          <div class="background-container clearfix" style="position:relative;">
             <div class="background-img clearfix" style="background-image: url({{image}});">
             </div>
           </div>
-          <a href="/posts/{{categorySlug}}" class=" ml-3"> {{categoryName}}</a>
+          {{#if ispremium}}
+          <div style="position:absolute; top:10px; left:10px;">
+            <div class="btn btn-sm  yellow bold padding-small small"style="padding:2px 2px;">Premium</div>
+          </div>
+          {{/if}}
+          </div>
+          <a href="/posts/{{categorySlug}}" class=" ml-3"style="margin-top:10px;"> {{categoryName}}</a>
           <div class="padding small desc">
-            {{#if ispremium}}
-            <span class="yellow bold padding-small small">Premium</span>
-            {{/if}}
             {{#each tags}}
-              {{#each this}}
-                <a href="/posts/tag/{{this}}">
-                  <span class="type padding-16">
-                    {{@key}}
-                  </span>
-                </a>
-              {{/each}}
+            {{#each this}}
+            <a href="/posts/tag/{{this}}">
+              <span class="type padding-16">
+                {{@key}}
+              </span>
+            </a>
+            {{/each}}
             {{/each}}
             <div class="medium padding-16">
               {{title}}
